@@ -4,9 +4,6 @@ A focused **30-minute live demo** of Microsoft 365 Copilot for Sonepar Malaysia 
 
 **Pure M365 Copilot** — Word, Excel, PowerPoint, Researcher, Analyst, Copilot Cowork. No legacy tooling. Everything the team already has, plus the new autonomous AI-coworker layer.
 
-## 🌐 Live site
-**https://steffiyappy.github.io/sonepar-copilot-demo/**  ·  Password **`SoneparDemo2026`**
-
 ## 🎬 30-minute flow
 
 | Time | Capability | Sonepar moment |
