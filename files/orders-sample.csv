@@ -1,0 +1,16 @@
+OrderNumber,CustomerAccount,CustomerName,OrderDate,PromisedDate,Status,Warehouse,Carrier,TrackingNumber,LineCount,TotalValueRM,Notes
+SO-MY-2026-04201,ACC-001245,Petronas Refinery Melaka,2026-05-12,2026-05-19,Delivered,KL-Main,GDex,GDX38271045MY,8,142850.00,
+SO-MY-2026-04205,ACC-001890,YTL Construction Sdn Bhd,2026-05-13,2026-05-20,Despatched,KL-Main,Pos Laju,EM182039284MY,12,68420.00,
+SO-MY-2026-04211,ACC-002104,Top Glove Corporation,2026-05-14,2026-05-21,Despatched,Penang,GDex,GDX38271811MY,5,28500.00,
+SO-MY-2026-04217,ACC-001245,Petronas Refinery Melaka,2026-05-15,2026-05-22,Picked,JB,DHL,DHL2837164821,18,388200.00,Customer requested split delivery
+SO-MY-2026-04221,ACC-003122,Sime Darby Plantation,2026-05-16,2026-05-23,Confirmed,KL-Main,GDex,,4,18250.00,Awaiting customer credit clearance
+SO-MY-2026-04226,ACC-001890,YTL Construction Sdn Bhd,2026-05-17,2026-05-21,Backorder,KL-Main,,,3,42500.00,SKU EAT-9000X-CV3 stockout
+SO-MY-2026-04232,ACC-004510,Genting Highlands Resort,2026-05-17,2026-05-24,Picked,KL-Main,Pos Laju,EM182040115MY,22,98420.00,
+SO-MY-2026-04238,ACC-002104,Top Glove Corporation,2026-05-18,2026-05-22,Despatched,Penang,GDex,GDX38272055MY,6,52840.00,
+SO-MY-2026-04241,ACC-005612,Sarawak Energy Berhad,2026-05-18,2026-05-30,Confirmed,Kuching,,,11,182500.00,Switchgear panel - 90 day lead
+SO-MY-2026-04248,ACC-003122,Sime Darby Plantation,2026-05-19,2026-05-23,Backorder,JB,,,7,68210.00,Partial backorder on 2 lines
+SO-MY-2026-04255,ACC-001245,Petronas Refinery Melaka,2026-05-19,2026-05-26,Confirmed,KL-Main,,,15,425800.00,VIP - prioritise pick
+SO-MY-2026-04260,ACC-006744,Tenaga Nasional Berhad,2026-05-20,2026-05-27,Confirmed,KL-Main,,,9,128500.00,
+SO-MY-2026-04265,ACC-004510,Genting Highlands Resort,2026-05-20,2026-05-24,Confirmed,KL-Main,,,3,8420.00,
+SO-MY-2026-04270,ACC-007822,IJM Construction,2026-05-20,2026-05-28,Confirmed,JB,,,14,212400.00,
+SO-MY-2026-04275,ACC-002104,Top Glove Corporation,2026-05-21,2026-05-28,Confirmed,Penang,,,8,38500.00,

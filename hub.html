@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Sonepar × Microsoft Copilot Demo Hub</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --navy:#0F1C3F;--blue:#0078D4;--teal:#00A8A8;--orange:#FF6B35;--sonepar:#005EB8;
+  --bg:#F0F4F8;--surface:#fff;--surface-2:#F8FAFC;--surface-3:#F1F5F9;
+  --text:#1A1A2E;--text-strong:#0F172A;--muted:#475569;--border:#E2E8F0;
+  --shadow-sm:0 1px 3px rgba(0,0,0,0.04);--shadow-md:0 4px 10px rgba(0,0,0,0.08);--shadow-lg:0 10px 28px rgba(0,0,0,0.10);
+}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+/* TOP BAR */
+.topbar{background:linear-gradient(135deg,#0F1C3F,#005EB8 80%);padding:0 28px;height:60px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 2px 16px rgba(0,0,0,0.25)}
+.topbar-left{display:flex;align-items:center;gap:14px}
+.topbar-logo{width:32px;height:32px;background:linear-gradient(135deg,#0078D4,#00A8A8);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px}
+.topbar-title{color:#fff;font-size:15px;font-weight:700;letter-spacing:0.3px}
+.topbar-badge{background:rgba(0,168,168,0.2);border:1px solid rgba(0,168,168,0.4);border-radius:20px;padding:4px 12px;color:#00E8E8;font-size:11px;font-weight:600}
+.topbar-right{display:flex;gap:8px;align-items:center}
+.btn-sm{padding:7px 14px;border-radius:8px;border:1px solid rgba(255,255,255,0.22);background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.92);font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;text-decoration:none;display:inline-flex;align-items:center;gap:6px}
+.btn-sm:hover{background:rgba(255,255,255,0.18)}
+.btn-sm.primary{background:#FF6B35;border-color:#FF6B35;color:#fff}
+.btn-sm.primary:hover{background:#FF7A45}
+/* HERO */
+.hero{background:linear-gradient(180deg,#0F1C3F,#1F2D55);padding:46px 32px 38px;color:#fff;border-bottom:1px solid rgba(255,255,255,0.06)}
+.hero-inner{max-width:1300px;margin:0 auto;display:grid;grid-template-columns:1fr 380px;gap:32px;align-items:center}
+.hero h1{font-size:36px;font-weight:800;line-height:1.15;margin-bottom:12px}
+.hero h1 .accent{background:linear-gradient(135deg,#00A8A8,#0078D4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero p{font-size:15px;color:rgba(255,255,255,0.78);line-height:1.6;max-width:680px;margin-bottom:18px}
+.hero-meta{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+.tag{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.2);border-radius:30px;padding:5px 12px;font-size:11px;color:rgba(255,255,255,0.9);font-weight:600}
+.tag.live{background:rgba(0,168,168,0.18);border-color:#00A8A8;color:#00E8E8}
+.scenario-card{background:rgba(255,255,255,0.07);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.16);border-radius:18px;padding:22px}
+.scenario-card h3{font-size:12px;font-weight:700;letter-spacing:1.3px;text-transform:uppercase;color:#00A8A8;margin-bottom:10px}
+.scenario-card p{font-size:13px;line-height:1.55;color:rgba(255,255,255,0.86)}
+.scenario-card .scenario-meta{display:flex;gap:10px;margin-top:14px;font-size:11px;color:rgba(255,255,255,0.6)}
+/* STATS */
+.stats-row{max-width:1300px;margin:-22px auto 0;padding:0 32px;display:grid;grid-template-columns:repeat(5,1fr);gap:12px;position:relative;z-index:5}
+.stat{background:#fff;border:1px solid var(--border);border-radius:14px;padding:16px 18px;box-shadow:var(--shadow-md);text-align:center}
+.stat-num{font-size:24px;font-weight:800;color:var(--sonepar);line-height:1}
+.stat-lbl{font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:0.6px;margin-top:6px}
+/* DEMO FLOW STRIP */
+.flow{max-width:1300px;margin:32px auto 0;padding:0 32px}
+.flow-inner{background:linear-gradient(135deg,#FFFBF5,#FFF4E6);border:1px solid #FFE0B8;border-radius:18px;padding:22px 26px}
+.flow-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:12px}
+.flow-hdr h2{font-size:18px;font-weight:800;color:#9A3412;display:flex;align-items:center;gap:8px}
+.flow-hdr .duration{background:#FF6B35;color:#fff;border-radius:6px;padding:4px 10px;font-size:11px;font-weight:700}
+.flow-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.flow-step{background:#fff;border:1px solid #FFE0B8;border-radius:12px;padding:16px;position:relative}
+.flow-step-num{position:absolute;top:-10px;left:-10px;width:28px;height:28px;background:#FF6B35;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;box-shadow:0 4px 10px rgba(255,107,53,0.4)}
+.flow-step h4{font-size:13px;font-weight:800;color:#9A3412;margin-bottom:4px}
+.flow-step .mins{font-size:10px;color:#A16207;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;margin-bottom:8px}
+.flow-step p{font-size:11.5px;color:#7C2D12;line-height:1.5;margin-bottom:8px}
+.flow-step a{font-size:11px;font-weight:700;color:#9A3412;text-decoration:none;display:inline-flex;align-items:center;gap:4px}
+.flow-step a:hover{text-decoration:underline}
+/* SECTION */
+.section{max-width:1300px;margin:36px auto;padding:0 32px}
+.section-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;flex-wrap:wrap;gap:12px}
+.section-hdr h2{font-size:22px;font-weight:800;color:var(--text-strong);display:flex;align-items:center;gap:10px}
+.section-hdr h2 .icon{font-size:24px}
+.section-hdr .filter{display:flex;gap:6px;flex-wrap:wrap}
+.chip{padding:6px 12px;border-radius:20px;border:1px solid var(--border);background:#fff;font-size:11.5px;font-weight:600;color:var(--muted);cursor:pointer;font-family:inherit}
+.chip.active{background:var(--sonepar);color:#fff;border-color:var(--sonepar)}
+.chip:hover:not(.active){border-color:var(--sonepar);color:var(--sonepar)}
+/* DEPT GROUPS */
+.dept-block{margin-bottom:34px}
+.dept-hdr{display:flex;align-items:center;gap:12px;margin-bottom:14px;padding-bottom:10px;border-bottom:2px solid var(--border)}
+.dept-hdr .dept-icon{width:42px;height:42px;border-radius:10px;background:linear-gradient(135deg,var(--dept-c1,#0078D4),var(--dept-c2,#00A8A8));display:flex;align-items:center;justify-content:center;font-size:22px}
+.dept-hdr h3{font-size:18px;font-weight:800;color:var(--text-strong)}
+.dept-hdr .dept-tag{margin-left:auto;background:var(--surface-3);border:1px solid var(--border);border-radius:14px;padding:4px 12px;font-size:11px;font-weight:600;color:var(--muted)}
+.uc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px}
+.uc{background:#fff;border:1px solid var(--border);border-radius:14px;padding:18px;transition:transform 0.18s,box-shadow 0.18s,border-color 0.18s;cursor:pointer;position:relative;overflow:hidden}
+.uc:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg);border-color:var(--sonepar)}
+.uc::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--dept-c1,#0078D4),var(--dept-c2,#00A8A8))}
+.uc-top{display:flex;align-items:flex-start;gap:10px;margin-bottom:8px}
+.uc-icon{font-size:24px;line-height:1}
+.uc-id{margin-left:auto;font-size:10px;color:var(--muted);font-weight:700;background:var(--surface-3);border-radius:5px;padding:2px 6px}
+.uc-title{font-size:13.5px;font-weight:800;color:var(--text-strong);line-height:1.3;margin-bottom:6px}
+.uc-desc{font-size:11.5px;color:var(--muted);line-height:1.5;margin-bottom:10px}
+.uc-saving{display:inline-block;background:linear-gradient(135deg,#DCFCE7,#BBF7D0);border:1px solid #86EFAC;border-radius:6px;padding:3px 8px;font-size:10.5px;color:#166534;font-weight:800;margin-bottom:10px}
+.uc-stack{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:8px}
+.uc-stack span{font-size:9.5px;background:var(--surface-3);border:1px solid var(--border);border-radius:4px;padding:2px 6px;color:var(--muted);font-weight:600}
+.uc-mode{display:flex;gap:4px;flex-wrap:wrap;margin-top:6px}
+.uc-mode .badge{font-size:9px;padding:2px 6px;border-radius:4px;font-weight:700;letter-spacing:0.3px;text-transform:uppercase}
+.b-m365{background:#DBEAFE;color:#1E40AF;border:1px solid #93C5FD}
+.b-ab{background:#FEF3C7;color:#92400E;border:1px solid #FCD34D}
+.b-cs{background:#E0E7FF;color:#3730A3;border:1px solid #A5B4FC}
+/* MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(15,28,63,0.7);backdrop-filter:blur(6px);z-index:1000;display:none;align-items:center;justify-content:center;padding:24px}
+.modal-overlay.show{display:flex}
+.modal{background:#fff;border-radius:18px;max-width:780px;width:100%;max-height:90vh;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 30px 80px rgba(0,0,0,0.4)}
+.modal-hdr{padding:22px 26px;background:linear-gradient(135deg,#0F1C3F,#005EB8);color:#fff;display:flex;justify-content:space-between;align-items:flex-start;gap:14px}
+.modal-hdr h2{font-size:20px;font-weight:800;line-height:1.25}
+.modal-hdr .modal-meta{font-size:11px;color:rgba(255,255,255,0.7);margin-top:4px}
+.modal-close{background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.25);color:#fff;width:32px;height:32px;border-radius:8px;cursor:pointer;font-size:18px;line-height:1;font-family:inherit;flex-shrink:0}
+.modal-body{padding:22px 26px;overflow-y:auto;flex:1}
+.modal-body h4{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:0.8px;color:var(--sonepar);margin:18px 0 8px;display:flex;align-items:center;gap:6px}
+.modal-body h4:first-child{margin-top:0}
+.modal-body p{font-size:13.5px;line-height:1.6;color:var(--text)}
+.modal-body ul{padding-left:0;list-style:none}
+.modal-body li{font-size:13px;line-height:1.55;color:var(--text);margin-bottom:6px;padding-left:18px;position:relative}
+.modal-body li::before{content:'→';position:absolute;left:0;color:var(--sonepar);font-weight:800}
+.prompt-block{background:#0F172A;color:#E2E8F0;border-radius:10px;padding:14px 16px;font-family:'Courier New',monospace;font-size:12.5px;line-height:1.55;position:relative;margin-top:8px;white-space:pre-wrap}
+.prompt-copy{position:absolute;top:8px;right:8px;background:#1E293B;color:#94A3B8;border:1px solid #334155;border-radius:6px;padding:4px 10px;font-size:10.5px;font-weight:700;cursor:pointer;font-family:inherit}
+.prompt-copy:hover{background:#334155;color:#fff}
+.prompt-copy.copied{background:#15803D;color:#fff;border-color:#15803D}
+.stack-grid{display:flex;flex-wrap:wrap;gap:6px}
+.stack-grid span{background:#EFF6FF;border:1px solid #BFDBFE;color:#1E40AF;font-size:11px;font-weight:600;padding:4px 10px;border-radius:6px}
+.saving-banner{background:linear-gradient(135deg,#DCFCE7,#BBF7D0);border:1px solid #86EFAC;border-radius:10px;padding:14px 16px;color:#166534;font-weight:700;font-size:14px;margin-bottom:14px}
+.saving-banner span{display:block;font-size:11.5px;color:#16653499;font-weight:600;margin-top:4px}
+/* TOAST */
+.toast{position:fixed;bottom:24px;right:24px;background:#15803D;color:#fff;padding:10px 18px;border-radius:8px;font-size:13px;font-weight:600;box-shadow:0 10px 30px rgba(21,128,61,0.3);z-index:2000;display:none}
+.toast.show{display:block;animation:slideIn 0.3s ease-out}
+@keyframes slideIn{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
+/* FOOTER */
+footer{background:#0F1C3F;color:rgba(255,255,255,0.65);padding:28px 32px;font-size:12px;text-align:center;margin-top:48px}
+footer strong{color:#fff}
+@media(max-width:900px){.hero-inner{grid-template-columns:1fr}.stats-row{grid-template-columns:repeat(2,1fr)}.flow-steps{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="topbar-left">
+    <div class="topbar-logo">⚡</div>
+    <div class="topbar-title">Sonepar × Microsoft Copilot Demo Hub</div>
+    <div class="topbar-badge">🔴 LIVE DEMO</div>
+  </div>
+  <div class="topbar-right">
+    <a class="btn-sm" href="prompts.md" target="_blank">📋 Prompts</a>
+    <a class="btn-sm" href="agent-builder-guide.html">🤖 Agent Builder</a>
+    <a class="btn-sm primary" href="copilot-studio-guide.html">🛠 Copilot Studio Guide</a>
+  </div>
+</div>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-meta">
+        <span class="tag">⚡ Industrial &amp; Electrical Distribution</span>
+        <span class="tag">🇲🇾 Malaysia · Sonepar Group</span>
+        <span class="tag live">30 use cases</span>
+      </div>
+      <h1>Power Sonepar's future with <span class="accent">intelligent AI transformation</span></h1>
+      <p>From M365 Copilot to Agent Builder to Copilot Studio — a 30-45 minute, end-to-end demo path showing how Sonepar Malaysia (a Sonepar Company) can unlock <strong>RM 45M+ in annual value</strong> across Finance, Supply Chain, Operations, Customer Service, HR &amp; more.</p>
+    </div>
+    <div class="scenario-card">
+      <h3>⚡ Today's Scenario</h3>
+      <p><strong>Aishah</strong>, Head of Operations at Sonepar Malaysia, is preparing for the Monday ops review. May month-end variances need explaining, three backorders are at risk, a customer is waiting on a quote, and HR has a new Senior Inventory Planner role to fill. She has 90 minutes. Watch how Microsoft Copilot, Agent Builder, and Copilot Studio compress a full day's work into one focused morning.</p>
+      <div class="scenario-meta">⏱ 30–45 min walkthrough · 💼 5 personas · 🔧 14 Microsoft tools</div>
+    </div>
+  </div>
+</section>
+
+<div class="stats-row">
+  <div class="stat"><div class="stat-num">30</div><div class="stat-lbl">AI Use Cases</div></div>
+  <div class="stat"><div class="stat-num">8</div><div class="stat-lbl">Departments</div></div>
+  <div class="stat"><div class="stat-num">RM 45M+</div><div class="stat-lbl">Annual Savings</div></div>
+  <div class="stat"><div class="stat-num">7,000+</div><div class="stat-lbl">MY Customers</div></div>
+  <div class="stat"><div class="stat-num">€33.6B</div><div class="stat-lbl">Sonepar Group Rev</div></div>
+</div>
+
+<div class="flow">
+  <div class="flow-inner">
+    <div class="flow-hdr">
+      <h2>🎬 Today's demo flow</h2>
+      <span class="duration">30–45 MIN · LIVE</span>
+    </div>
+    <div class="flow-steps">
+      <div class="flow-step">
+        <div class="flow-step-num">1</div>
+        <h4>Microsoft 365 Copilot</h4>
+        <div class="mins">10 min · Productivity wins</div>
+        <p>Finance month-end variance · HR job description &amp; CV screen · Customer email triage · Supply Chain PO review.</p>
+        <a href="prompts.md#act-1--microsoft-365-copilot-10-min" target="_blank">View prompts →</a>
+      </div>
+      <div class="flow-step">
+        <div class="flow-step-num">2</div>
+        <h4>Agent Builder (Copilot Chat)</h4>
+        <div class="mins">10 min · Declarative agents</div>
+        <p>Build "Inventory Insight Agent" and "Order Status Buddy" from a single natural-language prompt — no code, no diagram.</p>
+        <a href="agent-builder-guide.html">Open guide →</a>
+      </div>
+      <div class="flow-step">
+        <div class="flow-step-num">3</div>
+        <h4>Microsoft Copilot Studio</h4>
+        <div class="mins">15–25 min · Custom production agent</div>
+        <p>Build the "Sonepar Customer Service Agent" live — topics, knowledge, action, Teams + web channels, escalation.</p>
+        <a href="copilot-studio-guide.html">Open guide →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="section">
+  <div class="section-hdr">
+    <h2><span class="icon">🎯</span> 30 Use Cases — Sonepar AI Transformation Portfolio</h2>
+    <div class="filter" id="filterBar"></div>
+  </div>
+  <div id="deptContainer"></div>
+</section>
+
+<div class="modal-overlay" id="modalOverlay" onclick="if(event.target===this)closeModal()">
+  <div class="modal" id="modal"></div>
+</div>
+
+<div class="toast" id="toast">✅ Prompt copied to clipboard</div>
+
+<footer>
+  © 2026 Sonepar Malaysia · A Sonepar Company · Microsoft × Sonepar AI Transformation Demo<br>
+  Prepared by <strong>Microsoft</strong> · Confidential · Built on Microsoft 365 Copilot, Agent Builder, Copilot Studio, Azure AI &amp; Dynamics 365
+</footer>
+
+<script>
+const USE_CASES = [
+  // FINANCE
+  {id:1,dept:'finance',deptLabel:'Finance',icon:'🧾',title:'AI-Powered Invoice Processing & AP Automation',
+   desc:'Eliminate manual invoice handling — AI reads, validates, and routes invoices automatically, cutting processing from days to minutes.',
+   saving:'RM 1.8–2.5M/yr',savingDetail:'75% reduction in AP processing costs; 90% faster invoice cycle',
+   stack:['Power Automate','Azure AI Document Intelligence','Dynamics 365 Finance'],
+   modes:['m365'],
+   challenge:'Sonepar Malaysia processes thousands of supplier invoices monthly across 100+ agency brands. Manual keying causes delays, errors, and cash-flow visibility gaps.',
+   solution:'Deploy Azure AI Document Intelligence to extract data from PDFs, emails, and scanned invoices. Power Automate routes for approval via Teams. Dynamics 365 Finance posts automatically.',
+   impact:'Industry benchmark: 70–80% reduction in invoice processing time. Sonepar group reported significant AP cost reduction post Dynamics 365 deployment.',
+   prompt:'Review the latest 50 supplier invoices in the AP queue. For each, extract Vendor, Invoice #, Date, Amount, GL Code, and flag any with: missing PO reference, duplicate against last 90 days, or amount > 10% over the matched PO. Output as a Markdown table sorted by risk.',
+   steps:['Deploy Azure AI Document Intelligence OCR model','Build Power Automate approval workflow with Teams integration','Connect to Dynamics 365 Finance for auto-posting','Set exception handling rules for anomalies','Train model on Sonepar-specific invoice templates']},
+  {id:2,dept:'finance',deptLabel:'Finance',icon:'📊',title:'Predictive Cash Flow Forecasting',
+   desc:'AI predicts cash flow with 95%+ accuracy from historical transactions, customer payment patterns and market signals.',
+   saving:'RM 2.0–3.5M/yr',savingDetail:'Reduced borrowing costs + optimised working capital of RM 80M+',
+   stack:['Microsoft Fabric','Azure Machine Learning','Power BI Copilot','Dynamics 365 Finance'],
+   modes:['m365'],
+   challenge:'With RM 630M annual revenue and 7,000+ customers, cash-flow visibility is critical. Seasonal demand spikes from construction and manufacturing customers create unpredictable cycles.',
+   solution:'Microsoft Fabric unifies ERP, AR, AP and market data. Azure ML models predict customer payment timing. Power BI Copilot provides CFO-ready dashboards with natural-language insights.',
+   impact:'McKinsey: AI-driven treasury management reduces working-capital needs 15–20%. For Sonepar MY, RM 2–3.5M annual interest savings.',
+   prompt:'Forecast Sonepar Malaysia weekly cash position for the next 13 weeks using the AR aging, AP commitments, and historical payment patterns in this workbook. Identify any weeks where projected balance falls below RM 8M and recommend specific actions (collections push, payment deferral, credit-line draw).',
+   steps:['Integrate Dynamics 365 data into Microsoft Fabric lakehouse','Build Azure ML forecasting model on 3-year transaction history','Create Power BI Copilot CFO dashboard','Automate weekly forecast emails via Power Automate','Configure early payment discount alerts']},
+  {id:3,dept:'finance',deptLabel:'Finance',icon:'🔍',title:'Expense Anomaly Detection & Fraud Prevention',
+   desc:'AI continuously monitors transactions in real time, flagging unusual patterns, duplicate payments, and potential fraud.',
+   saving:'RM 0.8–1.5M/yr',savingDetail:'Prevents 0.1–0.3% revenue leakage from fraud/errors',
+   stack:['Azure Machine Learning','Power Automate','Microsoft Sentinel','Dynamics 365 Finance'],
+   modes:['m365'],
+   challenge:'Distributed operations across 20+ branches and 100+ vendor accounts create exposure to duplicate payments, overbilling, and internal fraud.',
+   solution:'Azure ML unsupervised anomaly detection models analyse all transactions. Alerts route through Microsoft Sentinel to finance team via Teams. Power Automate auto-freezes suspicious transactions pending review.',
+   impact:'Industry average fraud/error rates 0.1–0.5% of revenue. AI detection reduces incidents 85%. On RM 630M revenue, saves RM 0.8–1.5M annually.',
+   prompt:'Scan the past 30 days of supplier payments for the top 20 risk patterns: duplicate invoice numbers, round-amount payments, after-hours approvals, new bank accounts, payments above PO value, and same-day reverse + reissue. Output a ranked table with risk score 1–10 and one-sentence rationale.',
+   steps:['Connect Dynamics 365 Finance to Azure ML workspace','Train isolation forest anomaly detection model','Build real-time monitoring pipeline in Azure Stream Analytics','Configure Teams alerts with one-click approve/block','Monthly model retraining with new pattern data']},
+  {id:4,dept:'finance',deptLabel:'Finance',icon:'📈',title:'Automated Financial Reporting with Copilot',
+   desc:'Generate board-ready reports, variance analyses and regulatory submissions from natural-language prompts — weeks to hours.',
+   saving:'RM 0.5–1.0M/yr',savingDetail:'60% reduction in month-end close time; 4 FTE equivalent',
+   stack:['Power BI Copilot','Microsoft 365 Copilot','Dynamics 365 Finance','Microsoft Fabric'],
+   modes:['m365'],featured:true,
+   challenge:'Monthly, quarterly and annual reporting consumes significant finance bandwidth. Manual Excel consolidation is error-prone across 20+ branches.',
+   solution:'Power BI Copilot auto-generates narrative reports from financial data. Microsoft 365 Copilot drafts board pack commentary in Word. Dynamics 365 Finance automates trial balance consolidation.',
+   impact:'Deloitte survey: AI reduces financial close time by 60%. CFO focus shifts from data gathering to strategic analysis.',
+   prompt:'Analyse the FY2026 May actuals vs budget in this workbook. Highlight the top 5 variances by absolute value, classify each as Favourable or Adverse, and propose a one-sentence root cause for the three largest adverse variances. Output as a Markdown table with columns: GL Account, Budget, Actual, Variance (RM), Variance %, F/A, Likely Driver.',
+   steps:['Set up Microsoft Fabric semantic model for financial data','Configure Power BI Copilot with Sonepar chart of accounts','Create report templates in Copilot-for-Word','Automate distribution via Power Automate','Train finance team on natural language queries']},
+  {id:5,dept:'finance',deptLabel:'Finance',icon:'💳',title:'AI Credit Risk Assessment for Customers',
+   desc:'AI evaluates customer creditworthiness using payment history, order patterns and external signals — real-time credit decisions.',
+   saving:'RM 1.2–2.0M/yr',savingDetail:'Bad debt reduction from ~0.3% to <0.1% on RM 630M revenue',
+   stack:['Azure Machine Learning','Dynamics 365 Finance','Power BI','Azure AI'],
+   modes:['m365'],
+   challenge:'Sonepar MY serves 7,000+ customers on credit terms. Bad debt and late payments significantly impact cash flow. Manual credit reviews are slow and inconsistent.',
+   solution:'Azure ML classifies each customer into risk tiers using 50+ features. Dynamics 365 Finance auto-updates credit limits. Automated alerts notify sales team when customers approach limits.',
+   impact:'Industry data: AI credit scoring reduces bad debt 40–60% and improves DSO 8–12 days. On RM 630M revenue, saves RM 1.2–2M annually.',
+   prompt:'Score the top 100 customers by outstanding AR exposure using the past 24 months of payment history. For each, provide: risk tier (Low/Medium/High), recommended credit limit, recommended payment terms, and a one-line rationale. Flag any customer whose risk tier has changed in the last 90 days.',
+   steps:['Extract 3-year customer payment history from Dynamics 365','Build credit risk classification model in Azure ML','Integrate model scoring into Dynamics 365 credit management','Create real-time credit dashboards in Power BI','Set automated limit review triggers for high-risk accounts']},
+  // PROCUREMENT (Supply Chain)
+  {id:6,dept:'procurement',deptLabel:'Procurement',icon:'🏆',title:'Intelligent Supplier Scoring & Selection',
+   desc:'AI evaluates suppliers across 40+ dimensions — price, delivery, quality, ESG, financial stability.',
+   saving:'RM 2.5–4.0M/yr',savingDetail:'1–2% COGS reduction on RM 250M+ procurement spend',
+   stack:['Azure AI','Dynamics 365 Supply Chain','Power BI','Microsoft Copilot for Finance'],
+   modes:['m365','ab'],
+   challenge:'Sonepar MY sources from 100+ agency brands. Supplier performance varies significantly. Procurement decisions are often reactive rather than data-driven.',
+   solution:'Azure AI aggregates supplier data from ERP, email, external ratings. Real-time dashboards show supplier health scores. Copilot drafts supplier review reports and negotiation briefs automatically.',
+   impact:'McKinsey: AI-driven procurement delivers 5–15% cost savings. For Sonepar MY at RM 250M+ spend, 1% improvement = RM 2.5M.',
+   prompt:'Generate a Q1 FY2026 supplier scorecard for the top 20 suppliers by spend. Score each across price competitiveness, on-time delivery, quality (RMA rate), ESG rating, and financial health. Rank them, highlight any with a score drop >15% QoQ, and draft a 100-word negotiation brief for the bottom 3.',
+   steps:['Aggregate supplier data from Dynamics 365 and email','Build 40-factor supplier scoring model in Azure ML','Create supplier health dashboard in Power BI','Integrate Copilot for automated supplier review drafting','Set up automated alerts for supplier risk changes']},
+  {id:7,dept:'procurement',deptLabel:'Procurement',icon:'📉',title:'AI Demand Forecasting & Inventory Optimisation',
+   desc:'ML models forecast demand for 50,000+ SKUs across all branches — automatically adjusting safety stock.',
+   saving:'RM 4.0–7.0M/yr',savingDetail:'15–25% inventory cost reduction; 30% reduction in stockouts',
+   stack:['Azure Machine Learning','Dynamics 365 Supply Chain Management','Microsoft Fabric','Power BI'],
+   modes:['m365','ab'],featured:true,
+   challenge:'Sonepar MY holds 50,000+ SKUs across 6 major warehouses. Overstocking ties up capital; stockouts lose sales. Seasonal construction cycles complex to predict.',
+   solution:'Azure ML demand-forecasting models analyse 3 years of sales, promotions, seasonality, and external signals (construction permits, GDP). Dynamics 365 Supply Chain auto-generates POs when stock hits AI-calculated reorder points.',
+   impact:'Sonepar group reported significant inventory optimisation post AI deployment. Industry benchmark: 20% inventory reduction = RM 4–7M savings for Sonepar MY.',
+   prompt:'For the 30 SKUs in inventory-sample.csv, calculate the projected stockout date if current sales velocity continues, and compare against the supplier lead time. Flag any SKU with projected stockout < lead time as Critical. Suggest a recommended PO quantity using a 30-day forward cover plus safety stock = 1× lead-time demand.',
+   steps:['Consolidate sales data across all branches into Microsoft Fabric','Train SKU-level demand forecasting models (Azure ML)','Integrate forecasts into Dynamics 365 replenishment engine','Create inventory optimisation dashboards for buyers','Automate PO generation for standard SKUs']},
+  {id:8,dept:'procurement',deptLabel:'Procurement',icon:'📋',title:'AI Contract Analysis & Risk Assessment',
+   desc:'Azure OpenAI reviews supplier contracts in minutes — extracts terms, flags risks, suggests negotiation points.',
+   saving:'RM 0.5–1.0M/yr',savingDetail:'80% faster contract review; legal cost reduction + better terms',
+   stack:['Azure OpenAI Service','Microsoft 365 Copilot','SharePoint','Power Automate'],
+   modes:['m365'],
+   challenge:'Procurement and legal teams spend significant time reviewing supplier contracts. Unfavourable clauses sometimes missed. Renewals reactive.',
+   solution:'Azure OpenAI models extract key contractual terms, flag deviations from standards, and highlight risk clauses. Copilot in Word generates negotiation summaries. Power Automate triggers renewal reminders 90 days in advance.',
+   impact:'EY: AI contract analysis reduces review time 85%. Better contract terms can yield 0.5–1% savings on RM 100M+ contracted spend.',
+   prompt:'Review this ABB Malaysia supply contract. Extract: parties, effective date, term, auto-renewal, payment terms, price-change mechanism, liability cap, indemnification, exclusivity, force majeure, termination notice, and ESG clauses. Flag any clauses that deviate from the Sonepar Group Standard Terms (attached). Draft a 5-point negotiation brief for the procurement lead.',
+   steps:['Deploy Azure OpenAI contract analysis model','Build contract repository in SharePoint with Copilot integration','Create standard contract clause library for comparison','Automate contract lifecycle reminders in Power Automate','Train procurement team on AI-assisted negotiation tools']},
+  {id:9,dept:'procurement',deptLabel:'Procurement',icon:'💡',title:'Spend Analytics & Maverick Spend Detection',
+   desc:'AI automatically categorises spending, identifies off-contract purchases, surfaces consolidation opportunities.',
+   saving:'RM 1.5–2.5M/yr',savingDetail:'Capture 3–5% savings from spend consolidation',
+   stack:['Microsoft Fabric','Power BI Copilot','Azure AI','Dynamics 365 Finance'],
+   modes:['m365'],
+   challenge:'Distributed purchasing across 20+ branches leads to maverick spend, duplicate vendor relationships, and missed volume discounts.',
+   solution:'Microsoft Fabric consolidates all spend data. Azure AI auto-classifies spend into 200+ categories. Power BI Copilot provides natural-language analytics. Auto-alerts flag when purchases exceed approved suppliers.',
+   impact:'KPMG: Spend analytics typically reveals 3–8% savings opportunities. AI categorisation accuracy >95% vs 60% manual.',
+   prompt:'Analyse the last 12 months of procurement spend. Identify the top 10 maverick spend categories (purchases >RM 10,000 from non-contracted suppliers), estimate the consolidation savings if redirected to preferred suppliers, and rank by opportunity size.',
+   steps:['Build spend data lake in Microsoft Fabric','Deploy AI spend categorisation model','Create spend cube with drill-down in Power BI Copilot','Set maverick spend alert rules in Power Automate','Generate monthly savings opportunity reports via Copilot']},
+  // OPERATIONS
+  {id:10,dept:'operations',deptLabel:'Operations',icon:'⚡',title:'Automated Order Processing & Intelligent Fulfilment',
+   desc:'AI processes incoming orders from EDI, email, portal, and phone — validating, enriching, routing to optimal warehouse.',
+   saving:'RM 1.5–2.5M/yr',savingDetail:'50% faster order processing; 3 FTE equivalent; 99% accuracy',
+   stack:['Power Automate','Azure AI Document Intelligence','Dynamics 365 Supply Chain','Copilot Studio'],
+   modes:['m365','ab','cs'],featured:true,
+   challenge:'Sonepar MY receives orders via multiple channels (email, EDI, phone, web). Manual order entry is slow, error-prone, and delays fulfilment for 7,000+ active customers.',
+   solution:'Power Automate + Azure AI Document Intelligence reads order formats from any source. AI matches product codes, validates stock, and routes to nearest warehouse. Exceptions handled via Copilot Studio chatbot with customer.',
+   impact:'Industry benchmark: Automated order processing reduces costs 40–60%. Sonepar achieved 50% YoY online order growth through similar automation.',
+   prompt:'Build an agent called "Order Status Buddy" for Sonepar Customer Service. It looks up order status from orders-sample.csv and returns header, line items, status, ETA, and tracking link. Verify customer account number before sharing. When promised date slipped >2 working days, apologise, give new ETA, and offer CSR escalation.',
+   steps:['Map all inbound order channels and formats','Deploy Azure AI Document Intelligence for email orders','Build Power Automate routing logic with Dynamics 365 integration','Create Copilot Studio bot for order status enquiries','Set up real-time order dashboards for operations team']},
+  {id:11,dept:'operations',deptLabel:'Operations',icon:'🏭',title:'Warehouse Layout Optimisation with Digital Twin',
+   desc:'Azure Digital Twins models warehouses to simulate layout changes and slotting — maximising throughput.',
+   saving:'RM 1.0–2.0M/yr',savingDetail:'25% reduction in pick travel time; 15% throughput increase',
+   stack:['Azure Digital Twins','Azure IoT Hub','Power BI','Dynamics 365 Supply Chain'],
+   modes:['m365'],
+   challenge:'Sonepar MY operates 6 major warehouses with 50,000+ SKUs. Suboptimal slotting and layout leads to excessive pick travel time.',
+   solution:'Azure Digital Twins creates virtual 3D models of each warehouse. AI analyses order patterns and recommends optimal SKU placement. Simulations test layout changes before physical implementation.',
+   impact:'Gartner: Digital twin warehouses achieve 20–30% efficiency gains. Reducing pick labour 25% saves RM 1–2M across 6 warehouses.',
+   prompt:'Using the last 90 days of pick data, identify the top 50 SKUs by pick frequency in KL-Main. For each, recommend whether to move closer to packing (high frequency) or further from packing (low frequency). Estimate the total travel-distance reduction in metres per day.',
+   steps:['Survey and digitise warehouse layouts in Azure Digital Twins','Integrate IoT sensors for real-time location tracking','Connect to Dynamics 365 WMS for order pattern analysis','Run slotting optimisation simulations','Implement AI-recommended layout changes in priority zones']},
+  {id:12,dept:'operations',deptLabel:'Operations',icon:'📡',title:'Real-Time Inventory Tracking & Smart Replenishment',
+   desc:'IoT + Azure AI provides real-time stock visibility across all warehouses and branches.',
+   saving:'RM 2.0–3.5M/yr',savingDetail:'95% inventory accuracy; 20% reduction in emergency orders',
+   stack:['Azure IoT Hub','Azure Stream Analytics','Dynamics 365 Supply Chain','Power BI'],
+   modes:['m365','ab'],
+   challenge:'Inventory discrepancies between system records and physical stock are common. Emergency orders due to unexpected stockouts are costly.',
+   solution:'IoT sensors and RFID readers feed real-time data into Azure IoT Hub. Stream Analytics detects anomalies and triggers automatic cycle counts. Dynamics 365 auto-replenishment triggered at AI-calculated thresholds.',
+   impact:'Aberdeen Group: Companies with real-time inventory visibility have 35% lower stock-outs.',
+   prompt:'Create an agent called "Sonepar Inventory Insight" that grounds answers in inventory-sample.csv. When asked about stockouts, return SKU, qty on hand, reorder point, lead time, and nearest warehouse with stock. For slow movers (no sale in 90 days), recommend markdown, transfer, or write-off. Never invent stock numbers.',
+   steps:['Deploy RFID/IoT sensors at key warehouse locations','Configure Azure IoT Hub data ingestion pipeline','Build Stream Analytics rules for anomaly detection','Integrate with Dynamics 365 inventory management','Create real-time inventory dashboards for branch managers']},
+  {id:13,dept:'operations',deptLabel:'Operations',icon:'🔬',title:'Computer Vision Quality Control',
+   desc:'AI cameras inspect incoming goods and outgoing shipments — detecting damage, wrong products, packaging errors.',
+   saving:'RM 0.8–1.5M/yr',savingDetail:'80% reduction in returns from quality issues',
+   stack:['Azure Computer Vision','Azure Custom Vision','Azure IoT Hub','Power Automate'],
+   modes:['m365'],
+   challenge:'Manual visual inspection of 50,000+ product lines is impractical. Quality issues discovered by customers cause costly returns and damaged relationships.',
+   solution:'Azure Custom Vision models trained on Sonepar product images inspect goods at receiving and despatch. Damaged items flagged automatically. Power Automate triggers supplier claims and internal alerts.',
+   impact:'IDC: Computer vision reduces defect escape rates 75–90%. Product return costs typically 3–5× original product cost.',
+   prompt:'Generate a 30-day Quality Control summary across the 6 warehouses. List the top defect categories, their frequency, the suppliers and SKUs involved, and the financial impact (replacement value + freight). Recommend which 3 SKUs need urgent supplier engagement.',
+   steps:['Install inspection cameras at receiving and despatch zones','Build Azure Custom Vision models per product category','Create defect classification training dataset','Integrate with Dynamics 365 receiving process','Automate supplier claim generation via Power Automate']},
+  {id:14,dept:'operations',deptLabel:'Operations',icon:'🚚',title:'Intelligent Logistics Route & Delivery Optimisation',
+   desc:'AI optimises delivery routes in real time — traffic, delivery windows, vehicle capacity, customer priority.',
+   saving:'RM 1.2–2.0M/yr',savingDetail:'15–20% fuel/logistics cost reduction; 95%+ on-time delivery',
+   stack:['Azure Maps','Azure AI','Dynamics 365 Supply Chain','Power BI'],
+   modes:['m365'],
+   challenge:'Sonepar MY delivers to thousands of customers across Malaysia. Suboptimal routing increases fuel costs, delivery times, and driver overtime.',
+   solution:'Azure Maps and Azure AI optimise multi-stop delivery routes considering real-time traffic, customer SLAs, and vehicle loads. Power BI provides delivery performance dashboards. Customer SMS/portal updates automated.',
+   impact:'Capgemini: Route optimisation reduces logistics costs 10–20%. Saves RM 1.2–2M annually for Sonepar MY.',
+   prompt:'Optimise tomorrow\'s KL-area delivery routes for 32 stops across 6 trucks. Constraints: 2-hour delivery windows from customer SLA, 3.5T payload limit, prioritise VIP (Petronas, Tenaga, YTL) first stops. Output: per-truck route sequence with ETA per stop and total km vs current baseline.',
+   steps:['Integrate Dynamics 365 delivery orders with Azure Maps','Build route optimisation algorithm with constraint handling','Deploy driver mobile app with real-time navigation','Set up customer delivery notification automation','Create KPI dashboard for logistics performance']},
+  // SALES
+  {id:15,dept:'sales',deptLabel:'Sales & Marketing',icon:'🎯',title:'AI Lead Scoring & Sales Prioritisation',
+   desc:'AI scores every lead and opportunity — helping sales focus on deals most likely to close.',
+   saving:'RM 3.0–5.0M/yr',savingDetail:'20% increase in win rate; 15% increase in average deal size',
+   stack:['Dynamics 365 Sales Copilot','Azure Machine Learning','Power BI','Microsoft 365 Copilot'],
+   modes:['m365'],
+   challenge:'Sales teams service 7,000+ customers and hundreds of prospects. Without prioritisation, high-value opportunities get equal attention as low-probability leads.',
+   solution:'Azure ML lead scoring on purchase recency, frequency, value, engagement. Dynamics 365 Sales Copilot provides AI-powered call summaries, next-best-action, and email drafting.',
+   impact:'Forrester: AI sales tools increase win rates 15–20%. 20% improvement on the pipeline = RM 3–5M additional revenue.',
+   prompt:'Score my open opportunities (>RM 50k) based on stage, days since last activity, customer industry, historical win rate, and competitor presence. Rank top 10 by close probability for this quarter, and draft a one-sentence "next best action" for each.',
+   steps:['Activate Dynamics 365 Sales Copilot for all sales reps','Build lead scoring model on 2-year opportunity data','Integrate LinkedIn Sales Navigator for prospect insights','Create sales performance dashboards with AI coaching tips','Automate follow-up email drafting via Copilot']},
+  {id:16,dept:'sales',deptLabel:'Sales & Marketing',icon:'🛍️',title:'AI Product Recommendation Engine',
+   desc:'AI analyses purchase history to recommend complementary products — increasing basket size.',
+   saving:'RM 2.5–4.5M/yr',savingDetail:'12–18% increase in average order value',
+   stack:['Azure AI','Dynamics 365 Sales','Power Pages','Azure OpenAI Service'],
+   modes:['m365'],
+   challenge:'With 50,000+ products, sales reps cannot know the full catalogue. Customers often don\'t know about complementary products — leaving revenue on the table.',
+   solution:'Azure AI recommendation models trained on purchase co-occurrence data. Recommendations surfaced in CRM during sales calls, on the e-commerce portal, and in customer emails.',
+   impact:'Amazon-style recommendation engines increase revenue 10–30%. 12% AOV uplift = RM 2.5–4.5M for Sonepar MY.',
+   prompt:'For customer ACC-001245 (Petronas Refinery Melaka), look at the past 24 months of orders. Recommend 5 cross-sell products they have not yet purchased, with one-sentence rationale tying each to their existing buying pattern. Estimate the incremental annual revenue if they adopted each.',
+   steps:['Build Azure AI recommendation model on purchase history','Integrate recommendations into Dynamics 365 order entry','Embed recommendations in customer portal (Power Pages)','A/B test recommendation algorithms','Create automated cross-sell email campaigns via Customer Insights']},
+  {id:17,dept:'sales',deptLabel:'Sales & Marketing',icon:'📉',title:'Customer Churn Prediction & Retention',
+   desc:'AI identifies customers showing early warning signs of churn — enabling proactive retention.',
+   saving:'RM 2.0–4.0M/yr',savingDetail:'Retain 2–3% of at-risk customer base',
+   stack:['Azure Machine Learning','Dynamics 365 Customer Insights','Power Automate','Dynamics 365 Sales'],
+   modes:['m365'],
+   challenge:'Losing 2–3% of 7,000 customers annually means significant revenue loss. Signs of churn detected too late — after customers move to competitors.',
+   solution:'Azure ML churn model scores all customers weekly using 30+ behavioural signals. High-risk customers trigger automated outreach via Customer Insights — personalised offers, service calls, account reviews.',
+   impact:'Bain & Co: 5% retention improvement increases profits 25–95%. Retaining 50 at-risk accounts = RM 4M revenue protection.',
+   prompt:'List the top 25 customers showing churn signals in the past 90 days: declining order frequency, declining basket size, increased service complaints, or extended payment delays. For each, suggest the most impactful retention play (Account review meeting / Loyalty discount / Service escalation review / Technical training session).',
+   steps:['Build churn prediction model on customer activity data','Deploy weekly scoring pipeline in Azure ML','Integrate scores into Dynamics 365 Customer Insights','Create automated retention campaign workflows','Train account managers on churn signals dashboard']},
+  {id:18,dept:'sales',deptLabel:'Sales & Marketing',icon:'🎨',title:'AI-Powered Marketing Personalisation',
+   desc:'Customer Insights with AI segments all 7,000+ customers and delivers hyper-personalised campaigns.',
+   saving:'RM 1.5–3.0M/yr',savingDetail:'3× campaign ROI; 41% email open rates (Sonepar benchmark)',
+   stack:['Dynamics 365 Customer Insights','Azure OpenAI Service','Microsoft Copilot Studio','Power BI'],
+   modes:['m365','cs'],
+   challenge:'Generic marketing has low engagement. Sonepar MY has diverse customer segments (MRO, OEM, infrastructure, construction) with very different needs.',
+   solution:'Customer Insights creates AI segments based on industry, buying behaviour, lifecycle stage. Azure OpenAI generates personalised content. Copilot Studio powers 24/7 self-service product discovery.',
+   impact:'Sonepar achieved 41% email open rates on 1M contacts through AI personalisation — 5× industry average.',
+   prompt:'Draft 3 personalised email variants for an upcoming Schneider Electric MCB promotion: one for MRO buyers (Petronas, Top Glove), one for construction (YTL, IJM), one for infrastructure (Tenaga, Sarawak Energy). Each should reference their typical buying pattern and lead with the most relevant value proposition.',
+   steps:['Implement Customer Insights with AI segmentation','Connect all data sources (ERP, web, email) for 360° customer view','Build GenAI content generation workflow with Azure OpenAI','Configure journey orchestration for key customer segments','Set up campaign performance analytics in Power BI']},
+  // CUSTOMER SERVICE
+  {id:19,dept:'service',deptLabel:'Customer Service',icon:'🤖',title:'AI Customer Service Chatbot & Virtual Agent',
+   desc:'24/7 intelligent virtual agent handles order tracking, product enquiries, stock checks, technical support.',
+   saving:'RM 1.2–2.0M/yr',savingDetail:'60% deflection rate; 3 FTE equivalent; 24/7 availability',
+   stack:['Microsoft Copilot Studio','Azure OpenAI Service','Dynamics 365 Customer Service','Power Automate'],
+   modes:['cs'],featured:true,
+   challenge:'Customer service handles repetitive enquiries about order status, product availability, pricing. Peak periods overwhelming. After-hours enquiries unanswered.',
+   solution:'Copilot Studio deploys intelligent chatbot on website, Teams, WhatsApp, email. Azure OpenAI enables natural conversation. Bot handles top 20 query types autonomously. Complex cases escalate to human agents with full context.',
+   impact:'Microsoft: Copilot Studio bots resolve 50–70% of enquiries without human agents. Gartner: AI customer service reduces cost per interaction 60%.',
+   prompt:'See the Copilot Studio guide for the full build steps. The agent instruction prompt is: "You are the Sonepar Customer Service Agent. Serve industrial and electrical customers of Sonepar Malaysia. Handle (1) order status, (2) stock availability across 6 warehouses, (3) product spec Q&A, (4) escalation to a human CSR via Teams. Always verify customer account number. Bilingual EN/BM. Never quote prices."',
+   steps:['Identify top 20 customer query types and intents','Build Copilot Studio bot with Sonepar knowledge base','Integrate with Dynamics 365 for live order/stock data','Deploy on website, WhatsApp, and Teams channels','Configure escalation to human agent with conversation summary']},
+  {id:20,dept:'service',deptLabel:'Customer Service',icon:'📨',title:'Intelligent Ticket Routing & Resolution',
+   desc:'AI classifies tickets, routes to right team, suggests resolutions, predicts resolution time.',
+   saving:'RM 0.6–1.0M/yr',savingDetail:'40% faster resolution; 30% improvement in first-contact resolution',
+   stack:['Dynamics 365 Customer Service Copilot','Azure AI Language','Power BI','Microsoft Teams'],
+   modes:['m365'],
+   challenge:'Service tickets from 7,000+ customers span many topics — orders, returns, technical support, billing, logistics. Misrouting wastes agent time.',
+   solution:'Azure AI Language classifies ticket intent and urgency. Dynamics 365 CS Copilot auto-routes to right queue and suggests AI-generated draft responses. Agents one-click approve or edit.',
+   impact:'Dynamics 365 CS with Copilot reduces handling time 12–28%. First contact resolution improvements significantly reduce repeat contacts.',
+   prompt:'Review the 10 unassigned tickets in customer-tickets.csv. For each, classify into the correct queue (Order Status / Stock / Tech Docs / Tech Support / Billing / Quote / Complaint), set priority (P1/P2/P3) based on customer tier and sentiment, and draft a 2-sentence first response.',
+   steps:['Configure Dynamics 365 Customer Service with AI routing rules','Train Azure AI Language model on historical ticket classifications','Build knowledge base in Dynamics 365','Deploy Copilot response suggestions for all agent queues','Create service performance Power BI dashboard']},
+  {id:21,dept:'service',deptLabel:'Customer Service',icon:'💬',title:'Customer Sentiment Analysis & Voice of Customer',
+   desc:'AI analyses all customer interactions — sentiment scores, NPS trends, actionable insights.',
+   saving:'RM 0.5–1.0M/yr',savingDetail:'Identify and resolve systemic issues before they cause churn',
+   stack:['Azure AI Language','Dynamics 365 Customer Insights','Power BI','Microsoft Fabric'],
+   modes:['m365'],
+   challenge:'Customer feedback scattered across emails, calls, surveys, portals. Without aggregation, management lacks real-time visibility into sentiment.',
+   solution:'Azure AI Language analyses all text interactions for sentiment, topics, intent. Real-time NPS and sentiment dashboards in Power BI. Monthly AI-generated VoC reports surface top issues.',
+   impact:'Qualtrics: Companies acting on VoC reduce customer effort score 25–30%. Proactive issue resolution prevents churn worth RM 0.5–1M annually.',
+   prompt:'Summarise the past 30 days of customer interactions (email, chat, survey) into a Voice of Customer report. Output: top 5 themes ranked by mention volume + sentiment, top 3 emerging issues (rising mentions), 3 positive themes, and 5 concrete improvement actions for the leadership team.',
+   steps:['Connect all customer interaction channels to Azure AI Language','Build sentiment scoring pipeline in Azure Stream Analytics','Create VoC dashboard in Power BI with trend analysis','Configure automated alerts for sentiment score drops','Generate monthly AI-powered VoC executive summary']},
+  {id:22,dept:'service',deptLabel:'Customer Service',icon:'🌐',title:'AI Self-Service Customer Portal',
+   desc:'Power Pages portal with Azure OpenAI — customers manage orders, check stock, access tech docs 24/7.',
+   saving:'RM 0.8–1.5M/yr',savingDetail:'Reduced inbound calls; 24/7 order processing',
+   stack:['Power Pages','Azure OpenAI Service','Dynamics 365','Copilot Studio'],
+   modes:['cs'],
+   challenge:'High volume of routine customer calls for order status, stock availability, product information. Customers want self-service but existing portal has limited intelligence.',
+   solution:'Power Pages portal enhanced with Azure OpenAI for natural-language product search, technical document Q&A, order management, AI-guided product selection. Copilot Studio handles complex enquiries.',
+   impact:'Sonepar\'s digital transformation drove 33% of US revenue through digital channels.',
+   prompt:'(Best demonstrated as a live portal walkthrough — the Copilot Studio Customer Service Agent embeds into the Power Pages portal as the chat experience.)',
+   steps:['Upgrade existing portal to Power Pages with AI capabilities','Integrate Azure OpenAI for natural language product search','Connect real-time inventory and order data from Dynamics 365','Build technical document AI Q&A using Azure AI Search','Deploy Copilot Studio embedded assistant in portal']},
+  // MAINTENANCE
+  {id:23,dept:'maintenance',deptLabel:'Maintenance',icon:'🔮',title:'Predictive Maintenance for Warehouse Equipment',
+   desc:'IoT sensors + AI predict equipment failures days before they occur — preventing costly downtime.',
+   saving:'RM 1.5–2.5M/yr',savingDetail:'40% reduction in unplanned downtime; 25% maintenance cost reduction',
+   stack:['Azure IoT Hub','Azure Machine Learning','Dynamics 365 Field Service','Power BI'],
+   modes:['m365'],
+   challenge:'Unexpected equipment failures in 6 warehouses cause costly downtime, order delays, emergency repair expenses. Reactive maintenance is 3–5× more expensive than predictive.',
+   solution:'IoT sensors on all critical equipment stream data to Azure IoT Hub. Azure ML anomaly detection models predict failures 2–7 days in advance. Dynamics 365 Field Service auto-creates work orders.',
+   impact:'GE and Siemens report 25–40% maintenance cost reductions with predictive maintenance.',
+   prompt:'Generate a 7-day predictive maintenance forecast for the 24 forklifts across our 6 warehouses. List equipment ID, predicted failure type, confidence %, recommended action (inspect / replace component / OK), and estimated downtime cost if ignored.',
+   steps:['Install IoT sensors on all critical warehouse equipment','Configure Azure IoT Hub with real-time data streaming','Build failure prediction models per equipment type','Integrate predictions with Dynamics 365 Field Service','Create maintenance performance dashboard in Power BI']},
+  {id:24,dept:'maintenance',deptLabel:'Maintenance',icon:'🔧',title:'AI Work Order Optimisation',
+   desc:'Field Service AI intelligently schedules technicians — matching skills, location, parts, urgency.',
+   saving:'RM 0.6–1.2M/yr',savingDetail:'20% increase in jobs per technician; 15% reduction in travel time',
+   stack:['Dynamics 365 Field Service','Azure Maps','Power BI','Microsoft Teams'],
+   modes:['m365'],
+   challenge:'Scheduling maintenance across 20+ branches involves complex coordination of skills, location, parts, urgency. Manual scheduling is inefficient.',
+   solution:'Dynamics 365 Field Service Copilot auto-assigns work orders using AI optimisation considering 10+ constraint variables. Azure Maps optimises technician routes.',
+   impact:'Microsoft: Field Service customers report 20% increase in first-time fix rates and 15% increase in jobs per technician per day.',
+   prompt:'Optimise tomorrow\'s schedule for 8 maintenance technicians across 22 open work orders. Constraints: certification matching (LV vs MV equipment), parts availability at branch, customer SLA windows, max 90 min travel between jobs. Output: per-technician assignment list with reasoning.',
+   steps:['Implement Dynamics 365 Field Service with AI scheduling','Profile all technician skills, certifications, and territories','Integrate Azure Maps for route optimisation','Deploy mobile app for technicians with offline capability','Create field service performance KPI dashboard']},
+  {id:25,dept:'maintenance',deptLabel:'Maintenance',icon:'📦',title:'Spare Parts Demand Forecasting',
+   desc:'AI predicts spare parts consumption — ensuring availability without excessive inventory.',
+   saving:'RM 0.8–1.5M/yr',savingDetail:'30% reduction in spare parts holding costs; 90% parts availability',
+   stack:['Azure Machine Learning','Dynamics 365 Supply Chain','Microsoft Fabric','Power BI'],
+   modes:['m365'],
+   challenge:'Overstocking spare parts ties up capital while stockouts cause extended downtime. Forecasting currently based on intuition.',
+   solution:'Azure ML forecasting models analyse equipment maintenance history, age profiles, manufacturer data to predict spare parts consumption.',
+   impact:'PTC: AI spare parts optimisation reduces inventory 20–30% while improving availability.',
+   prompt:'Forecast spare parts consumption for the next 90 days across the 6 warehouses based on equipment maintenance history and current age profile. Highlight 5 parts with highest risk of stockout and 5 currently overstocked.',
+   steps:['Build equipment maintenance history database','Train ML models on spare parts consumption patterns','Integrate forecasts into Dynamics 365 inventory management','Create spare parts dashboard for maintenance planners','Set up automatic reorder point adjustments']},
+  {id:26,dept:'maintenance',deptLabel:'Maintenance',icon:'🏗️',title:'Facility Digital Twin & Energy Optimisation',
+   desc:'Azure Digital Twins models facilities for real-time monitoring, energy optimisation, ESG reporting.',
+   saving:'RM 0.5–1.0M/yr',savingDetail:'15–20% energy cost reduction; ESG reporting automation',
+   stack:['Azure Digital Twins','Azure IoT Hub','Power BI','Microsoft Sustainability Manager'],
+   modes:['m365'],
+   challenge:'Energy costs significant across 6 warehouses and 20+ branches. Limited visibility makes optimisation difficult. ESG reporting becoming regulatory requirement.',
+   solution:'Azure Digital Twins creates virtual facility models. IoT sensors monitor energy in real time. AI optimises HVAC, lighting, equipment usage. Automated ESG reports for Sonepar group reporting.',
+   impact:'Sonepar committed to Science-Based Targets (SBTi). Microsoft Energy Optimisation customers report 15–25% reduction.',
+   prompt:'Generate a Q1 FY2026 sustainability and energy report for Sonepar MY: total energy consumed (kWh) by site, intensity per RM revenue, top 3 energy-saving actions taken, and progress against the group SBTi commitment. Format for the parent company quarterly reporting pack.',
+   steps:['Install IoT energy monitoring sensors across all facilities','Build facility digital twins in Azure Digital Twins','Connect HVAC and lighting systems for AI control','Create energy consumption dashboard in Power BI','Configure automated ESG reporting for Sonepar group']},
+  // HR
+  {id:27,dept:'hr',deptLabel:'Human Resources',icon:'👥',title:'AI-Powered Talent Acquisition & Screening',
+   desc:'AI screens CVs, scores candidates, schedules interviews, provides bias-reduced recommendations.',
+   saving:'RM 0.4–0.8M/yr',savingDetail:'50% faster hiring; reduced agency fees; better quality hires',
+   stack:['Microsoft Copilot for HR','Azure AI','Microsoft Teams','Power Automate'],
+   modes:['m365'],featured:true,
+   challenge:'Sonepar MY\'s 600–800 strong workforce requires constant talent acquisition. Manual CV screening time-consuming and inconsistent. Technical roles require specialised assessment.',
+   solution:'Azure AI screens CVs against job profiles. Automated interview scheduling via Teams. Copilot for HR drafts job descriptions and offer letters. Analytics identify best recruitment sources.',
+   impact:'LinkedIn: AI recruiting tools reduce time-to-hire 40–50% and improve candidate quality scores 25%.',
+   prompt:'Draft a job description for a "Senior Inventory Planner" based at Sonepar Malaysia, reporting to the Head of Supply Chain. Responsibilities: SKU-level demand forecasting across 50,000+ products, working with Dynamics 365 Supply Chain, partnering with 6 warehouse managers. Include must-have skills, nice-to-have, and a section on what makes this role exciting at Sonepar (€33.6B group). Format: Markdown for SharePoint.',
+   steps:['Deploy Microsoft Copilot for HR with Azure AI screening','Build job profile competency framework','Configure automated CV scoring and ranking','Integrate Teams scheduling for interview coordination','Create recruitment analytics dashboard in Power BI']},
+  {id:28,dept:'hr',deptLabel:'Human Resources',icon:'📚',title:'Personalised Learning & AI Skills Development',
+   desc:'Viva Learning with AI creates personalised dev plans — recommending courses, tracking progress.',
+   saving:'RM 0.3–0.6M/yr',savingDetail:'Reduced external training costs; 40% faster skill development',
+   stack:['Microsoft Viva Learning','Microsoft Copilot','Microsoft Teams','Power BI'],
+   modes:['m365'],
+   challenge:'With 600–800 employees across diverse roles, training is expensive, inconsistent, and often irrelevant to individual needs.',
+   solution:'Microsoft Viva Learning personalises learning paths based on role, skills gaps, and career aspirations. Copilot creates learning summaries. AI recommends next courses based on job performance and company strategy.',
+   impact:'Microsoft Viva customers report 40% reduction in time to skill proficiency.',
+   prompt:'For Aishah Rahman (Senior Buyer, Procurement, 4 years tenure, targeting Procurement Manager in 18 months), generate a 12-month personalised learning plan. Include: 3 technical courses (Dynamics 365 Supply Chain certifications), 2 leadership modules (Viva Learning), 1 stretch project, and quarterly check-in goals. Output as a Markdown table.',
+   steps:['Deploy Microsoft Viva Learning in Teams','Build skills taxonomy for all Sonepar MY roles','Integrate external learning content (LinkedIn Learning, etc.)','Create AI-powered personal development plans','Set up learning progress analytics in Power BI']},
+  // IT
+  {id:29,dept:'it',deptLabel:'IT & Security',icon:'🛡️',title:'AI-Powered Cybersecurity & Threat Detection',
+   desc:'Microsoft Sentinel with AI continuously monitors the IT environment — investigating alerts, responding to incidents.',
+   saving:'RM 1.0–3.0M/yr',savingDetail:'Prevent average RM 3M+ cost of a data breach in Malaysia',
+   stack:['Microsoft Sentinel','Microsoft Defender XDR','Azure AI','Microsoft Copilot for Security'],
+   modes:['m365'],
+   challenge:'As a distributor handling financial data for 7,000+ customers and confidential supplier contracts, Sonepar MY is a high-value cyberattack target. Average Malaysian data breach costs RM 3M+.',
+   solution:'Microsoft Sentinel SIEM/SOAR with AI detects threats across endpoints, email, cloud, OT systems. Copilot for Security investigates alerts in seconds. Automated playbooks contain threats before human escalation.',
+   impact:'IBM Security: AI-powered SOC reduces mean time to detect 74% and mean time to contain 84%.',
+   prompt:'Review the past 24 hours of security alerts. Group related alerts into incidents, prioritise by impact and confidence, and draft a 5-bullet executive briefing for the CISO. Highlight any alerts touching supplier financial data or executive accounts.',
+   steps:['Deploy Microsoft Sentinel across all Sonepar MY systems','Onboard Microsoft Defender for Endpoints, Email, Identity','Build custom detection rules for industrial supply chain threats','Configure automated incident response playbooks','Enable Copilot for Security for analyst acceleration']},
+  {id:30,dept:'it',deptLabel:'IT & Security',icon:'⚙️',title:'IT Helpdesk Automation & Self-Service',
+   desc:'Copilot Studio IT assistant handles 60%+ of helpdesk tickets — password resets, software requests, hardware issues.',
+   saving:'RM 0.4–0.8M/yr',savingDetail:'60% ticket deflection; 24/7 support; 2 FTE equivalent',
+   stack:['Microsoft Copilot Studio','Microsoft 365 Copilot','Power Automate','Microsoft Teams'],
+   modes:['cs'],
+   challenge:'IT helpdesk handles hundreds of routine requests monthly across 600–800 users and 20+ locations. Repetitive tasks consume skilled IT staff time.',
+   solution:'Copilot Studio IT bot in Teams handles top 15 request types autonomously. Power Automate executes provisioning. Microsoft 365 Copilot accelerates complex ticket resolution.',
+   impact:'HDI Research: AI helpdesk automation deflects 50–70% of tier-1 tickets. Frees 2 FTE for strategic projects.',
+   prompt:'Create an agent called "Sonepar IT Helper" that handles top tier-1 requests: password reset, MFA reset, software installation request, VPN troubleshoot, printer setup, and new joiner onboarding checklist. The agent must verify employee ID before any provisioning action and escalate any request involving production OT systems to the SOC.',
+   steps:['Deploy Copilot Studio IT assistant in Microsoft Teams','Configure top 15 automated request workflows in Power Automate','Integrate with Azure AD for automated provisioning','Build IT knowledge base for AI-assisted resolution','Create IT performance dashboard with ticket analytics']}
+];
+
+const DEPTS = [
+  {id:'finance',label:'Finance',icon:'💰',c1:'#0EA5E9',c2:'#0891B2'},
+  {id:'procurement',label:'Procurement & Supply Chain',icon:'📦',c1:'#F59E0B',c2:'#D97706'},
+  {id:'operations',label:'Operations',icon:'🏭',c1:'#10B981',c2:'#059669'},
+  {id:'sales',label:'Sales & Marketing',icon:'🎯',c1:'#EC4899',c2:'#DB2777'},
+  {id:'service',label:'Customer Service',icon:'🤝',c1:'#8B5CF6',c2:'#7C3AED'},
+  {id:'maintenance',label:'Maintenance',icon:'🔧',c1:'#EF4444',c2:'#DC2626'},
+  {id:'hr',label:'Human Resources',icon:'👥',c1:'#6366F1',c2:'#4F46E5'},
+  {id:'it',label:'IT & Security',icon:'🛡️',c1:'#64748B',c2:'#475569'}
+];
+
+const MODES = {
+  m365:{label:'M365 Copilot',cls:'b-m365'},
+  ab:{label:'Agent Builder',cls:'b-ab'},
+  cs:{label:'Copilot Studio',cls:'b-cs'}
+};
+
+let activeFilter='all';
+
+function buildFilter(){
+  const bar=document.getElementById('filterBar');
+  const tools=['all','m365','ab','cs','featured'];
+  const labels={all:'All',m365:'M365 Copilot',ab:'Agent Builder',cs:'Copilot Studio',featured:'⭐ Demo Highlights'};
+  bar.innerHTML=tools.map(t=>`<button class="chip ${t==='all'?'active':''}" data-f="${t}" onclick="setFilter('${t}')">${labels[t]}</button>`).join('');
+}
+function setFilter(f){
+  activeFilter=f;
+  document.querySelectorAll('.chip').forEach(c=>c.classList.toggle('active',c.dataset.f===f));
+  render();
+}
+function render(){
+  const c=document.getElementById('deptContainer');
+  c.innerHTML='';
+  DEPTS.forEach(d=>{
+    let cases=USE_CASES.filter(uc=>uc.dept===d.id);
+    if(activeFilter==='featured'){cases=cases.filter(uc=>uc.featured)}
+    else if(activeFilter!=='all'){cases=cases.filter(uc=>uc.modes.includes(activeFilter))}
+    if(!cases.length)return;
+    const total=USE_CASES.filter(uc=>uc.dept===d.id).length;
+    const block=document.createElement('div');
+    block.className='dept-block';
+    block.style.setProperty('--dept-c1',d.c1);
+    block.style.setProperty('--dept-c2',d.c2);
+    block.innerHTML=`
+      <div class="dept-hdr">
+        <div class="dept-icon">${d.icon}</div>
+        <h3>${d.label}</h3>
+        <div class="dept-tag">${cases.length} of ${total} use cases</div>
+      </div>
+      <div class="uc-grid">
+        ${cases.map(uc=>`
+          <div class="uc" onclick="openModal(${uc.id})">
+            <div class="uc-top"><div class="uc-icon">${uc.icon}</div><div class="uc-id">#${uc.id}</div></div>
+            <div class="uc-title">${uc.title}</div>
+            <div class="uc-desc">${uc.desc}</div>
+            <div class="uc-saving">💰 ${uc.saving}</div>
+            <div class="uc-stack">${uc.stack.slice(0,3).map(s=>`<span>${s}</span>`).join('')}${uc.stack.length>3?`<span>+${uc.stack.length-3}</span>`:''}</div>
+            <div class="uc-mode">${uc.modes.map(m=>`<span class="badge ${MODES[m].cls}">${MODES[m].label}</span>`).join('')}</div>
+          </div>`).join('')}
+      </div>`;
+    c.appendChild(block);
+  });
+}
+function openModal(id){
+  const uc=USE_CASES.find(u=>u.id===id);
+  const d=DEPTS.find(x=>x.id===uc.dept);
+  const m=document.getElementById('modal');
+  m.style.setProperty('--dept-c1',d.c1);
+  m.innerHTML=`
+    <div class="modal-hdr">
+      <div>
+        <h2>${uc.icon} ${uc.title}</h2>
+        <div class="modal-meta">${d.icon} ${d.label} · Use Case #${uc.id} · ${uc.modes.map(x=>MODES[x].label).join(' · ')}</div>
+      </div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="saving-banner">💰 ${uc.saving}<span>${uc.savingDetail}</span></div>
+      <h4>🎯 The Challenge</h4><p>${uc.challenge}</p>
+      <h4>⚡ The AI Solution</h4><p>${uc.solution}</p>
+      <h4>📊 Business Impact</h4><p>${uc.impact}</p>
+      <h4>🔧 Microsoft Solution Stack</h4><div class="stack-grid">${uc.stack.map(s=>`<span>${s}</span>`).join('')}</div>
+      <h4>💬 Demo Prompt — Copy &amp; Paste</h4>
+      <div class="prompt-block"><button class="prompt-copy" onclick="copyPrompt(this,${uc.id})">📋 Copy</button>${escapeHtml(uc.prompt)}</div>
+      <h4>🚀 Implementation Steps</h4>
+      <ul>${uc.steps.map(s=>`<li>${s}</li>`).join('')}</ul>
+    </div>`;
+  document.getElementById('modalOverlay').classList.add('show');
+}
+function closeModal(){document.getElementById('modalOverlay').classList.remove('show')}
+function escapeHtml(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+function copyPrompt(btn,id){
+  const uc=USE_CASES.find(u=>u.id===id);
+  navigator.clipboard.writeText(uc.prompt).then(()=>{
+    btn.textContent='✓ Copied';btn.classList.add('copied');
+    const t=document.getElementById('toast');t.classList.add('show');
+    setTimeout(()=>{btn.textContent='📋 Copy';btn.classList.remove('copied');t.classList.remove('show')},2000);
+  });
+}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
+buildFilter();render();
+</script>
+</body>
+</html>

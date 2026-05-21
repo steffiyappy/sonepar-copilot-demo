@@ -1,0 +1,11 @@
+TicketID,Channel,CreatedAt,CustomerAccount,CustomerName,Subject,Priority,Category,Sentiment,SLA_Hours,Status,AssignedTo
+CS-2026-12044,Email,2026-05-21 08:12,ACC-001245,Petronas Refinery Melaka,Where is my order SO-MY-2026-04217?,High,Order Status,Neutral,4,Open,unassigned
+CS-2026-12045,WhatsApp,2026-05-21 08:18,ACC-002104,Top Glove Corp,Need datasheet for ABB XT2N 160,Medium,Technical Docs,Neutral,8,Open,unassigned
+CS-2026-12046,Web Chat,2026-05-21 08:24,ACC-007822,IJM Construction,Stock check for 500m Prysmian Afumex 2.5,Medium,Stock Availability,Neutral,8,Open,unassigned
+CS-2026-12047,Email,2026-05-21 08:33,ACC-003122,Sime Darby Plantation,Wrong qty delivered on PO-04221,High,Complaint - Delivery,Negative,2,In-Progress,Lim Wei
+CS-2026-12048,Phone,2026-05-21 08:41,ACC-001890,YTL Construction,Backorder ETA for SO-04226,High,Order Status,Negative,4,In-Progress,Aisyah Tan
+CS-2026-12049,Email,2026-05-21 08:55,ACC-005612,Sarawak Energy,Quote request for 2x Hager Vektor MV panels,Low,Quote / Pricing,Neutral,24,Open,unassigned
+CS-2026-12050,WhatsApp,2026-05-21 09:02,ACC-006744,Tenaga Nasional,Installation guide for Siemens 3RT2025,Medium,Technical Docs,Positive,8,Open,unassigned
+CS-2026-12051,Email,2026-05-21 09:11,ACC-004510,Genting Highlands,Invoice INV-04232 not received,Medium,Billing,Neutral,8,Open,unassigned
+CS-2026-12052,Phone,2026-05-21 09:20,ACC-002104,Top Glove Corp,VFD 9000X commissioning failed - need engineer,Critical,Technical Support,Negative,1,Escalated,Engr. Faisal
+CS-2026-12053,Web Chat,2026-05-21 09:28,ACC-001245,Petronas Refinery,How to specify Eaton 9000X for hazardous area?,Medium,Technical Docs,Neutral,8,Open,unassigned

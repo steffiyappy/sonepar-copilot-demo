@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Agent Builder — Sonepar Declarative Agents</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',system-ui,sans-serif;background:#F0F4F8;color:#1A1A2E;line-height:1.6}
+.topbar{background:linear-gradient(135deg,#0F1C3F,#005EB8 80%);padding:0 28px;height:60px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 2px 16px rgba(0,0,0,0.25)}
+.topbar a{color:rgba(255,255,255,0.92);font-size:13px;font-weight:600;text-decoration:none;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.22);border-radius:8px;padding:7px 14px}
+.topbar a:hover{background:rgba(255,255,255,0.18)}
+.topbar .title{color:#fff;font-size:15px;font-weight:700;display:flex;align-items:center;gap:10px}
+.topbar .logo{width:32px;height:32px;background:linear-gradient(135deg,#F59E0B,#D97706);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px}
+.hero{background:linear-gradient(180deg,#0F1C3F,#1F2D55);color:#fff;padding:42px 32px 36px}
+.hero-inner{max-width:1100px;margin:0 auto}
+.hero .crumb{font-size:12px;color:rgba(255,255,255,0.6);margin-bottom:10px;text-transform:uppercase;letter-spacing:1px}
+.hero h1{font-size:32px;font-weight:800;margin-bottom:10px}
+.hero h1 span{background:linear-gradient(135deg,#F59E0B,#FCD34D);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero p{color:rgba(255,255,255,0.78);font-size:15px;max-width:780px;line-height:1.6}
+.tag{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.2);border-radius:30px;padding:5px 12px;font-size:11px;color:rgba(255,255,255,0.9);font-weight:600;display:inline-block;margin-right:6px;margin-top:14px}
+main{max-width:1100px;margin:0 auto;padding:36px 32px}
+.intro{background:#fff;border:1px solid #E2E8F0;border-radius:14px;padding:22px 26px;margin-bottom:28px;box-shadow:0 4px 10px rgba(0,0,0,0.04)}
+.intro h2{font-size:18px;font-weight:800;color:#0F172A;margin-bottom:10px}
+.intro p{font-size:14px;color:#475569;line-height:1.65}
+.intro .pathway{background:#FFFBF5;border:1px solid #FCD34D;border-radius:10px;padding:14px 16px;margin-top:14px;font-size:13.5px;color:#92400E}
+.intro .pathway strong{color:#9A3412}
+.agent{background:#fff;border:1px solid #E2E8F0;border-radius:16px;padding:28px 30px;margin-bottom:24px;box-shadow:0 4px 10px rgba(0,0,0,0.04);position:relative;overflow:hidden}
+.agent::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#F59E0B,#FCD34D)}
+.agent-hdr{display:flex;align-items:flex-start;gap:16px;margin-bottom:12px}
+.agent-icon{width:54px;height:54px;border-radius:12px;background:linear-gradient(135deg,var(--c1,#F59E0B),var(--c2,#D97706));display:flex;align-items:center;justify-content:center;font-size:28px;flex-shrink:0}
+.agent-hdr h2{font-size:22px;font-weight:800;color:#0F172A;line-height:1.25}
+.agent-hdr .agent-meta{font-size:12px;color:#64748B;margin-top:4px;display:flex;gap:8px;flex-wrap:wrap}
+.agent-hdr .agent-meta span{background:#F1F5F9;border:1px solid #CBD5E1;border-radius:5px;padding:2px 8px;font-weight:600}
+.agent h3{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:0.9px;color:#92400E;margin:18px 0 8px;display:flex;align-items:center;gap:6px}
+.agent p{font-size:14px;color:#475569;line-height:1.65;margin-bottom:10px}
+.agent ul{padding-left:22px;color:#1A1A2E}
+.agent ul li{font-size:14px;line-height:1.65;margin-bottom:5px}
+.prompt-block{background:#0F172A;color:#E2E8F0;border-radius:10px;padding:16px 18px;font-family:'Courier New',monospace;font-size:13px;line-height:1.65;position:relative;margin:10px 0;white-space:pre-wrap}
+.prompt-copy{position:absolute;top:10px;right:10px;background:#1E293B;color:#94A3B8;border:1px solid #334155;border-radius:6px;padding:4px 10px;font-size:11px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif}
+.prompt-copy:hover{background:#334155;color:#fff}
+.prompt-copy.copied{background:#15803D;color:#fff;border-color:#15803D}
+.steps-mini{background:#F8FAFC;border:1px solid #E2E8F0;border-radius:10px;padding:14px 18px;margin:10px 0;font-size:13.5px}
+.steps-mini ol{padding-left:20px;color:#1A1A2E}
+.steps-mini ol li{margin-bottom:4px}
+.steps-mini code{background:#fff;border:1px solid #E2E8F0;border-radius:4px;padding:1px 5px;font-family:'Courier New',monospace;font-size:12px;color:#1E40AF}
+.toast{position:fixed;bottom:24px;right:24px;background:#15803D;color:#fff;padding:10px 18px;border-radius:8px;font-size:13px;font-weight:600;box-shadow:0 10px 30px rgba(21,128,61,0.3);z-index:2000;display:none}
+.toast.show{display:block;animation:slideIn 0.3s ease-out}
+@keyframes slideIn{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
+footer{background:#0F1C3F;color:rgba(255,255,255,0.65);padding:28px 32px;font-size:12px;text-align:center;margin-top:48px}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="title"><div class="logo">🤖</div>Agent Builder · Declarative Agents</div>
+  <a href="hub.html">← Back to Hub</a>
+</div>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="crumb">ACT 2 · 10 MIN · Live build in Microsoft 365 Copilot Chat</div>
+    <h1>Two production-ready agents from a <span>single prompt</span></h1>
+    <p>Agent Builder (inside Microsoft 365 Copilot Chat) lets any Sonepar employee create a declarative agent in under a minute — no coding, no diagrams, no environment setup. Below are three Sonepar-specific agents ready to paste into the Agent Builder prompt box.</p>
+    <span class="tag">🤖 Microsoft 365 Copilot Chat</span>
+    <span class="tag">⚡ Single-prompt creation</span>
+    <span class="tag">📚 SharePoint &amp; file grounding</span>
+  </div>
+</section>
+
+<main>
+
+<div class="intro">
+  <h2>🛠 How to launch Agent Builder during the demo</h2>
+  <p>Agent Builder is built into Microsoft 365 Copilot Chat. The cleanest demo path:</p>
+  <ol style="padding-left:22px;color:#1A1A2E;font-size:14px;margin-top:8px">
+    <li>Open <code>m365.cloud.microsoft</code> (or <code>copilot.cloud.microsoft</code>) and sign in.</li>
+    <li>In the left rail, click <strong>Agents</strong> → <strong>+ Create agent</strong>.</li>
+    <li>Choose <strong>Describe your agent</strong>. Paste one of the prompts below.</li>
+    <li>Copilot will auto-fill name, description, instructions, and starter prompts. Review &amp; click <strong>Create</strong>.</li>
+    <li>(Optional) Add knowledge sources — drag-drop the CSV from <code>files/</code> or point at a SharePoint site.</li>
+    <li>Click <strong>Test</strong> to chat with the agent in the right pane. <strong>Publish</strong> to share with the team.</li>
+  </ol>
+  <div class="pathway"><strong>🎤 Demo narrative:</strong> "A Sonepar buyer doesn't need IT to ship them an agent — they describe what they need in plain English, and Copilot scaffolds the whole thing. This is the democratisation of AI inside the enterprise."</div>
+</div>
+
+<div class="agent" style="--c1:#F59E0B;--c2:#D97706">
+  <div class="agent-hdr">
+    <div class="agent-icon">📦</div>
+    <div>
+      <h2>1. Sonepar Inventory Insight Agent</h2>
+      <div class="agent-meta">
+        <span>Supply Chain</span><span>Procurement</span><span>Use case #7, #12</span><span>~3 min to build live</span>
+      </div>
+    </div>
+  </div>
+
+  <p>An agent for Sonepar buyers and branch managers to ask natural-language questions about SKU stock levels, slow movers, and reorder priorities across the 6 Malaysian warehouses.</p>
+
+  <h3>📝 Single-prompt creation</h3>
+  <div class="prompt-block"><button class="prompt-copy" onclick="copy(this)">📋 Copy</button>Create an agent called "Sonepar Inventory Insight" that helps Sonepar buyers and branch managers answer questions about SKU stock levels, reorder points, and slow-moving inventory.
+
+The agent should ground answers in our product catalog (SharePoint site: Sonepar-Inventory) and the file inventory-sample.csv.
+
+When asked about stockouts, always show: the SKU, current quantity on hand, reorder point, lead time in days, and the nearest warehouse with available stock.
+
+When asked about slow movers, define slow as "no sales in 90 days" and recommend whether to mark down, transfer, or write off.
+
+Tone: concise, data-first, no marketing fluff.
+
+Never invent stock numbers. If data is missing, say so and suggest the buyer check Dynamics 365 Supply Chain.
+
+Greeting: "Hi! I'm Sonepar Inventory Insight. Ask me about any SKU, warehouse, or slow-mover analysis."</div>
+
+  <h3>📚 Knowledge to attach (drag-drop after creation)</h3>
+  <ul>
+    <li><code>files/inventory-sample.csv</code> — 30 SKU × 6 warehouse stock snapshot</li>
+    <li><code>files/product-catalog.md</code> — Brand + product spec extract</li>
+    <li>(Production) SharePoint site <code>Sonepar-Inventory</code></li>
+  </ul>
+
+  <h3>💬 Live demo questions to ask the agent</h3>
+  <ul>
+    <li>"What's the on-hand quantity for SKU ABB-XT2N-160?"</li>
+    <li>"Show me all critical-stock SKUs across all warehouses."</li>
+    <li>"List slow movers in the KL warehouse with recommendations."</li>
+    <li>"Which warehouse has the most stock of the Schneider iC60N C32?"</li>
+    <li>"If I order 100 units of Eaton 9000X, how soon can they arrive?"</li>
+  </ul>
+
+  <div class="steps-mini">
+    <strong>🚀 Production rollout:</strong>
+    <ol>
+      <li>Replace the CSV grounding with a Power Platform connector to <code>Dynamics 365 Supply Chain Management</code>.</li>
+      <li>Add a custom action for buyers to create a Purchase Order draft directly from the agent.</li>
+      <li>Pilot with 5 buyers for 2 weeks, capture deflection metrics (how often the agent prevents a Teams ping to the demand planner).</li>
+    </ol>
+  </div>
+</div>
+
+<div class="agent" style="--c1:#10B981;--c2:#059669">
+  <div class="agent-hdr">
+    <div class="agent-icon">🚚</div>
+    <div>
+      <h2>2. Order Status Buddy</h2>
+      <div class="agent-meta">
+        <span>Operations</span><span>Customer Service</span><span>Use case #10</span><span>~2 min to build live</span>
+      </div>
+    </div>
+  </div>
+
+  <p>An internal-facing agent for Sonepar CSRs to instantly look up order status when a customer calls — eliminates the click-through into Dynamics 365 Sales for routine status checks.</p>
+
+  <h3>📝 Single-prompt creation</h3>
+  <div class="prompt-block"><button class="prompt-copy" onclick="copy(this)">📋 Copy</button>Build an agent called "Order Status Buddy" for the Sonepar Customer Service desk. It looks up order status from the file orders-sample.csv and returns the order header, line items, current status (Confirmed / Picked / Despatched / Delivered / Backorder), expected delivery date, and the carrier tracking link.
+
+When the customer's promised date has slipped, the agent should:
+1. Apologise briefly.
+2. Give a new ETA.
+3. Offer to escalate to a CSR if the slip is more than 2 working days.
+
+The agent must never expose other customers' orders — always confirm the customer's account number before sharing details.
+
+Greeting: "Hi! I'm your Sonepar Order Status Buddy — what's your order or PO number?"</div>
+
+  <h3>📚 Knowledge to attach</h3>
+  <ul>
+    <li><code>files/orders-sample.csv</code> — 15 in-flight orders across 8 customers</li>
+  </ul>
+
+  <h3>💬 Live demo questions</h3>
+  <ul>
+    <li>"Where is order SO-MY-2026-04221?" → "What's the customer account number?" → <code>ACC-003122</code></li>
+    <li>"Status of SO-MY-2026-04226?" → backorder → apology + escalation offer</li>
+    <li>"What's been delivered to Petronas this week?" (after account verification)</li>
+  </ul>
+
+  <div class="steps-mini">
+    <strong>🚀 Production rollout:</strong>
+    <ol>
+      <li>Replace CSV with the Dynamics 365 Sales connector + Dataverse "Sales Order Header" + "Lines" tables.</li>
+      <li>Add an action to trigger a customer notification email when the agent confirms a backorder.</li>
+      <li>Roll out to the full CSR team (12 users) — measure average handle time before/after.</li>
+    </ol>
+  </div>
+</div>
+
+<div class="agent" style="--c1:#6366F1;--c2:#4F46E5">
+  <div class="agent-hdr">
+    <div class="agent-icon">👥</div>
+    <div>
+      <h2>3. Sonepar HR Helper <span style="background:#FEF3C7;color:#92400E;font-size:11px;padding:3px 8px;border-radius:5px;font-weight:700;margin-left:6px;vertical-align:middle">BONUS</span></h2>
+      <div class="agent-meta">
+        <span>HR</span><span>Use case #27, #28</span><span>~2 min to build live</span>
+      </div>
+    </div>
+  </div>
+
+  <p>Bonus agent if time allows — demonstrates that the same pattern scales to other departments.</p>
+
+  <h3>📝 Single-prompt creation</h3>
+  <div class="prompt-block"><button class="prompt-copy" onclick="copy(this)">📋 Copy</button>Create an agent called "Sonepar HR Helper" grounded only on the Sonepar Malaysia Employee Handbook (SharePoint: HR-Policies) and the Benefits Guide (file: hr-benefits.pdf).
+
+It answers questions about leave, claims, code of conduct, learning opportunities, and benefits.
+
+If a question is outside policy or involves a personal HR matter (resignation, grievance, salary review), the agent should reply: "Please reach out to your HRBP — I can't advise on individual cases" and offer to book a 15-minute Teams meeting with the HR team.
+
+Tone: warm, professional, bilingual EN/BM.
+
+Greeting: "Hi! I'm the Sonepar HR Helper. Ask me anything about your benefits, leave, or learning opportunities."</div>
+
+  <h3>💬 Live demo questions</h3>
+  <ul>
+    <li>"How many days of annual leave do I have?"</li>
+    <li>"Can I claim my child's dental bill?"</li>
+    <li>"What learning programs are available for inventory planners?"</li>
+    <li>"I want to discuss my pay" → agent declines + offers HRBP booking</li>
+  </ul>
+</div>
+
+</main>
+
+<div class="toast" id="toast">✅ Copied to clipboard</div>
+
+<footer>© 2026 Sonepar Malaysia · A Sonepar Company · Microsoft × Sonepar AI Transformation Demo</footer>
+
+<script>
+function copy(btn){
+  const t=btn.parentElement.innerText.replace('📋 Copy','').trim();
+  navigator.clipboard.writeText(t).then(()=>{
+    btn.textContent='✓ Copied';btn.classList.add('copied');
+    const ts=document.getElementById('toast');ts.classList.add('show');
+    setTimeout(()=>{btn.textContent='📋 Copy';btn.classList.remove('copied');ts.classList.remove('show')},1800);
+  });
+}
+</script>
+</body>
+</html>

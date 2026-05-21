@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Sonepar × Microsoft Copilot Demo — Access</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--navy:#0F1C3F;--blue:#0078D4;--teal:#00A8A8;--orange:#FF6B35;--sonepar:#005EB8}
+body{font-family:'Inter',system-ui,sans-serif;background:linear-gradient(135deg,#0a1530 0%,#0F1C3F 40%,#005EB8 100%);min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative}
+.bg-orbs{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.orb{position:absolute;border-radius:50%;filter:blur(80px);opacity:0.18;animation:float 8s ease-in-out infinite}
+.orb1{width:480px;height:480px;background:#00A8A8;top:-80px;left:-80px}
+.orb2{width:420px;height:420px;background:#FF6B35;bottom:-80px;right:-80px;animation-delay:3s}
+.orb3{width:320px;height:320px;background:#0078D4;top:50%;left:50%;transform:translate(-50%,-50%);animation-delay:1.5s}
+@keyframes float{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-30px) scale(1.05)}}
+.card{background:rgba(255,255,255,0.07);backdrop-filter:blur(28px);border:1px solid rgba(255,255,255,0.16);border-radius:24px;padding:48px;width:460px;max-width:95vw;box-shadow:0 32px 80px rgba(0,0,0,0.45);position:relative;z-index:10;text-align:center}
+.logo-badge{display:inline-flex;align-items:center;gap:10px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.22);border-radius:40px;padding:8px 20px;margin-bottom:18px}
+.logo-dot{width:10px;height:10px;border-radius:50%;background:#00A8A8;box-shadow:0 0 12px #00A8A8}
+.logo-text{color:rgba(255,255,255,0.85);font-size:11px;font-weight:600;letter-spacing:1.4px;text-transform:uppercase}
+h1{color:#fff;font-size:26px;font-weight:800;line-height:1.2;margin-bottom:8px}
+h1 span{color:#00A8A8}
+.subtitle{color:rgba(255,255,255,0.65);font-size:13px;margin-bottom:28px;line-height:1.55}
+.form-group{margin-bottom:18px;text-align:left}
+label{display:block;color:rgba(255,255,255,0.85);font-size:12px;font-weight:600;margin-bottom:8px;letter-spacing:0.4px;text-transform:uppercase}
+.input-wrap{position:relative}
+.pw-input{width:100%;padding:14px 50px 14px 16px;background:rgba(255,255,255,0.08);border:1.5px solid rgba(255,255,255,0.2);border-radius:12px;color:#fff;font-size:15px;font-family:inherit;outline:none;transition:all 0.2s;letter-spacing:0.5px}
+.pw-input:focus{border-color:#00A8A8;background:rgba(255,255,255,0.13);box-shadow:0 0 0 4px rgba(0,168,168,0.18)}
+.pw-input::placeholder{color:rgba(255,255,255,0.32)}
+.eye-btn{position:absolute;right:8px;top:50%;transform:translateY(-50%);width:34px;height:34px;display:inline-flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:8px;cursor:pointer;color:rgba(255,255,255,0.7);font-size:16px;padding:0}
+.eye-btn:hover{color:#00A8A8;background:rgba(0,168,168,0.18)}
+.btn{width:100%;padding:15px;background:linear-gradient(135deg,#0078D4,#00A8A8);border:none;border-radius:12px;color:#fff;font-size:15px;font-weight:700;cursor:pointer;transition:all 0.2s;letter-spacing:0.5px;box-shadow:0 8px 24px rgba(0,120,212,0.45)}
+.btn:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(0,120,212,0.55)}
+.error{display:none;background:rgba(220,38,38,0.18);border:1px solid rgba(220,38,38,0.35);border-radius:10px;padding:12px 16px;color:#FCA5A5;font-size:13px;margin-top:16px;text-align:left}
+.error.show{display:flex;align-items:center;gap:8px}
+.hint{color:rgba(255,255,255,0.4);font-size:11px;margin-top:18px}
+.industries-preview{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-top:22px}
+.ind-tag{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:20px;padding:4px 12px;color:rgba(255,255,255,0.5);font-size:10.5px}
+</style>
+</head>
+<body>
+<div class="bg-orbs"><div class="orb orb1"></div><div class="orb orb2"></div><div class="orb orb3"></div></div>
+<div class="card">
+  <div class="logo-badge"><div class="logo-dot"></div><span class="logo-text">Microsoft 365 Copilot Demo</span></div>
+  <h1>Sonepar × Microsoft<br><span>AI Transformation Hub</span></h1>
+  <p class="subtitle">30 use cases · 8 departments · Live demo path from M365 Copilot → Agent Builder → Copilot Studio</p>
+  <div class="form-group">
+    <label>Access Password</label>
+    <div class="input-wrap">
+      <input type="password" class="pw-input" id="pw" autocomplete="current-password" placeholder="Enter access password" onkeydown="if(event.key==='Enter')unlock()">
+      <button type="button" class="eye-btn" id="eye-btn" onclick="togglePw()" aria-label="Show password"><span id="eye-icon">&#128065;</span></button>
+    </div>
+  </div>
+  <button class="btn" onclick="unlock()">🚀 Enter Demo Hub</button>
+  <div class="error" id="err">⚠️ Incorrect password. Please try again.</div>
+  <p class="hint">Restricted to Microsoft × Sonepar demo team</p>
+  <div class="industries-preview">
+    <span class="ind-tag">⚡ Electrical Distribution</span>
+    <span class="ind-tag">📦 Supply Chain</span>
+    <span class="ind-tag">💰 Finance</span>
+    <span class="ind-tag">👥 HR</span>
+    <span class="ind-tag">🤝 Customer Service</span>
+    <span class="ind-tag">🏭 Operations</span>
+  </div>
+</div>
+<script>
+async function sha256(msg){
+  const buf=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(msg));
+  return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
+}
+async function unlock(){
+  const pw=document.getElementById('pw').value;
+  const hash=await sha256(pw);
+  // SHA-256 of "SoneparDemo2026"
+  if(hash==='44fa08e878f60987e4d4edff4987ff84fa70d999b9f5d5b6c098cf245efc6ed7'){
+    sessionStorage.setItem('sonepar_auth','ok');
+    window.location.href='hub.html';
+  } else {
+    document.getElementById('err').classList.add('show');
+    setTimeout(()=>document.getElementById('err').classList.remove('show'),3000);
+  }
+}
+function togglePw(){
+  const i=document.getElementById('pw');const ic=document.getElementById('eye-icon');
+  const h=i.type==='password';i.type=h?'text':'password';ic.innerHTML=h?'&#128584;':'&#128065;';i.focus();
+}
+if(sessionStorage.getItem('sonepar_auth')==='ok') window.location.href='hub.html';
+</script>
+</body>
+</html>
