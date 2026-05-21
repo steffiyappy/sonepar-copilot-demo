@@ -93,6 +93,29 @@ Apply the Sonepar brand: dark navy (#0F1C3F) + Sonepar blue (#005EB8) + accent r
 
 ---
 
+## ⏱ 21–25 min · Copilot Chat — Grounded Answers + Live Copilot Page
+
+**Where:** Microsoft 365 Copilot Chat (work mode) → toggle "Work" + Web grounding · **Files in scope:** Outlook, Teams chats, SharePoint, [`sonepar-ops-workbook.xlsx`](files/sonepar-ops-workbook.xlsx), [`variance-memo.docx`](files/variance-memo.docx)
+
+```
+Search across my Outlook, Teams chats and SharePoint for everything in the last 14 days about: ABB price increases, the 3 ABB ACS580 VFD backorders, Petronas Melaka Refinery SO-44218, Top Glove SO-44219 and UMW Toyota SO-44226.
+
+Then in one combined answer:
+1. Summarise what the buyer and the customer have already said about each of the 3 backorders (with email dates and Teams message timestamps).
+2. Flag any commitments my team has made — promised dates, prices, discounts.
+3. Cross-reference with the Orders sheet of sonepar-ops-workbook.xlsx and tell me where the team's commitment does NOT match the system status.
+4. Ground the ABB price discussion in public sources from the last 30 days (web).
+5. Suggest 3 follow-up questions I should ask my procurement lead this afternoon.
+
+When done, turn this whole answer into a new Copilot Page titled "Backorder situation 21-May" and share it to the #sonepar-ops-leads channel so Razif and Mei Ling can edit alongside me.
+```
+
+✅ **Outcome:** One grounded answer pulling email + Teams + SharePoint + workbook + public web → promoted to a **live Copilot Page** the team co-edits in real time. The "single pane of work knowledge" moment.
+
+**Demo cue:** show the inline citations (📎 Outlook, 📎 Teams, 📎 SharePoint, 🌐 web) AND the "Create Page" button — this is how chat becomes shared collaboration.
+
+---
+
 ## ⏱ 25–30 min · Copilot Cowork — The Autonomous AI Coworker
 
 **Where:** Microsoft 365 Copilot → Cowork (Frontier program, Claude-powered) · **Files attached:** [`variance-memo.docx`](files/variance-memo.docx) · [`sonepar-ops-workbook.xlsx`](files/sonepar-ops-workbook.xlsx) · [`exec-brief-template.pptx`](files/exec-brief-template.pptx)

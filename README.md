@@ -16,6 +16,7 @@ A focused **30-minute live demo** of Microsoft 365 Copilot for Sonepar Malaysia 
 | 9–15 min | **Analyst agent** | Python-deep order risk + inventory cover with charts |
 | 15–20 min | **Researcher agent** | 30-min market scan — ABB pricing, MY demand, FX |
 | 20–25 min | **PowerPoint Copilot** | MD board deck from the Word memo |
+| 21–25 min | **Copilot Chat** | Grounded search across Outlook + Teams + SharePoint + web → Copilot Page |
 | 25–30 min | **Copilot Cowork** | One goal, autonomous workflow — task dashboard streams steps, approval popups before sends |
 
 See [`prompts.md`](prompts.md) for the full copy-paste prompt library.
