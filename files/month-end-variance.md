@@ -1,6 +1,6 @@
 # Sonepar Malaysia — FY2026 May Month-End Variance
 
-> **Source:** Dynamics 365 Finance — Trial Balance, generated 21 May 2026
+> **Source:** Excel + Outlook Finance — Trial Balance, generated 21 May 2026
 > **Currency:** Malaysian Ringgit (RM)
 > **Period:** 1–31 May 2026
 

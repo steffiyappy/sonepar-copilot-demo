@@ -1,6 +1,6 @@
 # Sonepar Malaysia — Featured Product Catalog Extract
 
-This is a curated extract (10 SKUs) of the Sonepar Malaysia electrical & industrial catalog, used as the grounding knowledge source for the Copilot Studio "Sonepar Customer Service Agent" and the Agent Builder "Inventory Insight Agent".
+This is a curated extract (10 SKUs) of the Sonepar Malaysia electrical & industrial catalog, used as the grounding knowledge source for the Copilot Chat "Sonepar Customer Service Agent" and the Copilot Chat "Inventory Insight Agent".
 
 > Production deployment grounds against SharePoint site `Sonepar-Inventory` with 50,000+ SKU spec sheets.
 

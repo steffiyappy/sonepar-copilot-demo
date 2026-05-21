@@ -19,6 +19,6 @@ Based on Sonepar Group benchmarks (€33.6B revenue, 170 OpCos) applied to the M
 ## 90-day next steps
 
 1. **M365 Copilot rollout** — Phase 2 expansion from 80 to 250 users covering Finance + Customer Service.
-2. **Agent Builder pilot** — Deploy Inventory Insight + Order Status Buddy to 25 buyers / CSRs.
-3. **Copilot Studio production agent** — Promote the Customer Service Agent (built live in this demo) to production on Teams + web; target 60% deflection within 6 months.
-4. **Foundations** — Microsoft Fabric semantic model over Dynamics 365 Finance + Supply Chain (enables every Power BI Copilot use case downstream).
+2. **Copilot Chat pilot** — Deploy Inventory Insight + Order Status Buddy to 25 buyers / CSRs.
+3. **Copilot Chat production agent** — Promote the Customer Service Agent (built live in this demo) to production on Teams + web; target 60% deflection within 6 months.
+4. **Foundations** — Excel + Analyst semantic model over Excel + Outlook Finance + Supply Chain (enables every Excel Copilot Copilot use case downstream).
