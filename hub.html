@@ -211,6 +211,17 @@ footer strong{color:#fff}
   <div class="spotlight-grid" id="spotlightGrid"></div>
 </section>
 
+<section class="section" id="agent-builder">
+  <div class="section-hdr">
+    <h2><span class="icon">🏗</span> Agent Builder — your own agents in 4 clicks (no Copilot Studio needed)</h2>
+    <span class="chip active" style="cursor:default">2 paid + 2 free · live build during demo</span>
+  </div>
+  <div style="background:#FEF3C7;border:1px solid #FCD34D;border-radius:10px;padding:12px 16px;margin-bottom:16px;font-size:12.5px;color:#78350F;line-height:1.55">
+    <strong>How to get there →</strong> Open <code style="background:#fff;padding:1px 6px;border-radius:4px">m365.cloud.microsoft/chat</code> → <strong>Agents</strong> tab in the left rail → <strong>+ Create an agent</strong>. Four steps: <strong>1. Describe</strong> (plain English) · <strong>2. Configure</strong> (add knowledge + instructions + starter prompts) · <strong>3. Test</strong> (right pane) · <strong>4. Create</strong> + share to Teams or submit to the Agent Store. <em>No coding, no environment setup, no Copilot Studio licence required.</em>
+  </div>
+  <div class="spotlight-grid" id="agentGrid"></div>
+</section>
+
 <section class="section">
   <div class="section-hdr">
     <h2><span class="icon">🎯</span> 30 Use Cases — Sonepar AI Transformation Portfolio</h2>
@@ -302,7 +313,7 @@ const USE_CASES = [
    challenge:'Sonepar MY holds 50,000+ SKUs across 6 major warehouses. Overstocking ties up capital; stockouts lose sales. Seasonal construction cycles complex to predict.',
    solution:'Analyst agent demand-forecasting models analyse 3 years of sales, promotions, seasonality, and external signals (construction permits, GDP). Excel + Copilot Chat auto-generates POs when stock hits AI-calculated reorder points.',
    impact:'Sonepar group reported significant inventory optimisation post AI deployment. Industry benchmark: 20% inventory reduction = RM 4–7M savings for Sonepar MY.',
-   prompt:'For the 30 SKUs in inventory-sample.csv, calculate the projected stockout date if current sales velocity continues, and compare against the supplier lead time. Flag any SKU with projected stockout < lead time as Critical. Suggest a recommended PO quantity using a 30-day forward cover plus safety stock = 1× lead-time demand.',
+   prompt:'For the SKUs on the Inventory sheet of sonepar-ops-workbook.xlsx, calculate the projected stockout date if current sales velocity continues, and compare against the supplier lead time. Flag any SKU with projected stockout < lead time as Critical. Suggest a recommended PO quantity using a 30-day forward cover plus safety stock = 1× lead-time demand.',
    steps:['Consolidate sales data across all branches into Excel + Analyst','Train SKU-level demand forecasting models (Analyst agent)','Integrate forecasts into Excel + Outlook replenishment engine','Create inventory optimisation dashboards for buyers','Automate PO generation for standard SKUs']},
   {id:8,dept:'procurement',deptLabel:'Procurement',icon:'📋',title:'AI Contract Analysis & Risk Assessment',
    desc:'Microsoft 365 Copilot reviews supplier contracts in minutes — extracts terms, flags risks, suggests negotiation points.',
@@ -333,7 +344,7 @@ const USE_CASES = [
    challenge:'Sonepar MY receives orders via multiple channels (email, EDI, phone, web). Manual order entry is slow, error-prone, and delays fulfilment for 7,000+ active customers.',
    solution:'Copilot Chat + Word Copilot reads order formats from any source. AI matches product codes, validates stock, and routes to nearest warehouse. Exceptions handled via Copilot Chat chatbot with customer.',
    impact:'Industry benchmark: Automated order processing reduces costs 40–60%. Sonepar achieved 50% YoY online order growth through similar automation.',
-   prompt:'Build an agent called "Order Status Buddy" for Sonepar Customer Service. It looks up order status from orders-sample.csv and returns header, line items, status, ETA, and tracking link. Verify customer account number before sharing. When promised date slipped >2 working days, apologise, give new ETA, and offer CSR escalation.',
+   prompt:'Build an agent called "Order Status Buddy" for Sonepar Customer Service. It looks up order status from the Orders sheet of sonepar-ops-workbook.xlsx and returns header, line items, status, ETA, and tracking link. Verify customer account number before sharing. When promised date slipped >2 working days, apologise, give new ETA, and offer CSR escalation.',
    steps:['Map all inbound order channels and formats','Deploy Word Copilot for email orders','Build Copilot Chat routing logic with Excel + Outlook integration','Create Copilot Chat bot for order status enquiries','Set up real-time order dashboards for operations team']},
   {id:11,dept:'operations',deptLabel:'Operations',icon:'🏭',title:'Warehouse Layout Optimisation with Digital Twin',
    desc:'Microsoft 365 Copilot Digital Twins models warehouses to simulate layout changes and slotting — maximising throughput.',
@@ -353,7 +364,7 @@ const USE_CASES = [
    challenge:'Inventory discrepancies between system records and physical stock are common. Emergency orders due to unexpected stockouts are costly.',
    solution:'IoT sensors and RFID readers feed real-time data into Microsoft 365 Copilot IoT Hub. Stream Analytics detects anomalies and triggers automatic cycle counts. Excel + Outlook auto-replenishment triggered at AI-calculated thresholds.',
    impact:'Aberdeen Group: Companies with real-time inventory visibility have 35% lower stock-outs.',
-   prompt:'Create an agent called "Sonepar Inventory Insight" that grounds answers in inventory-sample.csv. When asked about stockouts, return SKU, qty on hand, reorder point, lead time, and nearest warehouse with stock. For slow movers (no sale in 90 days), recommend markdown, transfer, or write-off. Never invent stock numbers.',
+   prompt:'Create an agent called "Sonepar Inventory Insight" that grounds answers in the Inventory sheet of sonepar-ops-workbook.xlsx. When asked about stockouts, return SKU, qty on hand, reorder point, lead time, and nearest warehouse with stock. For slow movers (no sale in 90 days), recommend markdown, transfer, or write-off. Never invent stock numbers.',
    steps:['Deploy RFID/IoT sensors at key warehouse locations','Configure Microsoft 365 Copilot IoT Hub data ingestion pipeline','Build Stream Analytics rules for anomaly detection','Integrate with Excel + Outlook inventory management','Create real-time inventory dashboards for branch managers']},
   {id:13,dept:'operations',deptLabel:'Operations',icon:'🔬',title:'Computer Vision Quality Control',
    desc:'AI cameras inspect incoming goods and outgoing shipments — detecting damage, wrong products, packaging errors.',
@@ -435,7 +446,7 @@ const USE_CASES = [
    challenge:'Service tickets from 7,000+ customers span many topics — orders, returns, technical support, billing, logistics. Misrouting wastes agent time.',
    solution:'Microsoft 365 Copilot Language classifies ticket intent and urgency. Excel + Outlook CS Copilot auto-routes to right queue and suggests AI-generated draft responses. Agents one-click approve or edit.',
    impact:'Excel + Outlook CS with Copilot reduces handling time 12–28%. First contact resolution improvements significantly reduce repeat contacts.',
-   prompt:'Review the 10 unassigned tickets in customer-tickets.csv. For each, classify into the correct queue (Order Status / Stock / Tech Docs / Tech Support / Billing / Quote / Complaint), set priority (P1/P2/P3) based on customer tier and sentiment, and draft a 2-sentence first response.',
+   prompt:'Review the 15 unassigned tickets on the Service Tickets sheet of customer-feedback.xlsx. For each, classify into the correct queue (Order Status / Stock / Tech Docs / Tech Support / Billing / Quote / Complaint), set priority (P1/P2/P3) based on customer tier and sentiment, and draft a 2-sentence first response.',
    steps:['Configure Outlook + Teams with AI routing rules','Train Microsoft 365 Copilot Language model on historical ticket classifications','Build knowledge base in Excel + Outlook','Deploy Copilot response suggestions for all agent queues','Create service performance Excel Copilot dashboard']},
   {id:21,dept:'service',deptLabel:'Customer Service',icon:'💬',title:'Customer Sentiment Analysis & Voice of Customer',
    desc:'AI analyses all customer interactions — sentiment scores, NPS trends, actionable insights.',
@@ -674,14 +685,14 @@ Show me the code, the charts, and the summary.`,
 {id:'spot-research',name:'Researcher agent',icon:'🔎',time:'14–19 min',color:'#8378DE',bg:'#EFEDFB',
  scenario:'While the deck is forming, Aishah fires off Researcher to give her market context the MD will ask about.',
  files:[['Researcher brief (output)','prompts.md']],
- prompt:`@Researcher — produce a 600-word market brief for the MD of Sonepar Malaysia, dated today (May 2026). Cover, with citations:
+ prompt:`@Researcher — produce a comprehensive, fully-cited market brief for the MD of Sonepar Malaysia, dated today (May 2026). Go as deep as the public source base supports — do not cap the length. Cover, with citations:
 1. ABB AG 2026 H1 price actions on low-voltage products globally and any announced surcharges affecting APAC distributors.
 2. Malaysia electrical equipment demand outlook for 2026 H2 — datacenter pipeline (TM, YTL, Bridge DC, Princeton Digital), semicon expansions in Penang, EV charging build-out, and impact on MV/LV switchgear and VFD demand.
 3. FX outlook: USD/MYR and EUR/MYR consensus for next 90 days, with 3 broker views.
 4. Competitor moves: Rexel, WESCO, Sonepar group itself — any 2026 Malaysia announcements (DCs, partnerships, acquisitions).
 5. One contrarian insight — what is the market NOT pricing in for an MY electrical distributor.
 Format: executive summary (3 bullets), then 5 numbered sections, then a "What this means for Sonepar MY" call-out box. Use only public, citeable sources from the last 90 days.`,
- outcome:'Researcher returns a fully cited 600-word brief with links — pasted straight into the board appendix.'},
+ outcome:'Researcher returns a fully cited brief with links — pasted straight into the board appendix.'},
 {id:'spot-ppt',name:'PowerPoint Copilot',icon:'📑',time:'19–23 min',color:'#B7472A',bg:'#FBEAE3',
  scenario:'Aishah hands Copilot the variance memo + Researcher brief and asks for a 6-slide MD board deck.',
  files:[['exec-brief-template.pptx','files/exec-brief-template.pptx'],['variance-memo.docx','files/variance-memo.docx']],
@@ -751,6 +762,85 @@ function copySpot(btn,id){
   });
 }
 renderSpotlight();
+
+const AGENTS=[
+{id:'ag-1',tier:'PAID',name:'MD Board Briefing Bot',icon:'🎯',color:'#005EB8',bg:'#E5F1FB',
+ who:'Aishah Mahmud — Head of Operations',
+ desc:'Answers any exec question on the May 2026 month-end close, the three ABB ACS580 VFD backorders, and the recommended actions — grounded ONLY on internal documents.',
+ knowledge:[['variance-memo.docx','files/variance-memo.docx'],['sonepar-ops-workbook.xlsx','files/sonepar-ops-workbook.xlsx'],['month-end-variance.docx','files/month-end-variance.docx'],['roi-summary.xlsx','files/roi-summary.xlsx'],['customer-rfq.docx','files/customer-rfq.docx']],
+ describe:'Build an "MD Board Briefing Bot" that answers any executive question on the May 2026 month-end close, the three ABB ACS580 VFD backorders (Petronas Melaka SO-44218, Top Glove SO-44219, UMW Toyota SO-44226), the datacenter + semicon upside pipeline, and the recommended actions from the variance memo. Grounded ONLY on internal documents — not the public web.',
+ instructions:'You are the MD Board Briefing Bot for the Head of Operations. Always cite the source file and the specific sheet/tab/section. Tone: principal-grade, factual, board-ready, no marketing language. Use RM for all figures. Reference named buyers (Suresh Kumar, Mei Ling Tan, Hairul Anuar), named customers (Petronas Melaka, MMHE, Lotte Chemical, Top Glove Klang, UMW Toyota Bukit Raja, TM Iskandar Puteri, YTL Kulai DC2, Bridge DC Cyberjaya, Princeton Digital JB1, Inari Penang, Vitrox Batu Kawan), and named principals (ABB Helsinki + Singapore IBC, Schneider, Siemens, Legrand, Eaton). If a number cannot be tied back to a source, say so explicitly and propose the follow-up question. Never speculate about ABB or competitor intent beyond what is in writing in the sources.',
+ starters:[
+   'What are the top 3 variance drivers in May 2026 and the RM impact of each?',
+   'For each of the three ABB VFD backorders, give SO#, customer, RM exposure, customer promise date, ABB Helsinki ETA, Singapore IBC cross-ship ETA.',
+   'Which 5 customers carry the biggest open RM exposure right now and which Account Manager owns each?',
+   'Restate the 5 Recommended Actions with owner, due date, and 90-day RM benefit.']},
+{id:'ag-2',tier:'PAID',name:'Sales Quote Coach',icon:'💼',color:'#107C41',bg:'#E7F3EC',
+ who:'Razif Hassan — Sales Director',
+ desc:'Helps Sonepar MY account managers draft customer quotes faster. Grounded on the product catalogue, prior RFQs, and the active price book — never speculative.',
+ knowledge:[['product-catalog.xlsx','files/product-catalog.xlsx'],['customer-rfq.docx','files/customer-rfq.docx'],['sonepar-ops-workbook.xlsx (Orders)','files/sonepar-ops-workbook.xlsx']],
+ describe:'Build a "Sales Quote Coach" agent that helps Sonepar MY account managers draft customer quotes faster. Grounded on the product catalogue, prior RFQs, and the active price book — never speculative.',
+ instructions:'You are the Sales Quote Coach for Sonepar MY account managers. For any customer + product request, return — recommended SKU(s) with brand, list price RM, last comparable transaction (customer, RM, date, margin), the three substitutes if the primary brand is on backorder (Schneider for ABB, ABB for Schneider, etc.), suggested discount band by customer tier (Strategic / Standard / At-Risk), the three risks to flag in the quote footer, and the standard payment terms by sector. Tone: confident, helpful, never over-promise on availability. Always cite the source file and row.',
+ starters:[
+   'Customer Petronas Melaka, need ABB ACS580 VFD 110kW, qty 2 — give me a draft quote.',
+   'Top Glove Klang asks for an MV switchgear alternative to ABB — what should I propose?',
+   'YTL Kulai DC2 datacenter — give me the standard quote bundle for a 6MW IT-room build.',
+   'What was the last margin we got on a Siemens 1500kVA transformer to TM?']},
+{id:'ag-3',tier:'FREE',name:'Brand Principal Pulse',icon:'📡',color:'#7C3AED',bg:'#EFEDFB',
+ who:'Suresh Kumar — Senior Account Manager (citizen-developer, free Copilot Chat)',
+ desc:'Tracks public press releases across the 7 brand principals (ABB, Schneider, Siemens, Legrand, Eaton, Phoenix Contact, Mersen). URL knowledge only — zero IT, zero cost.',
+ knowledge:[['new.abb.com/news','https://new.abb.com/news'],['se.com/newsroom','https://www.se.com/ww/en/about-us/newsroom/news/'],['press.siemens.com','https://press.siemens.com/global/en'],['legrand.com/news','https://www.legrand.com/en/news'],['eaton.com/news','https://www.eaton.com/us/en-us/company/news-insights.html'],['phoenixcontact.com/news','https://www.phoenixcontact.com/en-id/about-us/newsroom'],['mersen.com/news','https://www.mersen.com/news']],
+ describe:'Build a "Brand Principal Pulse" agent that tracks public news on Sonepar MY\'s brand principals — ABB, Schneider Electric, Siemens, Legrand, Eaton, Phoenix Contact, Mersen. Citizen-developer, zero IT involvement, zero cost.',
+ instructions:'You are the Brand Principal Pulse for Sonepar MY. For any user query, scan the public press-release pages of the brand principals listed in your knowledge URLs and return — release date, principal, headline, the one-line takeaway for an MY distributor (price action / allocation / new product / management change / sustainability claim / partnership), and the link. Cite every claim with the source URL. Only include items published in the last 30 days unless the user asks for a longer window.',
+ starters:[
+   'Any ABB price-action announcements in the last 30 days affecting APAC distributors?',
+   'What has Schneider published on datacenter products in the last 60 days?',
+   'Has Siemens announced any new SEA partnership or DC investment recently?',
+   'Aggregate sustainability / ESG announcements across all 7 principals in the last 90 days.']},
+{id:'ag-4',tier:'FREE',name:'Top-10 Customer Pulse',icon:'🛰',color:'#C8102E',bg:'#FCE4E8',
+ who:'Mei Ling Tan — Finance Manager / Strategic Accounts (citizen-developer, free Copilot Chat)',
+ desc:'Tracks public newsroom releases from Sonepar MY top customers and the MY datacenter / semicon build-out — Petronas, MMHE, TM, YTL, Bridge DC, Princeton Digital, Inari, Vitrox, MIDA.',
+ knowledge:[['petronas.com/media','https://www.petronas.com/media'],['mmhe.com.my/news','https://www.mmhe.com.my/news'],['lottechem.my/news','https://www.lottechem.my/en/Media-Centre'],['topglove.com/media','https://www.topglove.com/media'],['umw.com.my/news','https://www.umw.com.my/news'],['tm.com.my/newsroom','https://www.tm.com.my/about/newsroom'],['ytl.com/news','https://www.ytl.com/news'],['inari-amertron.com/news','https://www.inari-amertron.com/news'],['vitrox.com/news','https://www.vitrox.com/news'],['mida.gov.my/news','https://www.mida.gov.my/news']],
+ describe:'Build a "Top-10 Customer Pulse" agent that tracks public news on Sonepar MY\'s top customers and the MY datacenter / semicon build-out.',
+ instructions:'You are the Top-10 Customer Pulse for Sonepar MY. For any user query, scan the public newsrooms in your knowledge URLs and return — release date, customer, headline, the one-line takeaway for an electrical distributor (capex announcement / new site / management change / financing round / supplier programme), and the source link. Cite every claim. Only include items published in the last 30 days unless the user asks for a longer window.',
+ starters:[
+   'Has Petronas Melaka announced any new turnaround or shutdown maintenance window?',
+   'What is the latest Bridge DC or Princeton Digital capex / new-site news?',
+   'Penang semicon — any new fab or expansion announcement from Inari, Vitrox, or AT&S?',
+   'Aggregate MIDA + MITI announcements affecting datacenter and EV charging in the last 60 days.']}
+];
+
+function renderAgents(){
+  const g=document.getElementById('agentGrid'); if(!g) return;
+  g.innerHTML=AGENTS.map(a=>{
+    const tierBadge=a.tier==='PAID'
+      ? '<span style="background:#005EB8;color:#fff;border-radius:14px;padding:3px 9px;font-size:10px;font-weight:800;letter-spacing:0.5px">M365 COPILOT (PAID)</span>'
+      : '<span style="background:#16A34A;color:#fff;border-radius:14px;padding:3px 9px;font-size:10px;font-weight:800;letter-spacing:0.5px">FREE COPILOT CHAT</span>';
+    const know=a.knowledge.map(k=>'<a class="file-chip" href="'+k[1]+'" target="_blank">'+(a.tier==='PAID'?'📎 ':'🔗 ')+k[0]+'</a>').join('');
+    const starters=a.starters.map(s=>'<li style="margin-bottom:4px">'+s+'</li>').join('');
+    const fullPrompt='DESCRIBE — '+a.describe+'\n\nCONFIGURE\n• Knowledge: '+a.knowledge.map(k=>k[0]).join(', ')+'\n• Instructions: '+a.instructions+'\n• Starter prompts:\n  1. '+a.starters[0]+'\n  2. '+a.starters[1]+'\n  3. '+a.starters[2]+'\n  4. '+a.starters[3]+'\n\nTEST in the right pane, then CREATE and share to the #sonepar-ops-leads Teams channel.';
+    return '<div class="spot" id="'+a.id+'" style="--spot-c:'+a.color+';--spot-bg:'+a.bg+'">'+
+      '<div class="spot-top"><div class="spot-icon">'+a.icon+'</div><div class="spot-name">'+a.name+'</div><div class="spot-time">'+tierBadge+'</div></div>'+
+      '<h5>Who</h5><p class="scenario" style="font-weight:600">'+a.who+'</p>'+
+      '<h5>What it does</h5><p class="scenario">'+a.desc+'</p>'+
+      '<h5>Knowledge ('+(a.tier==='PAID'?'files in SharePoint/OneDrive':'public URLs only')+')</h5><div>'+know+'</div>'+
+      '<h5>Starter prompts</h5><ul style="font-size:12px;color:var(--text);padding-left:18px;margin:4px 0 10px;line-height:1.5">'+starters+'</ul>'+
+      '<h5>Full build script — paste into Agent Builder "Describe" step</h5>'+
+      '<div class="spot-prompt"><button onclick="copyAgent(this,\''+a.id+'\')">📋 Copy</button>'+fullPrompt.replace(/&/g,'&amp;').replace(/</g,'&lt;')+'</div>'+
+      '<div class="outcome">✅ Built and shared in &lt; 8 minutes — no Copilot Studio, no IT ticket, no environment setup.</div>'+
+    '</div>';
+  }).join('');
+}
+function copyAgent(btn,id){
+  const a=AGENTS.find(x=>x.id===id); if(!a) return;
+  const txt='DESCRIBE — '+a.describe+'\n\nCONFIGURE\n• Knowledge: '+a.knowledge.map(k=>k[0]).join(', ')+'\n• Instructions: '+a.instructions+'\n• Starter prompts:\n  1. '+a.starters[0]+'\n  2. '+a.starters[1]+'\n  3. '+a.starters[2]+'\n  4. '+a.starters[3]+'\n\nTEST in the right pane, then CREATE and share to the #sonepar-ops-leads Teams channel.';
+  navigator.clipboard.writeText(txt).then(()=>{
+    btn.textContent='✓ Copied'; btn.classList.add('copied');
+    const t=document.getElementById('toast'); t.classList.add('show');
+    setTimeout(()=>{btn.textContent='📋 Copy'; btn.classList.remove('copied'); t.classList.remove('show')},1800);
+  });
+}
+renderAgents();
 </script>
 </body>
 </html>
