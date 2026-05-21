@@ -222,6 +222,17 @@ footer strong{color:#fff}
   <div class="spotlight-grid" id="agentGrid"></div>
 </section>
 
+<section class="section" id="copilot-studio">
+  <div class="section-hdr">
+    <h2><span class="icon">🛠</span> Copilot Studio — when Agent Builder isn't enough (show &amp; tell)</h2>
+    <span class="chip active" style="cursor:default">Pro-code · multi-channel · Dataverse-grounded</span>
+  </div>
+  <div style="background:#E5F1FB;border:1px solid #93C5FD;border-radius:10px;padding:12px 16px;margin-bottom:16px;font-size:12.5px;color:#1E3A8A;line-height:1.55">
+    <strong>When to graduate from Agent Builder → Copilot Studio:</strong> (1) you need <strong>multi-channel publishing</strong> (Teams + Website + WhatsApp + Voice), (2) the agent needs <strong>actions/tools</strong> that hit SAP / ServiceNow / a REST API to <em>do</em> something (not just answer), (3) you need <strong>topic-based authoring</strong> with conversation flows + variables + entities, (4) the knowledge sits in <strong>Dataverse / SQL / SharePoint sites</strong> beyond a few uploaded files, or (5) you need <strong>autonomous agents</strong> that run on a schedule or trigger. Studio URL → <code style="background:#fff;padding:1px 6px;border-radius:4px">copilotstudio.microsoft.com</code>. Per-agent licence applies.
+  </div>
+  <div class="spotlight-grid" id="studioGrid"></div>
+</section>
+
 <section class="section">
   <div class="section-hdr">
     <h2><span class="icon">🎯</span> 30 Use Cases — Sonepar AI Transformation Portfolio</h2>
@@ -733,11 +744,11 @@ Plan and execute the following — show me each step in the task dashboard, and 
 2. Identify the 3 ABB VFD backorders, look up the responsible buyer in Outlook, and prepare a draft email to ABB Helsinki requesting a Singapore IBC cross-ship — hold for my approval.
 3. Build the MD board deck from the exec-brief-template.pptx using the variance numbers and the Researcher market brief in this chat. Save to SharePoint > Sonepar MY > Board.
 4. Schedule a 30-min "Backorder war-room" in Teams for today 4pm with @Procurement, @Sales, @Aishah. Hold the invite for my approval.
-5. Open a Loop checklist with the 5 follow-ups (FX cover, carrier renegotiation, credit tightening, June pull-forward, surcharge), assigned to the right owners.
-6. Draft a Teams message to the MD that links to the deck and the Loop list, and includes the single RM exposure number. Hold for my approval.
+5. Draft a SharePoint List "May variance follow-ups" with the 5 actions (FX cover, carrier renegotiation, credit tightening, June pull-forward, surcharge), each row assigned to the right owner with a due date. Save to the Sonepar MY > Ops site.
+6. Draft a Teams message to the MD that links to the deck and the SharePoint List, and includes the single RM exposure number. Hold for my approval.
 
 Use the Frontier Claude model. Stop and ask me if any step needs a decision. When done, summarise what you did, what is queued, and what is waiting on me.`,
- outcome:'Task dashboard runs 6 steps live — deck saved to SharePoint, war-room invite drafted, Loop checklist created, 2 emails + 1 Teams message waiting on Aishah\'s approval. One goal → end-to-end Monday prep done.'},
+ outcome:'Task dashboard runs 6 steps live — deck saved to SharePoint, war-room invite drafted, SharePoint List created, 2 emails + 1 Teams message waiting on Aishah\'s approval. One goal → end-to-end Monday prep done.'},
 ];
 function renderSpotlight(){
   const g=document.getElementById('spotlightGrid');if(!g)return;
@@ -841,6 +852,67 @@ function copyAgent(btn,id){
   });
 }
 renderAgents();
+
+const STUDIO=[
+{id:'cs-1',name:'Sonepar Customer Service Agent',icon:'🤖',color:'#0078D4',bg:'#E5F1FB',
+ channels:'Website (Sonepar MY portal) · Microsoft Teams · WhatsApp Business · Voice (Direct Line Speech)',
+ owner:'Hairul Anuar — Customer Service Lead',
+ desc:'24/7 multilingual (EN / BM / Mandarin) customer-facing agent. Handles order status, stock checks, technical document Q&A, RMA initiation, and routes complex cases to a live CSR via Teams with full conversation context.',
+ actions:[
+   'getOrderStatus(customerAccount, SO#)  →  SAP S/4HANA Sales API',
+   'getStockOnHand(SKU, warehouseId)  →  SAP MM API across 6 warehouses',
+   'createRMA(customerAccount, SKU, qty, reason)  →  ServiceNow Customer Service Mgmt',
+   'fetchTechDoc(SKU)  →  SharePoint Search across the Product Library',
+   'escalateToCSR(conversationId, priority)  →  Teams adaptive-card hand-off'],
+ topics:['Greeting + identity verification (customer account number)','Order status look-up','Stock availability across 6 warehouses','Product specification Q&A','RMA / returns','Quote request hand-off to AM','Escalation to human CSR','Goodbye + CSAT survey'],
+ knowledge:'Dataverse: customer master, product master · SharePoint: Product Library (15,000+ datasheets, manuals, CAD files) · SAP S/4HANA via custom connector · Public: Sonepar MY website',
+ build:'BUILD STEPS\n1. copilotstudio.microsoft.com  →  + New agent  →  Skip generative setup, choose "Classic"\n2. Name: "Sonepar Customer Service Agent" · Description as above · Language: English (with BM + Mandarin variants added under Settings → Languages)\n3. Knowledge  →  Add 4 sources — Dataverse (customer, product), SharePoint site (Product Library), SAP custom connector, sonepar.com.my\n4. Topics  →  Create the 8 topics listed above. For each, author the conversation flow in the visual canvas (Question · Condition · Message · Call an action · Variable)\n5. Actions  →  Register the 5 actions listed above. Each is a Power Automate cloud flow or a direct connector call with input/output schemas\n6. Channels  →  Publish to Website (embed script), Teams (Teams app package), WhatsApp (Twilio channel), Voice (Direct Line Speech with Azure Speech)\n7. Analytics  →  Enable conversation transcripts to Application Insights · Set up CSAT survey at end of every conversation\n8. Governance  →  Assign to a Solution in the Sonepar Production environment, set up DLP policy, configure authentication (Microsoft Entra ID for internal users, anonymous for public website)',
+ impact:'Microsoft benchmark: 50–70% deflection of routine enquiries · CS team handles 3× volume without headcount increase · 24/7 availability without night-shift cost'},
+{id:'cs-2',name:'Procurement Risk Sentinel (Autonomous)',icon:'⚠',color:'#C8102E',bg:'#FCE4E8',
+ channels:'Autonomous (event-triggered) · Notifications to Teams + Outlook · Manager dashboard',
+ owner:'Aishah Mahmud — Head of Operations',
+ desc:'Autonomous agent that runs hourly. Watches the open-PO list, the brand-principal news feed, the FX rate, and the customer credit exposure — and proactively raises Teams alerts + a draft action plan to the responsible buyer when any threshold is breached.',
+ actions:[
+   'scanOpenPOs()  →  SAP MM open-PO list, every hour',
+   'checkPrincipalNews()  →  RSS / scrape ABB + Schneider + Siemens newsrooms',
+   'getFXRate(USDMYR, EURMYR)  →  Bank Negara Malaysia API',
+   'getCustomerExposure(customerId)  →  SAP FI AR aging',
+   'postTeamsAlert(channel, riskCard)  →  Microsoft Teams adaptive card',
+   'createDraftEmail(buyer, supplier, body)  →  Outlook draft (no auto-send)'],
+ topics:['Triggered: every hour at :05 (Power Automate scheduled trigger)','Rule 1 — Any open PO with ABB Helsinki ETA slipped > 7 days  →  alert buyer','Rule 2 — Any principal press release containing price or surcharge keywords  →  alert procurement lead','Rule 3 — USD/MYR moves > 1.5% intra-day  →  alert Finance Manager','Rule 4 — Any customer AR exposure > RM 500k AND > 60 days  →  alert Sales Director','Reasoning: agent uses GPT-4 to compose the one-paragraph "what to do next" inside each alert card'],
+ knowledge:'Dataverse: customer master, supplier master, FX history · SAP MM + FI via custom connector · SharePoint: variance memos archive · Public web: principal newsrooms',
+ build:'BUILD STEPS\n1. copilotstudio.microsoft.com  →  + New agent  →  "Autonomous agent" template\n2. Name: "Procurement Risk Sentinel" · Trigger: scheduled (every hour)\n3. Knowledge  →  Dataverse + SAP custom connector + SharePoint variance archive + 7 brand-principal RSS feeds\n4. Tools (Actions)  →  Register all 6 actions above as Power Automate flows or connector calls\n5. Instructions  →  "You are the Procurement Risk Sentinel for Sonepar Malaysia. Every hour, run the 4 rules in priority order. For any rule that fires, post a Teams adaptive card to #sonepar-ops-leads with: trigger, the 3 key facts, the RM exposure, the named owner, and a one-paragraph recommended action. Never auto-send external emails — always create them as Outlook drafts in the owner\\u2019s mailbox and reference the draft ID in the Teams card. Cite the source row, document, or URL for every fact."\n6. Test  →  Run a manual cycle in the Test pane against synthetic risk events\n7. Publish  →  Enable the scheduled trigger · Assign the agent\\u2019s Entra service principal Read access on SAP + Dataverse · Monitor in Copilot Studio Analytics\n8. Governance  →  Production solution · DLP policy locking external API egress · Conversation logs to Application Insights for audit',
+ impact:'Surfaces material risks 4–48 hours earlier than the daily ops huddle · Estimated RM 1.8M/yr saved through earlier intervention on the 3 ABB-style backorders alone'}
+];
+
+function renderStudio(){
+  const g=document.getElementById('studioGrid'); if(!g) return;
+  g.innerHTML=STUDIO.map(s=>{
+    const actions=s.actions.map(a=>'<li style="margin-bottom:3px"><code style="background:#0F172A;color:#93C5FD;padding:1px 6px;border-radius:4px;font-size:11px">'+a.replace(/&/g,'&amp;').replace(/</g,'&lt;')+'</code></li>').join('');
+    const topics=s.topics.map(t=>'<li style="margin-bottom:3px">'+t+'</li>').join('');
+    return '<div class="spot" id="'+s.id+'" style="--spot-c:'+s.color+';--spot-bg:'+s.bg+';grid-column:span 1">'+
+      '<div class="spot-top"><div class="spot-icon">'+s.icon+'</div><div class="spot-name">'+s.name+'</div><div class="spot-time">COPILOT STUDIO</div></div>'+
+      '<h5>Owner</h5><p class="scenario" style="font-weight:600">'+s.owner+'</p>'+
+      '<h5>What it does</h5><p class="scenario">'+s.desc+'</p>'+
+      '<h5>Channels</h5><p class="scenario" style="font-size:11.5px">'+s.channels+'</p>'+
+      '<h5>Actions / Tools</h5><ul style="font-size:11.5px;color:var(--text);padding-left:18px;margin:4px 0 10px;line-height:1.5">'+actions+'</ul>'+
+      '<h5>Topics / Triggers</h5><ul style="font-size:11.5px;color:var(--text);padding-left:18px;margin:4px 0 10px;line-height:1.5">'+topics+'</ul>'+
+      '<h5>Knowledge sources</h5><p class="scenario" style="font-size:11.5px">'+s.knowledge+'</p>'+
+      '<h5>Build steps in Copilot Studio</h5>'+
+      '<div class="spot-prompt"><button onclick="copyStudio(this,\''+s.id+'\')">📋 Copy</button>'+s.build.replace(/&/g,'&amp;').replace(/</g,'&lt;')+'</div>'+
+      '<div class="outcome">✅ '+s.impact+'</div>'+
+    '</div>';
+  }).join('');
+}
+function copyStudio(btn,id){
+  const s=STUDIO.find(x=>x.id===id); if(!s) return;
+  navigator.clipboard.writeText(s.build).then(()=>{
+    btn.textContent='✓ Copied'; btn.classList.add('copied');
+    const t=document.getElementById('toast'); t.classList.add('show');
+    setTimeout(()=>{btn.textContent='📋 Copy'; btn.classList.remove('copied'); t.classList.remove('show')},1800);
+  });
+}
+renderStudio();
 </script>
 </body>
 </html>
