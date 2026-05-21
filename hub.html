@@ -50,6 +50,9 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 .flow-hdr h2{font-size:18px;font-weight:800;color:#9A3412;display:flex;align-items:center;gap:8px}
 .flow-hdr .duration{background:#FF6B35;color:#fff;border-radius:6px;padding:4px 10px;font-size:11px;font-weight:700}
 .flow-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.flow-steps.six{grid-template-columns:repeat(6,1fr);gap:10px}
+@media(max-width:1200px){.flow-steps.six{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:700px){.flow-steps.six{grid-template-columns:repeat(2,1fr)}}
 .flow-step{background:#fff;border:1px solid #FFE0B8;border-radius:12px;padding:16px;position:relative}
 .flow-step-num{position:absolute;top:-10px;left:-10px;width:28px;height:28px;background:#FF6B35;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;box-shadow:0 4px 10px rgba(255,107,53,0.4)}
 .flow-step h4{font-size:13px;font-weight:800;color:#9A3412;margin-bottom:4px}
@@ -57,6 +60,25 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 .flow-step p{font-size:11.5px;color:#7C2D12;line-height:1.5;margin-bottom:8px}
 .flow-step a{font-size:11px;font-weight:700;color:#9A3412;text-decoration:none;display:inline-flex;align-items:center;gap:4px}
 .flow-step a:hover{text-decoration:underline}
+/* SPOTLIGHT */
+.spotlight-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.spot{background:#fff;border:1px solid var(--border);border-radius:16px;padding:20px;position:relative;overflow:hidden;display:flex;flex-direction:column;scroll-margin-top:80px}
+.spot::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:var(--spot-c,#0078D4)}
+.spot-top{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.spot-icon{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:24px;background:var(--spot-bg,#EFF6FF);color:var(--spot-c,#0078D4)}
+.spot-name{font-size:16px;font-weight:800;color:var(--text-strong)}
+.spot-time{font-size:10.5px;font-weight:700;color:var(--spot-c);text-transform:uppercase;letter-spacing:0.5px;margin-left:auto;background:var(--spot-bg);border:1px solid var(--spot-c);border-radius:14px;padding:3px 9px}
+.spot h5{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:0.7px;color:var(--muted);margin:10px 0 4px}
+.spot p.scenario{font-size:12.5px;color:var(--text);line-height:1.55;margin-bottom:6px}
+.spot .file-chip{display:inline-block;background:var(--surface-3);border:1px solid var(--border);border-radius:6px;padding:4px 9px;font-size:11px;color:var(--text-strong);font-weight:600;margin:2px 4px 2px 0;text-decoration:none}
+.spot .file-chip:hover{border-color:var(--spot-c);color:var(--spot-c)}
+.spot .spot-prompt{background:#0F172A;color:#E2E8F0;border-radius:10px;padding:12px 14px;font-family:'Courier New',monospace;font-size:11.5px;line-height:1.5;white-space:pre-wrap;position:relative;margin-top:6px;flex:1}
+.spot .spot-prompt button{position:absolute;top:6px;right:6px;background:#1E293B;color:#94A3B8;border:1px solid #334155;border-radius:6px;padding:3px 8px;font-size:10px;font-weight:700;cursor:pointer;font-family:inherit}
+.spot .spot-prompt button:hover{background:#334155;color:#fff}
+.spot .spot-prompt button.copied{background:#15803D;color:#fff;border-color:#15803D}
+.spot .outcome{font-size:11.5px;color:#166534;background:#DCFCE7;border:1px solid #86EFAC;border-radius:8px;padding:8px 10px;margin-top:10px;font-weight:600}
+@media(max-width:1100px){.spotlight-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:700px){.spotlight-grid{grid-template-columns:1fr}}
 /* SECTION */
 .section{max-width:1300px;margin:36px auto;padding:0 32px}
 .section-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;flex-wrap:wrap;gap:12px}
@@ -131,8 +153,8 @@ footer strong{color:#fff}
   </div>
   <div class="topbar-right">
     <a class="btn-sm" href="prompts.md" target="_blank">📋 Prompts</a>
-    <a class="btn-sm" href="agent-builder-guide.html">🤖 Agent Builder</a>
-    <a class="btn-sm primary" href="copilot-studio-guide.html">🛠 Copilot Studio Guide</a>
+    <a class="btn-sm" href="#spotlight">🌟 M365 Spotlight</a>
+    <a class="btn-sm primary" href="files/sonepar-ops-workbook.xlsx">📊 Open Workbook</a>
   </div>
 </div>
 
@@ -145,12 +167,12 @@ footer strong{color:#fff}
         <span class="tag live">30 use cases</span>
       </div>
       <h1>Power Sonepar's future with <span class="accent">intelligent AI transformation</span></h1>
-      <p>From M365 Copilot to Agent Builder to Copilot Studio — a 30-45 minute, end-to-end demo path showing how Sonepar Malaysia (a Sonepar Company) can unlock <strong>RM 45M+ in annual value</strong> across Finance, Supply Chain, Operations, Customer Service, HR &amp; more.</p>
+      <p>A focused <strong>30-minute</strong> Microsoft 365 Copilot demo — Word · Excel · PowerPoint · Researcher · Analyst · Copilot Chat — showing how Sonepar Malaysia (a Sonepar Company) unlocks <strong>RM 45M+ in annual value</strong> across Supply Chain, HR, Finance, Customer Service &amp; Operations. No setup, no IT project — just M365 Copilot the team already has.</p>
     </div>
     <div class="scenario-card">
       <h3>⚡ Today's Scenario</h3>
-      <p><strong>Aishah</strong>, Head of Operations at Sonepar Malaysia, is preparing for the Monday ops review. May month-end variances need explaining, three backorders are at risk, a customer is waiting on a quote, and HR has a new Senior Inventory Planner role to fill. She has 90 minutes. Watch how Microsoft Copilot, Agent Builder, and Copilot Studio compress a full day's work into one focused morning.</p>
-      <div class="scenario-meta">⏱ 30–45 min walkthrough · 💼 5 personas · 🔧 14 Microsoft tools</div>
+      <p><strong>Aishah</strong>, Head of Operations at Sonepar Malaysia, has 30 minutes before the MD's Monday review. May closed RM 1.56M under budget, three ABB VFD orders are at backorder risk, TNB sent an RFQ overnight, and the board deck isn't started. Watch M365 Copilot — Word, Excel, PowerPoint, Researcher, Analyst, Copilot Chat — turn her 30 minutes into a full day's output.</p>
+      <div class="scenario-meta">⏱ 30 min · 💼 6 Copilot capabilities · 🔧 Real Sonepar data</div>
     </div>
   </div>
 </section>
@@ -166,34 +188,27 @@ footer strong{color:#fff}
 <div class="flow">
   <div class="flow-inner">
     <div class="flow-hdr">
-      <h2>🎬 Today's demo flow</h2>
-      <span class="duration">30–45 MIN · LIVE</span>
+      <h2>🎬 30-minute demo flow — pure Microsoft 365 Copilot</h2>
+      <span class="duration">30 MIN · LIVE</span>
     </div>
-    <div class="flow-steps">
-      <div class="flow-step">
-        <div class="flow-step-num">1</div>
-        <h4>Microsoft 365 Copilot</h4>
-        <div class="mins">10 min · Productivity wins</div>
-        <p>Finance month-end variance · HR job description &amp; CV screen · Customer email triage · Supply Chain PO review.</p>
-        <a href="prompts.md#act-1--microsoft-365-copilot-10-min" target="_blank">View prompts →</a>
-      </div>
-      <div class="flow-step">
-        <div class="flow-step-num">2</div>
-        <h4>Agent Builder (Copilot Chat)</h4>
-        <div class="mins">10 min · Declarative agents</div>
-        <p>Build "Inventory Insight Agent" and "Order Status Buddy" from a single natural-language prompt — no code, no diagram.</p>
-        <a href="agent-builder-guide.html">Open guide →</a>
-      </div>
-      <div class="flow-step">
-        <div class="flow-step-num">3</div>
-        <h4>Microsoft Copilot Studio</h4>
-        <div class="mins">15–25 min · Custom production agent</div>
-        <p>Build the "Sonepar Customer Service Agent" live — topics, knowledge, action, Teams + web channels, escalation.</p>
-        <a href="copilot-studio-guide.html">Open guide →</a>
-      </div>
+    <div class="flow-steps six">
+      <div class="flow-step"><div class="flow-step-num">1</div><h4>Word Copilot</h4><div class="mins">0–4 min</div><p>Draft May variance memo from the raw variance numbers — full memo in 90 sec.</p><a href="#spot-word">Jump →</a></div>
+      <div class="flow-step"><div class="flow-step-num">2</div><h4>Excel Copilot</h4><div class="mins">4–9 min</div><p>Analyze the ops workbook — formulas, pivots, SKU coverage chart in plain English.</p><a href="#spot-excel">Jump →</a></div>
+      <div class="flow-step"><div class="flow-step-num">3</div><h4>Analyst agent</h4><div class="mins">9–15 min</div><p>Python-deep order risk &amp; inventory cover analysis with charts on the orders sheet.</p><a href="#spot-analyst">Jump →</a></div>
+      <div class="flow-step"><div class="flow-step-num">4</div><h4>Researcher agent</h4><div class="mins">15–20 min</div><p>30-min market scan — ABB pricing, MY electrical demand, datacenter pipeline.</p><a href="#spot-research">Jump →</a></div>
+      <div class="flow-step"><div class="flow-step-num">5</div><h4>PowerPoint Copilot</h4><div class="mins">20–25 min</div><p>Generate the MD board deck straight from the Word memo + Researcher brief.</p><a href="#spot-ppt">Jump →</a></div>
+      <div class="flow-step"><div class="flow-step-num">6</div><h4>Copilot Chat · Coworker</h4><div class="mins">25–30 min</div><p>Multi-agent in Teams — combine outputs in a Page, summarize for the MD.</p><a href="#spot-chat">Jump →</a></div>
     </div>
   </div>
 </div>
+
+<section class="section" id="spotlight">
+  <div class="section-hdr">
+    <h2><span class="icon">🌟</span> M365 Copilot Spotlight — your 30-min live demo</h2>
+    <span class="chip active" style="cursor:default">6 capabilities · real Sonepar files</span>
+  </div>
+  <div class="spotlight-grid" id="spotlightGrid"></div>
+</section>
 
 <section class="section">
   <div class="section-hdr">
@@ -211,7 +226,7 @@ footer strong{color:#fff}
 
 <footer>
   © 2026 Sonepar Malaysia · A Sonepar Company · Microsoft × Sonepar AI Transformation Demo<br>
-  Prepared by <strong>Microsoft</strong> · Confidential · Built on Microsoft 365 Copilot, Agent Builder, Copilot Studio, Azure AI &amp; Dynamics 365
+  Prepared by <strong>Microsoft</strong> · Confidential · Built on Microsoft 365 Copilot — Word, Excel, PowerPoint, Outlook, Teams, Copilot Chat, Researcher &amp; Analyst
 </footer>
 
 <script>
@@ -220,310 +235,310 @@ const USE_CASES = [
   {id:1,dept:'finance',deptLabel:'Finance',icon:'🧾',title:'AI-Powered Invoice Processing & AP Automation',
    desc:'Eliminate manual invoice handling — AI reads, validates, and routes invoices automatically, cutting processing from days to minutes.',
    saving:'RM 1.8–2.5M/yr',savingDetail:'75% reduction in AP processing costs; 90% faster invoice cycle',
-   stack:['Power Automate','Azure AI Document Intelligence','Dynamics 365 Finance'],
+   stack:['Copilot Chat','Word Copilot','Excel Copilot'],
    modes:['m365'],
    challenge:'Sonepar Malaysia processes thousands of supplier invoices monthly across 100+ agency brands. Manual keying causes delays, errors, and cash-flow visibility gaps.',
-   solution:'Deploy Azure AI Document Intelligence to extract data from PDFs, emails, and scanned invoices. Power Automate routes for approval via Teams. Dynamics 365 Finance posts automatically.',
-   impact:'Industry benchmark: 70–80% reduction in invoice processing time. Sonepar group reported significant AP cost reduction post Dynamics 365 deployment.',
+   solution:'Deploy Word Copilot to extract data from PDFs, emails, and scanned invoices. Copilot Chat routes for approval via Teams. Excel Copilot posts automatically.',
+   impact:'Industry benchmark: 70–80% reduction in invoice processing time. Sonepar group reported significant AP cost reduction post Excel + Outlook deployment.',
    prompt:'Review the latest 50 supplier invoices in the AP queue. For each, extract Vendor, Invoice #, Date, Amount, GL Code, and flag any with: missing PO reference, duplicate against last 90 days, or amount > 10% over the matched PO. Output as a Markdown table sorted by risk.',
-   steps:['Deploy Azure AI Document Intelligence OCR model','Build Power Automate approval workflow with Teams integration','Connect to Dynamics 365 Finance for auto-posting','Set exception handling rules for anomalies','Train model on Sonepar-specific invoice templates']},
+   steps:['Deploy Word Copilot OCR model','Build Copilot Chat approval workflow with Teams integration','Connect to Excel Copilot for auto-posting','Set exception handling rules for anomalies','Train model on Sonepar-specific invoice templates']},
   {id:2,dept:'finance',deptLabel:'Finance',icon:'📊',title:'Predictive Cash Flow Forecasting',
    desc:'AI predicts cash flow with 95%+ accuracy from historical transactions, customer payment patterns and market signals.',
    saving:'RM 2.0–3.5M/yr',savingDetail:'Reduced borrowing costs + optimised working capital of RM 80M+',
-   stack:['Microsoft Fabric','Azure Machine Learning','Power BI Copilot','Dynamics 365 Finance'],
+   stack:['Excel + Analyst','Analyst agent','Excel Copilot Copilot','Excel Copilot'],
    modes:['m365'],
    challenge:'With RM 630M annual revenue and 7,000+ customers, cash-flow visibility is critical. Seasonal demand spikes from construction and manufacturing customers create unpredictable cycles.',
-   solution:'Microsoft Fabric unifies ERP, AR, AP and market data. Azure ML models predict customer payment timing. Power BI Copilot provides CFO-ready dashboards with natural-language insights.',
+   solution:'Excel + Analyst unifies ERP, AR, AP and market data. Analyst agent models predict customer payment timing. Excel Copilot Copilot provides CFO-ready dashboards with natural-language insights.',
    impact:'McKinsey: AI-driven treasury management reduces working-capital needs 15–20%. For Sonepar MY, RM 2–3.5M annual interest savings.',
    prompt:'Forecast Sonepar Malaysia weekly cash position for the next 13 weeks using the AR aging, AP commitments, and historical payment patterns in this workbook. Identify any weeks where projected balance falls below RM 8M and recommend specific actions (collections push, payment deferral, credit-line draw).',
-   steps:['Integrate Dynamics 365 data into Microsoft Fabric lakehouse','Build Azure ML forecasting model on 3-year transaction history','Create Power BI Copilot CFO dashboard','Automate weekly forecast emails via Power Automate','Configure early payment discount alerts']},
+   steps:['Integrate Excel + Outlook data into Excel + Analyst lakehouse','Build Analyst agent forecasting model on 3-year transaction history','Create Excel Copilot Copilot CFO dashboard','Automate weekly forecast emails via Copilot Chat','Configure early payment discount alerts']},
   {id:3,dept:'finance',deptLabel:'Finance',icon:'🔍',title:'Expense Anomaly Detection & Fraud Prevention',
    desc:'AI continuously monitors transactions in real time, flagging unusual patterns, duplicate payments, and potential fraud.',
    saving:'RM 0.8–1.5M/yr',savingDetail:'Prevents 0.1–0.3% revenue leakage from fraud/errors',
-   stack:['Azure Machine Learning','Power Automate','Microsoft Sentinel','Dynamics 365 Finance'],
+   stack:['Analyst agent','Copilot Chat','Excel Copilot'],
    modes:['m365'],
    challenge:'Distributed operations across 20+ branches and 100+ vendor accounts create exposure to duplicate payments, overbilling, and internal fraud.',
-   solution:'Azure ML unsupervised anomaly detection models analyse all transactions. Alerts route through Microsoft Sentinel to finance team via Teams. Power Automate auto-freezes suspicious transactions pending review.',
+   solution:'Analyst agent unsupervised anomaly detection models analyse all transactions. Alerts route through Copilot Chat to finance team via Teams. Copilot Chat auto-freezes suspicious transactions pending review.',
    impact:'Industry average fraud/error rates 0.1–0.5% of revenue. AI detection reduces incidents 85%. On RM 630M revenue, saves RM 0.8–1.5M annually.',
    prompt:'Scan the past 30 days of supplier payments for the top 20 risk patterns: duplicate invoice numbers, round-amount payments, after-hours approvals, new bank accounts, payments above PO value, and same-day reverse + reissue. Output a ranked table with risk score 1–10 and one-sentence rationale.',
-   steps:['Connect Dynamics 365 Finance to Azure ML workspace','Train isolation forest anomaly detection model','Build real-time monitoring pipeline in Azure Stream Analytics','Configure Teams alerts with one-click approve/block','Monthly model retraining with new pattern data']},
+   steps:['Connect Excel Copilot to Analyst agent workspace','Train isolation forest anomaly detection model','Build real-time monitoring pipeline in Microsoft 365 Copilot Stream Analytics','Configure Teams alerts with one-click approve/block','Monthly model retraining with new pattern data']},
   {id:4,dept:'finance',deptLabel:'Finance',icon:'📈',title:'Automated Financial Reporting with Copilot',
    desc:'Generate board-ready reports, variance analyses and regulatory submissions from natural-language prompts — weeks to hours.',
    saving:'RM 0.5–1.0M/yr',savingDetail:'60% reduction in month-end close time; 4 FTE equivalent',
-   stack:['Power BI Copilot','Microsoft 365 Copilot','Dynamics 365 Finance','Microsoft Fabric'],
+   stack:['Excel Copilot Copilot','Microsoft 365 Copilot','Excel Copilot','Excel + Analyst'],
    modes:['m365'],featured:true,
    challenge:'Monthly, quarterly and annual reporting consumes significant finance bandwidth. Manual Excel consolidation is error-prone across 20+ branches.',
-   solution:'Power BI Copilot auto-generates narrative reports from financial data. Microsoft 365 Copilot drafts board pack commentary in Word. Dynamics 365 Finance automates trial balance consolidation.',
+   solution:'Excel Copilot Copilot auto-generates narrative reports from financial data. Microsoft 365 Copilot drafts board pack commentary in Word. Excel Copilot automates trial balance consolidation.',
    impact:'Deloitte survey: AI reduces financial close time by 60%. CFO focus shifts from data gathering to strategic analysis.',
    prompt:'Analyse the FY2026 May actuals vs budget in this workbook. Highlight the top 5 variances by absolute value, classify each as Favourable or Adverse, and propose a one-sentence root cause for the three largest adverse variances. Output as a Markdown table with columns: GL Account, Budget, Actual, Variance (RM), Variance %, F/A, Likely Driver.',
-   steps:['Set up Microsoft Fabric semantic model for financial data','Configure Power BI Copilot with Sonepar chart of accounts','Create report templates in Copilot-for-Word','Automate distribution via Power Automate','Train finance team on natural language queries']},
+   steps:['Set up Excel + Analyst semantic model for financial data','Configure Excel Copilot Copilot with Sonepar chart of accounts','Create report templates in Copilot-for-Word','Automate distribution via Copilot Chat','Train finance team on natural language queries']},
   {id:5,dept:'finance',deptLabel:'Finance',icon:'💳',title:'AI Credit Risk Assessment for Customers',
    desc:'AI evaluates customer creditworthiness using payment history, order patterns and external signals — real-time credit decisions.',
    saving:'RM 1.2–2.0M/yr',savingDetail:'Bad debt reduction from ~0.3% to <0.1% on RM 630M revenue',
-   stack:['Azure Machine Learning','Dynamics 365 Finance','Power BI','Azure AI'],
+   stack:['Analyst agent','Excel Copilot','Microsoft 365 Copilot'],
    modes:['m365'],
    challenge:'Sonepar MY serves 7,000+ customers on credit terms. Bad debt and late payments significantly impact cash flow. Manual credit reviews are slow and inconsistent.',
-   solution:'Azure ML classifies each customer into risk tiers using 50+ features. Dynamics 365 Finance auto-updates credit limits. Automated alerts notify sales team when customers approach limits.',
+   solution:'Analyst agent classifies each customer into risk tiers using 50+ features. Excel Copilot auto-updates credit limits. Automated alerts notify sales team when customers approach limits.',
    impact:'Industry data: AI credit scoring reduces bad debt 40–60% and improves DSO 8–12 days. On RM 630M revenue, saves RM 1.2–2M annually.',
    prompt:'Score the top 100 customers by outstanding AR exposure using the past 24 months of payment history. For each, provide: risk tier (Low/Medium/High), recommended credit limit, recommended payment terms, and a one-line rationale. Flag any customer whose risk tier has changed in the last 90 days.',
-   steps:['Extract 3-year customer payment history from Dynamics 365','Build credit risk classification model in Azure ML','Integrate model scoring into Dynamics 365 credit management','Create real-time credit dashboards in Power BI','Set automated limit review triggers for high-risk accounts']},
+   steps:['Extract 3-year customer payment history from Excel + Outlook','Build credit risk classification model in Analyst agent','Integrate model scoring into Excel + Outlook credit management','Create real-time credit dashboards in Excel Copilot','Set automated limit review triggers for high-risk accounts']},
   // PROCUREMENT (Supply Chain)
   {id:6,dept:'procurement',deptLabel:'Procurement',icon:'🏆',title:'Intelligent Supplier Scoring & Selection',
    desc:'AI evaluates suppliers across 40+ dimensions — price, delivery, quality, ESG, financial stability.',
    saving:'RM 2.5–4.0M/yr',savingDetail:'1–2% COGS reduction on RM 250M+ procurement spend',
-   stack:['Azure AI','Dynamics 365 Supply Chain','Power BI','Microsoft Copilot for Finance'],
-   modes:['m365','ab'],
+   stack:['Microsoft 365 Copilot','Excel + Copilot Chat','Excel Copilot','Microsoft Copilot for Finance'],
+   modes:['m365'],
    challenge:'Sonepar MY sources from 100+ agency brands. Supplier performance varies significantly. Procurement decisions are often reactive rather than data-driven.',
-   solution:'Azure AI aggregates supplier data from ERP, email, external ratings. Real-time dashboards show supplier health scores. Copilot drafts supplier review reports and negotiation briefs automatically.',
+   solution:'Microsoft 365 Copilot aggregates supplier data from ERP, email, external ratings. Real-time dashboards show supplier health scores. Copilot drafts supplier review reports and negotiation briefs automatically.',
    impact:'McKinsey: AI-driven procurement delivers 5–15% cost savings. For Sonepar MY at RM 250M+ spend, 1% improvement = RM 2.5M.',
    prompt:'Generate a Q1 FY2026 supplier scorecard for the top 20 suppliers by spend. Score each across price competitiveness, on-time delivery, quality (RMA rate), ESG rating, and financial health. Rank them, highlight any with a score drop >15% QoQ, and draft a 100-word negotiation brief for the bottom 3.',
-   steps:['Aggregate supplier data from Dynamics 365 and email','Build 40-factor supplier scoring model in Azure ML','Create supplier health dashboard in Power BI','Integrate Copilot for automated supplier review drafting','Set up automated alerts for supplier risk changes']},
+   steps:['Aggregate supplier data from Excel + Outlook and email','Build 40-factor supplier scoring model in Analyst agent','Create supplier health dashboard in Excel Copilot','Integrate Copilot for automated supplier review drafting','Set up automated alerts for supplier risk changes']},
   {id:7,dept:'procurement',deptLabel:'Procurement',icon:'📉',title:'AI Demand Forecasting & Inventory Optimisation',
    desc:'ML models forecast demand for 50,000+ SKUs across all branches — automatically adjusting safety stock.',
    saving:'RM 4.0–7.0M/yr',savingDetail:'15–25% inventory cost reduction; 30% reduction in stockouts',
-   stack:['Azure Machine Learning','Dynamics 365 Supply Chain Management','Microsoft Fabric','Power BI'],
-   modes:['m365','ab'],featured:true,
+   stack:['Analyst agent','Excel + Copilot Chat','Excel + Analyst','Excel Copilot'],
+   modes:['m365'],featured:true,
    challenge:'Sonepar MY holds 50,000+ SKUs across 6 major warehouses. Overstocking ties up capital; stockouts lose sales. Seasonal construction cycles complex to predict.',
-   solution:'Azure ML demand-forecasting models analyse 3 years of sales, promotions, seasonality, and external signals (construction permits, GDP). Dynamics 365 Supply Chain auto-generates POs when stock hits AI-calculated reorder points.',
+   solution:'Analyst agent demand-forecasting models analyse 3 years of sales, promotions, seasonality, and external signals (construction permits, GDP). Excel + Copilot Chat auto-generates POs when stock hits AI-calculated reorder points.',
    impact:'Sonepar group reported significant inventory optimisation post AI deployment. Industry benchmark: 20% inventory reduction = RM 4–7M savings for Sonepar MY.',
    prompt:'For the 30 SKUs in inventory-sample.csv, calculate the projected stockout date if current sales velocity continues, and compare against the supplier lead time. Flag any SKU with projected stockout < lead time as Critical. Suggest a recommended PO quantity using a 30-day forward cover plus safety stock = 1× lead-time demand.',
-   steps:['Consolidate sales data across all branches into Microsoft Fabric','Train SKU-level demand forecasting models (Azure ML)','Integrate forecasts into Dynamics 365 replenishment engine','Create inventory optimisation dashboards for buyers','Automate PO generation for standard SKUs']},
+   steps:['Consolidate sales data across all branches into Excel + Analyst','Train SKU-level demand forecasting models (Analyst agent)','Integrate forecasts into Excel + Outlook replenishment engine','Create inventory optimisation dashboards for buyers','Automate PO generation for standard SKUs']},
   {id:8,dept:'procurement',deptLabel:'Procurement',icon:'📋',title:'AI Contract Analysis & Risk Assessment',
-   desc:'Azure OpenAI reviews supplier contracts in minutes — extracts terms, flags risks, suggests negotiation points.',
+   desc:'Microsoft 365 Copilot reviews supplier contracts in minutes — extracts terms, flags risks, suggests negotiation points.',
    saving:'RM 0.5–1.0M/yr',savingDetail:'80% faster contract review; legal cost reduction + better terms',
-   stack:['Azure OpenAI Service','Microsoft 365 Copilot','SharePoint','Power Automate'],
+   stack:['Microsoft 365 Copilot','SharePoint','Copilot Chat'],
    modes:['m365'],
    challenge:'Procurement and legal teams spend significant time reviewing supplier contracts. Unfavourable clauses sometimes missed. Renewals reactive.',
-   solution:'Azure OpenAI models extract key contractual terms, flag deviations from standards, and highlight risk clauses. Copilot in Word generates negotiation summaries. Power Automate triggers renewal reminders 90 days in advance.',
+   solution:'Microsoft 365 Copilot models extract key contractual terms, flag deviations from standards, and highlight risk clauses. Copilot in Word generates negotiation summaries. Copilot Chat triggers renewal reminders 90 days in advance.',
    impact:'EY: AI contract analysis reduces review time 85%. Better contract terms can yield 0.5–1% savings on RM 100M+ contracted spend.',
    prompt:'Review this ABB Malaysia supply contract. Extract: parties, effective date, term, auto-renewal, payment terms, price-change mechanism, liability cap, indemnification, exclusivity, force majeure, termination notice, and ESG clauses. Flag any clauses that deviate from the Sonepar Group Standard Terms (attached). Draft a 5-point negotiation brief for the procurement lead.',
-   steps:['Deploy Azure OpenAI contract analysis model','Build contract repository in SharePoint with Copilot integration','Create standard contract clause library for comparison','Automate contract lifecycle reminders in Power Automate','Train procurement team on AI-assisted negotiation tools']},
+   steps:['Deploy Microsoft 365 Copilot contract analysis model','Build contract repository in SharePoint with Copilot integration','Create standard contract clause library for comparison','Automate contract lifecycle reminders in Copilot Chat','Train procurement team on AI-assisted negotiation tools']},
   {id:9,dept:'procurement',deptLabel:'Procurement',icon:'💡',title:'Spend Analytics & Maverick Spend Detection',
    desc:'AI automatically categorises spending, identifies off-contract purchases, surfaces consolidation opportunities.',
    saving:'RM 1.5–2.5M/yr',savingDetail:'Capture 3–5% savings from spend consolidation',
-   stack:['Microsoft Fabric','Power BI Copilot','Azure AI','Dynamics 365 Finance'],
+   stack:['Excel + Analyst','Excel Copilot Copilot','Microsoft 365 Copilot','Excel Copilot'],
    modes:['m365'],
    challenge:'Distributed purchasing across 20+ branches leads to maverick spend, duplicate vendor relationships, and missed volume discounts.',
-   solution:'Microsoft Fabric consolidates all spend data. Azure AI auto-classifies spend into 200+ categories. Power BI Copilot provides natural-language analytics. Auto-alerts flag when purchases exceed approved suppliers.',
+   solution:'Excel + Analyst consolidates all spend data. Microsoft 365 Copilot auto-classifies spend into 200+ categories. Excel Copilot Copilot provides natural-language analytics. Auto-alerts flag when purchases exceed approved suppliers.',
    impact:'KPMG: Spend analytics typically reveals 3–8% savings opportunities. AI categorisation accuracy >95% vs 60% manual.',
    prompt:'Analyse the last 12 months of procurement spend. Identify the top 10 maverick spend categories (purchases >RM 10,000 from non-contracted suppliers), estimate the consolidation savings if redirected to preferred suppliers, and rank by opportunity size.',
-   steps:['Build spend data lake in Microsoft Fabric','Deploy AI spend categorisation model','Create spend cube with drill-down in Power BI Copilot','Set maverick spend alert rules in Power Automate','Generate monthly savings opportunity reports via Copilot']},
+   steps:['Build spend data lake in Excel + Analyst','Deploy AI spend categorisation model','Create spend cube with drill-down in Excel Copilot Copilot','Set maverick spend alert rules in Copilot Chat','Generate monthly savings opportunity reports via Copilot']},
   // OPERATIONS
   {id:10,dept:'operations',deptLabel:'Operations',icon:'⚡',title:'Automated Order Processing & Intelligent Fulfilment',
    desc:'AI processes incoming orders from EDI, email, portal, and phone — validating, enriching, routing to optimal warehouse.',
    saving:'RM 1.5–2.5M/yr',savingDetail:'50% faster order processing; 3 FTE equivalent; 99% accuracy',
-   stack:['Power Automate','Azure AI Document Intelligence','Dynamics 365 Supply Chain','Copilot Studio'],
-   modes:['m365','ab','cs'],featured:true,
+   stack:['Copilot Chat','Word Copilot','Excel + Copilot Chat'],
+   modes:['m365'],featured:true,
    challenge:'Sonepar MY receives orders via multiple channels (email, EDI, phone, web). Manual order entry is slow, error-prone, and delays fulfilment for 7,000+ active customers.',
-   solution:'Power Automate + Azure AI Document Intelligence reads order formats from any source. AI matches product codes, validates stock, and routes to nearest warehouse. Exceptions handled via Copilot Studio chatbot with customer.',
+   solution:'Copilot Chat + Word Copilot reads order formats from any source. AI matches product codes, validates stock, and routes to nearest warehouse. Exceptions handled via Copilot Chat chatbot with customer.',
    impact:'Industry benchmark: Automated order processing reduces costs 40–60%. Sonepar achieved 50% YoY online order growth through similar automation.',
    prompt:'Build an agent called "Order Status Buddy" for Sonepar Customer Service. It looks up order status from orders-sample.csv and returns header, line items, status, ETA, and tracking link. Verify customer account number before sharing. When promised date slipped >2 working days, apologise, give new ETA, and offer CSR escalation.',
-   steps:['Map all inbound order channels and formats','Deploy Azure AI Document Intelligence for email orders','Build Power Automate routing logic with Dynamics 365 integration','Create Copilot Studio bot for order status enquiries','Set up real-time order dashboards for operations team']},
+   steps:['Map all inbound order channels and formats','Deploy Word Copilot for email orders','Build Copilot Chat routing logic with Excel + Outlook integration','Create Copilot Chat bot for order status enquiries','Set up real-time order dashboards for operations team']},
   {id:11,dept:'operations',deptLabel:'Operations',icon:'🏭',title:'Warehouse Layout Optimisation with Digital Twin',
-   desc:'Azure Digital Twins models warehouses to simulate layout changes and slotting — maximising throughput.',
+   desc:'Microsoft 365 Copilot Digital Twins models warehouses to simulate layout changes and slotting — maximising throughput.',
    saving:'RM 1.0–2.0M/yr',savingDetail:'25% reduction in pick travel time; 15% throughput increase',
-   stack:['Azure Digital Twins','Azure IoT Hub','Power BI','Dynamics 365 Supply Chain'],
+   stack:['Microsoft 365 Copilot Digital Twins','Microsoft 365 Copilot IoT Hub','Excel Copilot','Excel + Copilot Chat'],
    modes:['m365'],
    challenge:'Sonepar MY operates 6 major warehouses with 50,000+ SKUs. Suboptimal slotting and layout leads to excessive pick travel time.',
-   solution:'Azure Digital Twins creates virtual 3D models of each warehouse. AI analyses order patterns and recommends optimal SKU placement. Simulations test layout changes before physical implementation.',
+   solution:'Microsoft 365 Copilot Digital Twins creates virtual 3D models of each warehouse. AI analyses order patterns and recommends optimal SKU placement. Simulations test layout changes before physical implementation.',
    impact:'Gartner: Digital twin warehouses achieve 20–30% efficiency gains. Reducing pick labour 25% saves RM 1–2M across 6 warehouses.',
    prompt:'Using the last 90 days of pick data, identify the top 50 SKUs by pick frequency in KL-Main. For each, recommend whether to move closer to packing (high frequency) or further from packing (low frequency). Estimate the total travel-distance reduction in metres per day.',
-   steps:['Survey and digitise warehouse layouts in Azure Digital Twins','Integrate IoT sensors for real-time location tracking','Connect to Dynamics 365 WMS for order pattern analysis','Run slotting optimisation simulations','Implement AI-recommended layout changes in priority zones']},
+   steps:['Survey and digitise warehouse layouts in Microsoft 365 Copilot Digital Twins','Integrate IoT sensors for real-time location tracking','Connect to Excel + Outlook WMS for order pattern analysis','Run slotting optimisation simulations','Implement AI-recommended layout changes in priority zones']},
   {id:12,dept:'operations',deptLabel:'Operations',icon:'📡',title:'Real-Time Inventory Tracking & Smart Replenishment',
-   desc:'IoT + Azure AI provides real-time stock visibility across all warehouses and branches.',
+   desc:'IoT + Microsoft 365 Copilot provides real-time stock visibility across all warehouses and branches.',
    saving:'RM 2.0–3.5M/yr',savingDetail:'95% inventory accuracy; 20% reduction in emergency orders',
-   stack:['Azure IoT Hub','Azure Stream Analytics','Dynamics 365 Supply Chain','Power BI'],
-   modes:['m365','ab'],
+   stack:['Microsoft 365 Copilot IoT Hub','Microsoft 365 Copilot Stream Analytics','Excel + Copilot Chat','Excel Copilot'],
+   modes:['m365'],
    challenge:'Inventory discrepancies between system records and physical stock are common. Emergency orders due to unexpected stockouts are costly.',
-   solution:'IoT sensors and RFID readers feed real-time data into Azure IoT Hub. Stream Analytics detects anomalies and triggers automatic cycle counts. Dynamics 365 auto-replenishment triggered at AI-calculated thresholds.',
+   solution:'IoT sensors and RFID readers feed real-time data into Microsoft 365 Copilot IoT Hub. Stream Analytics detects anomalies and triggers automatic cycle counts. Excel + Outlook auto-replenishment triggered at AI-calculated thresholds.',
    impact:'Aberdeen Group: Companies with real-time inventory visibility have 35% lower stock-outs.',
    prompt:'Create an agent called "Sonepar Inventory Insight" that grounds answers in inventory-sample.csv. When asked about stockouts, return SKU, qty on hand, reorder point, lead time, and nearest warehouse with stock. For slow movers (no sale in 90 days), recommend markdown, transfer, or write-off. Never invent stock numbers.',
-   steps:['Deploy RFID/IoT sensors at key warehouse locations','Configure Azure IoT Hub data ingestion pipeline','Build Stream Analytics rules for anomaly detection','Integrate with Dynamics 365 inventory management','Create real-time inventory dashboards for branch managers']},
+   steps:['Deploy RFID/IoT sensors at key warehouse locations','Configure Microsoft 365 Copilot IoT Hub data ingestion pipeline','Build Stream Analytics rules for anomaly detection','Integrate with Excel + Outlook inventory management','Create real-time inventory dashboards for branch managers']},
   {id:13,dept:'operations',deptLabel:'Operations',icon:'🔬',title:'Computer Vision Quality Control',
    desc:'AI cameras inspect incoming goods and outgoing shipments — detecting damage, wrong products, packaging errors.',
    saving:'RM 0.8–1.5M/yr',savingDetail:'80% reduction in returns from quality issues',
-   stack:['Azure Computer Vision','Azure Custom Vision','Azure IoT Hub','Power Automate'],
+   stack:['Microsoft 365 Copilot Computer Vision','Microsoft 365 Copilot Custom Vision','Microsoft 365 Copilot IoT Hub','Copilot Chat'],
    modes:['m365'],
    challenge:'Manual visual inspection of 50,000+ product lines is impractical. Quality issues discovered by customers cause costly returns and damaged relationships.',
-   solution:'Azure Custom Vision models trained on Sonepar product images inspect goods at receiving and despatch. Damaged items flagged automatically. Power Automate triggers supplier claims and internal alerts.',
+   solution:'Microsoft 365 Copilot Custom Vision models trained on Sonepar product images inspect goods at receiving and despatch. Damaged items flagged automatically. Copilot Chat triggers supplier claims and internal alerts.',
    impact:'IDC: Computer vision reduces defect escape rates 75–90%. Product return costs typically 3–5× original product cost.',
    prompt:'Generate a 30-day Quality Control summary across the 6 warehouses. List the top defect categories, their frequency, the suppliers and SKUs involved, and the financial impact (replacement value + freight). Recommend which 3 SKUs need urgent supplier engagement.',
-   steps:['Install inspection cameras at receiving and despatch zones','Build Azure Custom Vision models per product category','Create defect classification training dataset','Integrate with Dynamics 365 receiving process','Automate supplier claim generation via Power Automate']},
+   steps:['Install inspection cameras at receiving and despatch zones','Build Microsoft 365 Copilot Custom Vision models per product category','Create defect classification training dataset','Integrate with Excel + Outlook receiving process','Automate supplier claim generation via Copilot Chat']},
   {id:14,dept:'operations',deptLabel:'Operations',icon:'🚚',title:'Intelligent Logistics Route & Delivery Optimisation',
    desc:'AI optimises delivery routes in real time — traffic, delivery windows, vehicle capacity, customer priority.',
    saving:'RM 1.2–2.0M/yr',savingDetail:'15–20% fuel/logistics cost reduction; 95%+ on-time delivery',
-   stack:['Azure Maps','Azure AI','Dynamics 365 Supply Chain','Power BI'],
+   stack:['Microsoft 365 Copilot Maps','Microsoft 365 Copilot','Excel + Copilot Chat','Excel Copilot'],
    modes:['m365'],
    challenge:'Sonepar MY delivers to thousands of customers across Malaysia. Suboptimal routing increases fuel costs, delivery times, and driver overtime.',
-   solution:'Azure Maps and Azure AI optimise multi-stop delivery routes considering real-time traffic, customer SLAs, and vehicle loads. Power BI provides delivery performance dashboards. Customer SMS/portal updates automated.',
+   solution:'Microsoft 365 Copilot Maps and Microsoft 365 Copilot optimise multi-stop delivery routes considering real-time traffic, customer SLAs, and vehicle loads. Excel Copilot provides delivery performance dashboards. Customer SMS/portal updates automated.',
    impact:'Capgemini: Route optimisation reduces logistics costs 10–20%. Saves RM 1.2–2M annually for Sonepar MY.',
    prompt:'Optimise tomorrow\'s KL-area delivery routes for 32 stops across 6 trucks. Constraints: 2-hour delivery windows from customer SLA, 3.5T payload limit, prioritise VIP (Petronas, Tenaga, YTL) first stops. Output: per-truck route sequence with ETA per stop and total km vs current baseline.',
-   steps:['Integrate Dynamics 365 delivery orders with Azure Maps','Build route optimisation algorithm with constraint handling','Deploy driver mobile app with real-time navigation','Set up customer delivery notification automation','Create KPI dashboard for logistics performance']},
+   steps:['Integrate Excel + Outlook delivery orders with Microsoft 365 Copilot Maps','Build route optimisation algorithm with constraint handling','Deploy driver mobile app with real-time navigation','Set up customer delivery notification automation','Create KPI dashboard for logistics performance']},
   // SALES
   {id:15,dept:'sales',deptLabel:'Sales & Marketing',icon:'🎯',title:'AI Lead Scoring & Sales Prioritisation',
    desc:'AI scores every lead and opportunity — helping sales focus on deals most likely to close.',
    saving:'RM 3.0–5.0M/yr',savingDetail:'20% increase in win rate; 15% increase in average deal size',
-   stack:['Dynamics 365 Sales Copilot','Azure Machine Learning','Power BI','Microsoft 365 Copilot'],
+   stack:['Outlook + Excel Copilot','Analyst agent','Excel Copilot','Microsoft 365 Copilot'],
    modes:['m365'],
    challenge:'Sales teams service 7,000+ customers and hundreds of prospects. Without prioritisation, high-value opportunities get equal attention as low-probability leads.',
-   solution:'Azure ML lead scoring on purchase recency, frequency, value, engagement. Dynamics 365 Sales Copilot provides AI-powered call summaries, next-best-action, and email drafting.',
+   solution:'Analyst agent lead scoring on purchase recency, frequency, value, engagement. Outlook + Excel Copilot provides AI-powered call summaries, next-best-action, and email drafting.',
    impact:'Forrester: AI sales tools increase win rates 15–20%. 20% improvement on the pipeline = RM 3–5M additional revenue.',
    prompt:'Score my open opportunities (>RM 50k) based on stage, days since last activity, customer industry, historical win rate, and competitor presence. Rank top 10 by close probability for this quarter, and draft a one-sentence "next best action" for each.',
-   steps:['Activate Dynamics 365 Sales Copilot for all sales reps','Build lead scoring model on 2-year opportunity data','Integrate LinkedIn Sales Navigator for prospect insights','Create sales performance dashboards with AI coaching tips','Automate follow-up email drafting via Copilot']},
+   steps:['Activate Outlook + Excel Copilot for all sales reps','Build lead scoring model on 2-year opportunity data','Integrate LinkedIn Sales Navigator for prospect insights','Create sales performance dashboards with AI coaching tips','Automate follow-up email drafting via Copilot']},
   {id:16,dept:'sales',deptLabel:'Sales & Marketing',icon:'🛍️',title:'AI Product Recommendation Engine',
    desc:'AI analyses purchase history to recommend complementary products — increasing basket size.',
    saving:'RM 2.5–4.5M/yr',savingDetail:'12–18% increase in average order value',
-   stack:['Azure AI','Dynamics 365 Sales','Power Pages','Azure OpenAI Service'],
+   stack:['Microsoft 365 Copilot','Outlook + Excel','SharePoint Pages'],
    modes:['m365'],
    challenge:'With 50,000+ products, sales reps cannot know the full catalogue. Customers often don\'t know about complementary products — leaving revenue on the table.',
-   solution:'Azure AI recommendation models trained on purchase co-occurrence data. Recommendations surfaced in CRM during sales calls, on the e-commerce portal, and in customer emails.',
+   solution:'Microsoft 365 Copilot recommendation models trained on purchase co-occurrence data. Recommendations surfaced in CRM during sales calls, on the e-commerce portal, and in customer emails.',
    impact:'Amazon-style recommendation engines increase revenue 10–30%. 12% AOV uplift = RM 2.5–4.5M for Sonepar MY.',
    prompt:'For customer ACC-001245 (Petronas Refinery Melaka), look at the past 24 months of orders. Recommend 5 cross-sell products they have not yet purchased, with one-sentence rationale tying each to their existing buying pattern. Estimate the incremental annual revenue if they adopted each.',
-   steps:['Build Azure AI recommendation model on purchase history','Integrate recommendations into Dynamics 365 order entry','Embed recommendations in customer portal (Power Pages)','A/B test recommendation algorithms','Create automated cross-sell email campaigns via Customer Insights']},
+   steps:['Build Microsoft 365 Copilot recommendation model on purchase history','Integrate recommendations into Excel + Outlook order entry','Embed recommendations in customer portal (SharePoint Pages)','A/B test recommendation algorithms','Create automated cross-sell email campaigns via Customer Insights']},
   {id:17,dept:'sales',deptLabel:'Sales & Marketing',icon:'📉',title:'Customer Churn Prediction & Retention',
    desc:'AI identifies customers showing early warning signs of churn — enabling proactive retention.',
    saving:'RM 2.0–4.0M/yr',savingDetail:'Retain 2–3% of at-risk customer base',
-   stack:['Azure Machine Learning','Dynamics 365 Customer Insights','Power Automate','Dynamics 365 Sales'],
+   stack:['Analyst agent','Excel + Analyst','Copilot Chat','Outlook + Excel'],
    modes:['m365'],
    challenge:'Losing 2–3% of 7,000 customers annually means significant revenue loss. Signs of churn detected too late — after customers move to competitors.',
-   solution:'Azure ML churn model scores all customers weekly using 30+ behavioural signals. High-risk customers trigger automated outreach via Customer Insights — personalised offers, service calls, account reviews.',
+   solution:'Analyst agent churn model scores all customers weekly using 30+ behavioural signals. High-risk customers trigger automated outreach via Customer Insights — personalised offers, service calls, account reviews.',
    impact:'Bain & Co: 5% retention improvement increases profits 25–95%. Retaining 50 at-risk accounts = RM 4M revenue protection.',
    prompt:'List the top 25 customers showing churn signals in the past 90 days: declining order frequency, declining basket size, increased service complaints, or extended payment delays. For each, suggest the most impactful retention play (Account review meeting / Loyalty discount / Service escalation review / Technical training session).',
-   steps:['Build churn prediction model on customer activity data','Deploy weekly scoring pipeline in Azure ML','Integrate scores into Dynamics 365 Customer Insights','Create automated retention campaign workflows','Train account managers on churn signals dashboard']},
+   steps:['Build churn prediction model on customer activity data','Deploy weekly scoring pipeline in Analyst agent','Integrate scores into Excel + Analyst','Create automated retention campaign workflows','Train account managers on churn signals dashboard']},
   {id:18,dept:'sales',deptLabel:'Sales & Marketing',icon:'🎨',title:'AI-Powered Marketing Personalisation',
    desc:'Customer Insights with AI segments all 7,000+ customers and delivers hyper-personalised campaigns.',
    saving:'RM 1.5–3.0M/yr',savingDetail:'3× campaign ROI; 41% email open rates (Sonepar benchmark)',
-   stack:['Dynamics 365 Customer Insights','Azure OpenAI Service','Microsoft Copilot Studio','Power BI'],
-   modes:['m365','cs'],
+   stack:['Excel + Analyst','Microsoft 365 Copilot','Microsoft Copilot Chat','Excel Copilot'],
+   modes:['m365'],
    challenge:'Generic marketing has low engagement. Sonepar MY has diverse customer segments (MRO, OEM, infrastructure, construction) with very different needs.',
-   solution:'Customer Insights creates AI segments based on industry, buying behaviour, lifecycle stage. Azure OpenAI generates personalised content. Copilot Studio powers 24/7 self-service product discovery.',
+   solution:'Customer Insights creates AI segments based on industry, buying behaviour, lifecycle stage. Microsoft 365 Copilot generates personalised content. Copilot Chat powers 24/7 self-service product discovery.',
    impact:'Sonepar achieved 41% email open rates on 1M contacts through AI personalisation — 5× industry average.',
    prompt:'Draft 3 personalised email variants for an upcoming Schneider Electric MCB promotion: one for MRO buyers (Petronas, Top Glove), one for construction (YTL, IJM), one for infrastructure (Tenaga, Sarawak Energy). Each should reference their typical buying pattern and lead with the most relevant value proposition.',
-   steps:['Implement Customer Insights with AI segmentation','Connect all data sources (ERP, web, email) for 360° customer view','Build GenAI content generation workflow with Azure OpenAI','Configure journey orchestration for key customer segments','Set up campaign performance analytics in Power BI']},
+   steps:['Implement Customer Insights with AI segmentation','Connect all data sources (ERP, web, email) for 360° customer view','Build GenAI content generation workflow with Microsoft 365 Copilot','Configure journey orchestration for key customer segments','Set up campaign performance analytics in Excel Copilot']},
   // CUSTOMER SERVICE
   {id:19,dept:'service',deptLabel:'Customer Service',icon:'🤖',title:'AI Customer Service Chatbot & Virtual Agent',
    desc:'24/7 intelligent virtual agent handles order tracking, product enquiries, stock checks, technical support.',
    saving:'RM 1.2–2.0M/yr',savingDetail:'60% deflection rate; 3 FTE equivalent; 24/7 availability',
-   stack:['Microsoft Copilot Studio','Azure OpenAI Service','Dynamics 365 Customer Service','Power Automate'],
-   modes:['cs'],featured:true,
+   stack:['Microsoft Copilot Chat','Microsoft 365 Copilot','Outlook + Teams','Copilot Chat'],
+   modes:['m365'],featured:true,
    challenge:'Customer service handles repetitive enquiries about order status, product availability, pricing. Peak periods overwhelming. After-hours enquiries unanswered.',
-   solution:'Copilot Studio deploys intelligent chatbot on website, Teams, WhatsApp, email. Azure OpenAI enables natural conversation. Bot handles top 20 query types autonomously. Complex cases escalate to human agents with full context.',
-   impact:'Microsoft: Copilot Studio bots resolve 50–70% of enquiries without human agents. Gartner: AI customer service reduces cost per interaction 60%.',
-   prompt:'See the Copilot Studio guide for the full build steps. The agent instruction prompt is: "You are the Sonepar Customer Service Agent. Serve industrial and electrical customers of Sonepar Malaysia. Handle (1) order status, (2) stock availability across 6 warehouses, (3) product spec Q&A, (4) escalation to a human CSR via Teams. Always verify customer account number. Bilingual EN/BM. Never quote prices."',
-   steps:['Identify top 20 customer query types and intents','Build Copilot Studio bot with Sonepar knowledge base','Integrate with Dynamics 365 for live order/stock data','Deploy on website, WhatsApp, and Teams channels','Configure escalation to human agent with conversation summary']},
+   solution:'Copilot Chat deploys intelligent chatbot on website, Teams, WhatsApp, email. Microsoft 365 Copilot enables natural conversation. Bot handles top 20 query types autonomously. Complex cases escalate to human agents with full context.',
+   impact:'Microsoft: Copilot Chat bots resolve 50–70% of enquiries without human agents. Gartner: AI customer service reduces cost per interaction 60%.',
+   prompt:'See the Copilot Chat guide for the full build steps. The agent instruction prompt is: "You are the Sonepar Customer Service Agent. Serve industrial and electrical customers of Sonepar Malaysia. Handle (1) order status, (2) stock availability across 6 warehouses, (3) product spec Q&A, (4) escalation to a human CSR via Teams. Always verify customer account number. Bilingual EN/BM. Never quote prices."',
+   steps:['Identify top 20 customer query types and intents','Build Copilot Chat bot with Sonepar knowledge base','Integrate with Excel + Outlook for live order/stock data','Deploy on website, WhatsApp, and Teams channels','Configure escalation to human agent with conversation summary']},
   {id:20,dept:'service',deptLabel:'Customer Service',icon:'📨',title:'Intelligent Ticket Routing & Resolution',
    desc:'AI classifies tickets, routes to right team, suggests resolutions, predicts resolution time.',
    saving:'RM 0.6–1.0M/yr',savingDetail:'40% faster resolution; 30% improvement in first-contact resolution',
-   stack:['Dynamics 365 Customer Service Copilot','Azure AI Language','Power BI','Microsoft Teams'],
+   stack:['Outlook + Teams Copilot','Microsoft 365 Copilot Language','Excel Copilot','Microsoft Teams'],
    modes:['m365'],
    challenge:'Service tickets from 7,000+ customers span many topics — orders, returns, technical support, billing, logistics. Misrouting wastes agent time.',
-   solution:'Azure AI Language classifies ticket intent and urgency. Dynamics 365 CS Copilot auto-routes to right queue and suggests AI-generated draft responses. Agents one-click approve or edit.',
-   impact:'Dynamics 365 CS with Copilot reduces handling time 12–28%. First contact resolution improvements significantly reduce repeat contacts.',
+   solution:'Microsoft 365 Copilot Language classifies ticket intent and urgency. Excel + Outlook CS Copilot auto-routes to right queue and suggests AI-generated draft responses. Agents one-click approve or edit.',
+   impact:'Excel + Outlook CS with Copilot reduces handling time 12–28%. First contact resolution improvements significantly reduce repeat contacts.',
    prompt:'Review the 10 unassigned tickets in customer-tickets.csv. For each, classify into the correct queue (Order Status / Stock / Tech Docs / Tech Support / Billing / Quote / Complaint), set priority (P1/P2/P3) based on customer tier and sentiment, and draft a 2-sentence first response.',
-   steps:['Configure Dynamics 365 Customer Service with AI routing rules','Train Azure AI Language model on historical ticket classifications','Build knowledge base in Dynamics 365','Deploy Copilot response suggestions for all agent queues','Create service performance Power BI dashboard']},
+   steps:['Configure Outlook + Teams with AI routing rules','Train Microsoft 365 Copilot Language model on historical ticket classifications','Build knowledge base in Excel + Outlook','Deploy Copilot response suggestions for all agent queues','Create service performance Excel Copilot dashboard']},
   {id:21,dept:'service',deptLabel:'Customer Service',icon:'💬',title:'Customer Sentiment Analysis & Voice of Customer',
    desc:'AI analyses all customer interactions — sentiment scores, NPS trends, actionable insights.',
    saving:'RM 0.5–1.0M/yr',savingDetail:'Identify and resolve systemic issues before they cause churn',
-   stack:['Azure AI Language','Dynamics 365 Customer Insights','Power BI','Microsoft Fabric'],
+   stack:['Microsoft 365 Copilot Language','Excel + Analyst','Excel Copilot'],
    modes:['m365'],
    challenge:'Customer feedback scattered across emails, calls, surveys, portals. Without aggregation, management lacks real-time visibility into sentiment.',
-   solution:'Azure AI Language analyses all text interactions for sentiment, topics, intent. Real-time NPS and sentiment dashboards in Power BI. Monthly AI-generated VoC reports surface top issues.',
+   solution:'Microsoft 365 Copilot Language analyses all text interactions for sentiment, topics, intent. Real-time NPS and sentiment dashboards in Excel Copilot. Monthly AI-generated VoC reports surface top issues.',
    impact:'Qualtrics: Companies acting on VoC reduce customer effort score 25–30%. Proactive issue resolution prevents churn worth RM 0.5–1M annually.',
    prompt:'Summarise the past 30 days of customer interactions (email, chat, survey) into a Voice of Customer report. Output: top 5 themes ranked by mention volume + sentiment, top 3 emerging issues (rising mentions), 3 positive themes, and 5 concrete improvement actions for the leadership team.',
-   steps:['Connect all customer interaction channels to Azure AI Language','Build sentiment scoring pipeline in Azure Stream Analytics','Create VoC dashboard in Power BI with trend analysis','Configure automated alerts for sentiment score drops','Generate monthly AI-powered VoC executive summary']},
+   steps:['Connect all customer interaction channels to Microsoft 365 Copilot Language','Build sentiment scoring pipeline in Microsoft 365 Copilot Stream Analytics','Create VoC dashboard in Excel Copilot with trend analysis','Configure automated alerts for sentiment score drops','Generate monthly AI-powered VoC executive summary']},
   {id:22,dept:'service',deptLabel:'Customer Service',icon:'🌐',title:'AI Self-Service Customer Portal',
-   desc:'Power Pages portal with Azure OpenAI — customers manage orders, check stock, access tech docs 24/7.',
+   desc:'SharePoint Pages portal with Microsoft 365 Copilot — customers manage orders, check stock, access tech docs 24/7.',
    saving:'RM 0.8–1.5M/yr',savingDetail:'Reduced inbound calls; 24/7 order processing',
-   stack:['Power Pages','Azure OpenAI Service','Dynamics 365','Copilot Studio'],
-   modes:['cs'],
+   stack:['SharePoint Pages','Microsoft 365 Copilot','Excel + Outlook','Copilot Chat'],
+   modes:['m365'],
    challenge:'High volume of routine customer calls for order status, stock availability, product information. Customers want self-service but existing portal has limited intelligence.',
-   solution:'Power Pages portal enhanced with Azure OpenAI for natural-language product search, technical document Q&A, order management, AI-guided product selection. Copilot Studio handles complex enquiries.',
+   solution:'SharePoint Pages portal enhanced with Microsoft 365 Copilot for natural-language product search, technical document Q&A, order management, AI-guided product selection. Copilot Chat handles complex enquiries.',
    impact:'Sonepar\'s digital transformation drove 33% of US revenue through digital channels.',
-   prompt:'(Best demonstrated as a live portal walkthrough — the Copilot Studio Customer Service Agent embeds into the Power Pages portal as the chat experience.)',
-   steps:['Upgrade existing portal to Power Pages with AI capabilities','Integrate Azure OpenAI for natural language product search','Connect real-time inventory and order data from Dynamics 365','Build technical document AI Q&A using Azure AI Search','Deploy Copilot Studio embedded assistant in portal']},
+   prompt:'(Best demonstrated as a live portal walkthrough — the Copilot Chat Customer Service Agent embeds into the SharePoint Pages portal as the chat experience.)',
+   steps:['Upgrade existing portal to SharePoint Pages with AI capabilities','Integrate Microsoft 365 Copilot for natural language product search','Connect real-time inventory and order data from Excel + Outlook','Build technical document AI Q&A using SharePoint Search','Deploy Copilot Chat embedded assistant in portal']},
   // MAINTENANCE
   {id:23,dept:'maintenance',deptLabel:'Maintenance',icon:'🔮',title:'Predictive Maintenance for Warehouse Equipment',
    desc:'IoT sensors + AI predict equipment failures days before they occur — preventing costly downtime.',
    saving:'RM 1.5–2.5M/yr',savingDetail:'40% reduction in unplanned downtime; 25% maintenance cost reduction',
-   stack:['Azure IoT Hub','Azure Machine Learning','Dynamics 365 Field Service','Power BI'],
+   stack:['Microsoft 365 Copilot IoT Hub','Analyst agent','Teams + Outlook','Excel Copilot'],
    modes:['m365'],
    challenge:'Unexpected equipment failures in 6 warehouses cause costly downtime, order delays, emergency repair expenses. Reactive maintenance is 3–5× more expensive than predictive.',
-   solution:'IoT sensors on all critical equipment stream data to Azure IoT Hub. Azure ML anomaly detection models predict failures 2–7 days in advance. Dynamics 365 Field Service auto-creates work orders.',
+   solution:'IoT sensors on all critical equipment stream data to Microsoft 365 Copilot IoT Hub. Analyst agent anomaly detection models predict failures 2–7 days in advance. Teams + Outlook auto-creates work orders.',
    impact:'GE and Siemens report 25–40% maintenance cost reductions with predictive maintenance.',
    prompt:'Generate a 7-day predictive maintenance forecast for the 24 forklifts across our 6 warehouses. List equipment ID, predicted failure type, confidence %, recommended action (inspect / replace component / OK), and estimated downtime cost if ignored.',
-   steps:['Install IoT sensors on all critical warehouse equipment','Configure Azure IoT Hub with real-time data streaming','Build failure prediction models per equipment type','Integrate predictions with Dynamics 365 Field Service','Create maintenance performance dashboard in Power BI']},
+   steps:['Install IoT sensors on all critical warehouse equipment','Configure Microsoft 365 Copilot IoT Hub with real-time data streaming','Build failure prediction models per equipment type','Integrate predictions with Teams + Outlook','Create maintenance performance dashboard in Excel Copilot']},
   {id:24,dept:'maintenance',deptLabel:'Maintenance',icon:'🔧',title:'AI Work Order Optimisation',
    desc:'Field Service AI intelligently schedules technicians — matching skills, location, parts, urgency.',
    saving:'RM 0.6–1.2M/yr',savingDetail:'20% increase in jobs per technician; 15% reduction in travel time',
-   stack:['Dynamics 365 Field Service','Azure Maps','Power BI','Microsoft Teams'],
+   stack:['Teams + Outlook','Microsoft 365 Copilot Maps','Excel Copilot','Microsoft Teams'],
    modes:['m365'],
    challenge:'Scheduling maintenance across 20+ branches involves complex coordination of skills, location, parts, urgency. Manual scheduling is inefficient.',
-   solution:'Dynamics 365 Field Service Copilot auto-assigns work orders using AI optimisation considering 10+ constraint variables. Azure Maps optimises technician routes.',
+   solution:'Teams + Outlook Copilot auto-assigns work orders using AI optimisation considering 10+ constraint variables. Microsoft 365 Copilot Maps optimises technician routes.',
    impact:'Microsoft: Field Service customers report 20% increase in first-time fix rates and 15% increase in jobs per technician per day.',
    prompt:'Optimise tomorrow\'s schedule for 8 maintenance technicians across 22 open work orders. Constraints: certification matching (LV vs MV equipment), parts availability at branch, customer SLA windows, max 90 min travel between jobs. Output: per-technician assignment list with reasoning.',
-   steps:['Implement Dynamics 365 Field Service with AI scheduling','Profile all technician skills, certifications, and territories','Integrate Azure Maps for route optimisation','Deploy mobile app for technicians with offline capability','Create field service performance KPI dashboard']},
+   steps:['Implement Teams + Outlook with AI scheduling','Profile all technician skills, certifications, and territories','Integrate Microsoft 365 Copilot Maps for route optimisation','Deploy mobile app for technicians with offline capability','Create field service performance KPI dashboard']},
   {id:25,dept:'maintenance',deptLabel:'Maintenance',icon:'📦',title:'Spare Parts Demand Forecasting',
    desc:'AI predicts spare parts consumption — ensuring availability without excessive inventory.',
    saving:'RM 0.8–1.5M/yr',savingDetail:'30% reduction in spare parts holding costs; 90% parts availability',
-   stack:['Azure Machine Learning','Dynamics 365 Supply Chain','Microsoft Fabric','Power BI'],
+   stack:['Analyst agent','Excel + Copilot Chat','Excel + Analyst','Excel Copilot'],
    modes:['m365'],
    challenge:'Overstocking spare parts ties up capital while stockouts cause extended downtime. Forecasting currently based on intuition.',
-   solution:'Azure ML forecasting models analyse equipment maintenance history, age profiles, manufacturer data to predict spare parts consumption.',
+   solution:'Analyst agent forecasting models analyse equipment maintenance history, age profiles, manufacturer data to predict spare parts consumption.',
    impact:'PTC: AI spare parts optimisation reduces inventory 20–30% while improving availability.',
    prompt:'Forecast spare parts consumption for the next 90 days across the 6 warehouses based on equipment maintenance history and current age profile. Highlight 5 parts with highest risk of stockout and 5 currently overstocked.',
-   steps:['Build equipment maintenance history database','Train ML models on spare parts consumption patterns','Integrate forecasts into Dynamics 365 inventory management','Create spare parts dashboard for maintenance planners','Set up automatic reorder point adjustments']},
+   steps:['Build equipment maintenance history database','Train ML models on spare parts consumption patterns','Integrate forecasts into Excel + Outlook inventory management','Create spare parts dashboard for maintenance planners','Set up automatic reorder point adjustments']},
   {id:26,dept:'maintenance',deptLabel:'Maintenance',icon:'🏗️',title:'Facility Digital Twin & Energy Optimisation',
-   desc:'Azure Digital Twins models facilities for real-time monitoring, energy optimisation, ESG reporting.',
+   desc:'Microsoft 365 Copilot Digital Twins models facilities for real-time monitoring, energy optimisation, ESG reporting.',
    saving:'RM 0.5–1.0M/yr',savingDetail:'15–20% energy cost reduction; ESG reporting automation',
-   stack:['Azure Digital Twins','Azure IoT Hub','Power BI','Microsoft Sustainability Manager'],
+   stack:['Microsoft 365 Copilot Digital Twins','Microsoft 365 Copilot IoT Hub','Excel Copilot','Microsoft Sustainability Manager'],
    modes:['m365'],
    challenge:'Energy costs significant across 6 warehouses and 20+ branches. Limited visibility makes optimisation difficult. ESG reporting becoming regulatory requirement.',
-   solution:'Azure Digital Twins creates virtual facility models. IoT sensors monitor energy in real time. AI optimises HVAC, lighting, equipment usage. Automated ESG reports for Sonepar group reporting.',
+   solution:'Microsoft 365 Copilot Digital Twins creates virtual facility models. IoT sensors monitor energy in real time. AI optimises HVAC, lighting, equipment usage. Automated ESG reports for Sonepar group reporting.',
    impact:'Sonepar committed to Science-Based Targets (SBTi). Microsoft Energy Optimisation customers report 15–25% reduction.',
    prompt:'Generate a Q1 FY2026 sustainability and energy report for Sonepar MY: total energy consumed (kWh) by site, intensity per RM revenue, top 3 energy-saving actions taken, and progress against the group SBTi commitment. Format for the parent company quarterly reporting pack.',
-   steps:['Install IoT energy monitoring sensors across all facilities','Build facility digital twins in Azure Digital Twins','Connect HVAC and lighting systems for AI control','Create energy consumption dashboard in Power BI','Configure automated ESG reporting for Sonepar group']},
+   steps:['Install IoT energy monitoring sensors across all facilities','Build facility digital twins in Microsoft 365 Copilot Digital Twins','Connect HVAC and lighting systems for AI control','Create energy consumption dashboard in Excel Copilot','Configure automated ESG reporting for Sonepar group']},
   // HR
   {id:27,dept:'hr',deptLabel:'Human Resources',icon:'👥',title:'AI-Powered Talent Acquisition & Screening',
    desc:'AI screens CVs, scores candidates, schedules interviews, provides bias-reduced recommendations.',
    saving:'RM 0.4–0.8M/yr',savingDetail:'50% faster hiring; reduced agency fees; better quality hires',
-   stack:['Microsoft Copilot for HR','Azure AI','Microsoft Teams','Power Automate'],
+   stack:['Microsoft Copilot for HR','Microsoft 365 Copilot','Microsoft Teams','Copilot Chat'],
    modes:['m365'],featured:true,
    challenge:'Sonepar MY\'s 600–800 strong workforce requires constant talent acquisition. Manual CV screening time-consuming and inconsistent. Technical roles require specialised assessment.',
-   solution:'Azure AI screens CVs against job profiles. Automated interview scheduling via Teams. Copilot for HR drafts job descriptions and offer letters. Analytics identify best recruitment sources.',
+   solution:'Microsoft 365 Copilot screens CVs against job profiles. Automated interview scheduling via Teams. Copilot for HR drafts job descriptions and offer letters. Analytics identify best recruitment sources.',
    impact:'LinkedIn: AI recruiting tools reduce time-to-hire 40–50% and improve candidate quality scores 25%.',
-   prompt:'Draft a job description for a "Senior Inventory Planner" based at Sonepar Malaysia, reporting to the Head of Supply Chain. Responsibilities: SKU-level demand forecasting across 50,000+ products, working with Dynamics 365 Supply Chain, partnering with 6 warehouse managers. Include must-have skills, nice-to-have, and a section on what makes this role exciting at Sonepar (€33.6B group). Format: Markdown for SharePoint.',
-   steps:['Deploy Microsoft Copilot for HR with Azure AI screening','Build job profile competency framework','Configure automated CV scoring and ranking','Integrate Teams scheduling for interview coordination','Create recruitment analytics dashboard in Power BI']},
+   prompt:'Draft a job description for a "Senior Inventory Planner" based at Sonepar Malaysia, reporting to the Head of Supply Chain. Responsibilities: SKU-level demand forecasting across 50,000+ products, working with Excel + Copilot Chat, partnering with 6 warehouse managers. Include must-have skills, nice-to-have, and a section on what makes this role exciting at Sonepar (€33.6B group). Format: Markdown for SharePoint.',
+   steps:['Deploy Microsoft Copilot for HR with Microsoft 365 Copilot screening','Build job profile competency framework','Configure automated CV scoring and ranking','Integrate Teams scheduling for interview coordination','Create recruitment analytics dashboard in Excel Copilot']},
   {id:28,dept:'hr',deptLabel:'Human Resources',icon:'📚',title:'Personalised Learning & AI Skills Development',
    desc:'Viva Learning with AI creates personalised dev plans — recommending courses, tracking progress.',
    saving:'RM 0.3–0.6M/yr',savingDetail:'Reduced external training costs; 40% faster skill development',
-   stack:['Microsoft Viva Learning','Microsoft Copilot','Microsoft Teams','Power BI'],
+   stack:['Microsoft Viva Learning','Microsoft Copilot','Microsoft Teams','Excel Copilot'],
    modes:['m365'],
    challenge:'With 600–800 employees across diverse roles, training is expensive, inconsistent, and often irrelevant to individual needs.',
    solution:'Microsoft Viva Learning personalises learning paths based on role, skills gaps, and career aspirations. Copilot creates learning summaries. AI recommends next courses based on job performance and company strategy.',
    impact:'Microsoft Viva customers report 40% reduction in time to skill proficiency.',
-   prompt:'For Aishah Rahman (Senior Buyer, Procurement, 4 years tenure, targeting Procurement Manager in 18 months), generate a 12-month personalised learning plan. Include: 3 technical courses (Dynamics 365 Supply Chain certifications), 2 leadership modules (Viva Learning), 1 stretch project, and quarterly check-in goals. Output as a Markdown table.',
-   steps:['Deploy Microsoft Viva Learning in Teams','Build skills taxonomy for all Sonepar MY roles','Integrate external learning content (LinkedIn Learning, etc.)','Create AI-powered personal development plans','Set up learning progress analytics in Power BI']},
+   prompt:'For Aishah Rahman (Senior Buyer, Procurement, 4 years tenure, targeting Procurement Manager in 18 months), generate a 12-month personalised learning plan. Include: 3 technical courses (Excel + Copilot Chat certifications), 2 leadership modules (Viva Learning), 1 stretch project, and quarterly check-in goals. Output as a Markdown table.',
+   steps:['Deploy Microsoft Viva Learning in Teams','Build skills taxonomy for all Sonepar MY roles','Integrate external learning content (LinkedIn Learning, etc.)','Create AI-powered personal development plans','Set up learning progress analytics in Excel Copilot']},
   // IT
   {id:29,dept:'it',deptLabel:'IT & Security',icon:'🛡️',title:'AI-Powered Cybersecurity & Threat Detection',
-   desc:'Microsoft Sentinel with AI continuously monitors the IT environment — investigating alerts, responding to incidents.',
+   desc:'Copilot Chat with AI continuously monitors the IT environment — investigating alerts, responding to incidents.',
    saving:'RM 1.0–3.0M/yr',savingDetail:'Prevent average RM 3M+ cost of a data breach in Malaysia',
-   stack:['Microsoft Sentinel','Microsoft Defender XDR','Azure AI','Microsoft Copilot for Security'],
+   stack:['Copilot Chat','Microsoft Defender XDR','Microsoft 365 Copilot','Microsoft Copilot for Security'],
    modes:['m365'],
    challenge:'As a distributor handling financial data for 7,000+ customers and confidential supplier contracts, Sonepar MY is a high-value cyberattack target. Average Malaysian data breach costs RM 3M+.',
-   solution:'Microsoft Sentinel SIEM/SOAR with AI detects threats across endpoints, email, cloud, OT systems. Copilot for Security investigates alerts in seconds. Automated playbooks contain threats before human escalation.',
+   solution:'Copilot Chat SIEM/SOAR with AI detects threats across endpoints, email, cloud, OT systems. Copilot for Security investigates alerts in seconds. Automated playbooks contain threats before human escalation.',
    impact:'IBM Security: AI-powered SOC reduces mean time to detect 74% and mean time to contain 84%.',
    prompt:'Review the past 24 hours of security alerts. Group related alerts into incidents, prioritise by impact and confidence, and draft a 5-bullet executive briefing for the CISO. Highlight any alerts touching supplier financial data or executive accounts.',
-   steps:['Deploy Microsoft Sentinel across all Sonepar MY systems','Onboard Microsoft Defender for Endpoints, Email, Identity','Build custom detection rules for industrial supply chain threats','Configure automated incident response playbooks','Enable Copilot for Security for analyst acceleration']},
+   steps:['Deploy Copilot Chat across all Sonepar MY systems','Onboard Microsoft Defender for Endpoints, Email, Identity','Build custom detection rules for industrial supply chain threats','Configure automated incident response playbooks','Enable Copilot for Security for analyst acceleration']},
   {id:30,dept:'it',deptLabel:'IT & Security',icon:'⚙️',title:'IT Helpdesk Automation & Self-Service',
-   desc:'Copilot Studio IT assistant handles 60%+ of helpdesk tickets — password resets, software requests, hardware issues.',
+   desc:'Copilot Chat IT assistant handles 60%+ of helpdesk tickets — password resets, software requests, hardware issues.',
    saving:'RM 0.4–0.8M/yr',savingDetail:'60% ticket deflection; 24/7 support; 2 FTE equivalent',
-   stack:['Microsoft Copilot Studio','Microsoft 365 Copilot','Power Automate','Microsoft Teams'],
-   modes:['cs'],
+   stack:['Microsoft Copilot Chat','Microsoft 365 Copilot','Copilot Chat','Microsoft Teams'],
+   modes:['m365'],
    challenge:'IT helpdesk handles hundreds of routine requests monthly across 600–800 users and 20+ locations. Repetitive tasks consume skilled IT staff time.',
-   solution:'Copilot Studio IT bot in Teams handles top 15 request types autonomously. Power Automate executes provisioning. Microsoft 365 Copilot accelerates complex ticket resolution.',
+   solution:'Copilot Chat IT bot in Teams handles top 15 request types autonomously. Copilot Chat executes provisioning. Microsoft 365 Copilot accelerates complex ticket resolution.',
    impact:'HDI Research: AI helpdesk automation deflects 50–70% of tier-1 tickets. Frees 2 FTE for strategic projects.',
    prompt:'Create an agent called "Sonepar IT Helper" that handles top tier-1 requests: password reset, MFA reset, software installation request, VPN troubleshoot, printer setup, and new joiner onboarding checklist. The agent must verify employee ID before any provisioning action and escalate any request involving production OT systems to the SOC.',
-   steps:['Deploy Copilot Studio IT assistant in Microsoft Teams','Configure top 15 automated request workflows in Power Automate','Integrate with Azure AD for automated provisioning','Build IT knowledge base for AI-assisted resolution','Create IT performance dashboard with ticket analytics']}
+   steps:['Deploy Copilot Chat IT assistant in Microsoft Teams','Configure top 15 automated request workflows in Copilot Chat','Integrate with Microsoft 365 Copilot AD for automated provisioning','Build IT knowledge base for AI-assisted resolution','Create IT performance dashboard with ticket analytics']}
 ];
 
 const DEPTS = [
@@ -539,16 +554,14 @@ const DEPTS = [
 
 const MODES = {
   m365:{label:'M365 Copilot',cls:'b-m365'},
-  ab:{label:'Agent Builder',cls:'b-ab'},
-  cs:{label:'Copilot Studio',cls:'b-cs'}
-};
+  };
 
 let activeFilter='all';
 
 function buildFilter(){
   const bar=document.getElementById('filterBar');
   const tools=['all','m365','ab','cs','featured'];
-  const labels={all:'All',m365:'M365 Copilot',ab:'Agent Builder',cs:'Copilot Studio',featured:'⭐ Demo Highlights'};
+  const labels={all:'All',m365:'M365 Copilot',featured:'⭐ Demo Highlights'};
   bar.innerHTML=tools.map(t=>`<button class="chip ${t==='all'?'active':''}" data-f="${t}" onclick="setFilter('${t}')">${labels[t]}</button>`).join('');
 }
 function setFilter(f){
@@ -627,6 +640,96 @@ function copyPrompt(btn,id){
 }
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
 buildFilter();render();
+
+/* ─────────── M365 COPILOT SPOTLIGHT ─────────── */
+const SPOTLIGHT=[
+{id:'spot-word',name:'Word Copilot',icon:'📝',time:'0–4 min',color:'#2B579A',bg:'#E8EEF7',
+ scenario:'Aishah opens a blank Word doc and asks Copilot to draft the May 2026 variance memo for the MD using the closed numbers from Finance.',
+ files:[['variance-memo.docx','files/variance-memo.docx'],['Variance sheet','files/sonepar-ops-workbook.xlsx']],
+ prompt:`Draft a one-page month-end variance memo for the MD of Sonepar Malaysia titled "May 2026 Variance Memo". Use these closed numbers — Revenue actual RM 44.86M vs budget RM 43.30M (−3.6%), Industrial sales −RM 680k (3 projects slipped to June), Commercial sales +RM 645k (datacenter & semicon strong), Inventory purchases over budget by RM 1.18M from FX + ABB 4.2% price increase, last-mile logistics +RM 190k (20% over) from fuel and driver shortage, bad debt RM 190k from Tan Brothers default. Structure: Executive Summary (3 sentences), Key Variances (bullets with RM impact and driver), Recommended Actions (5 specific bullets — FX cover, carrier renegotiation, credit tightening, June pipeline pull-forward, surcharge), Appendix on the 3 ABB VFD backorders. Tone: factual, board-ready, max 350 words.`,
+ outcome:'Memo opens in Word with sections, table, and crisp recommendations — ready to share to Teams.'},
+{id:'spot-excel',name:'Excel Copilot',icon:'📊',time:'4–9 min',color:'#107C41',bg:'#E7F3EC',
+ scenario:'Aishah opens sonepar-ops-workbook.xlsx (Inventory + Orders + Variance + ROI sheets) and asks Copilot to surface the real risks.',
+ files:[['sonepar-ops-workbook.xlsx','files/sonepar-ops-workbook.xlsx']],
+ prompt:`I have an Excel workbook with sheets Inventory, Orders, Variance_May2026 and ROI_Summary. Please do all of the following:
+1. On Inventory, add a column "DaysOfCover" = OnHand / (estimated average daily demand of 4). Highlight any row where OnHand=0 in red and OnHand<Reorder in amber.
+2. List every SKU where OnHand < Reorder AND LeadTime_Days > 30 — these are my critical exposures.
+3. On Orders, summarize total RM at risk by Status (BACKORDER, RISK, ON-TIME) and by Sector. Insert a clustered bar chart of "Risk value by Sector".
+4. Cross-check: for every BACKORDER or RISK order, does the SKU in the corresponding warehouse have OnHand >= Qty? Output a table "Order, Warehouse, SKU, Qty, OnHand, Shortfall".
+5. On Variance_May2026, calculate which 3 line items contribute most to the −RM 1.56M total and what % of the gap each represents.
+Give me the answers in chat AND apply formulas/charts to the sheet.`,
+ outcome:'Workbook now has DaysOfCover formula, conditional formatting, sector risk chart, and a "Shortfall" table to act on.'},
+{id:'spot-analyst',name:'Analyst agent',icon:'🔬',time:'9–14 min',color:'#0078D4',bg:'#E5F1FB',
+ scenario:'For deeper math, Aishah pivots to the Analyst agent in Copilot Chat — it runs sandboxed Python on the same Excel data.',
+ files:[['sonepar-ops-workbook.xlsx','files/sonepar-ops-workbook.xlsx']],
+ prompt:`@Analyst — using the attached sonepar-ops-workbook.xlsx, run a full risk analysis in Python:
+(a) Compute SKU-level inventory cover assuming demand = average daily order quantity for that SKU over the last 15 orders. For SKUs with 0 historical orders, use Reorder/30 as a proxy.
+(b) Build a "Risk Score" 0–100 for every order = 40×(1 if Status=BACKORDER else 0.5 if RISK else 0) + 30×(1 − OnHand/Qty clipped 0–1) + 30×(LeadTime_Days/60). Output the top 10 riskiest orders ranked.
+(c) Cluster customers into 3 groups (kmeans on Value_RM and lateness) and label them Strategic / Standard / At-Risk.
+(d) Plot: (i) horizontal bar chart of Risk Score for top 10 orders, (ii) scatter of OnHand vs Reorder per SKU coloured by Brand.
+(e) Write a 5-bullet executive summary of the findings — what to escalate to ABB today, which customers to call, and the RM exposure number.
+Show me the code, the charts, and the summary.`,
+ outcome:'Analyst returns Python notebook output, 2 charts, ranked risk list, and the RM exposure number to quote to the MD.'},
+{id:'spot-research',name:'Researcher agent',icon:'🔎',time:'14–19 min',color:'#8378DE',bg:'#EFEDFB',
+ scenario:'While the deck is forming, Aishah fires off Researcher to give her market context the MD will ask about.',
+ files:[['Researcher brief (output)','prompts.md']],
+ prompt:`@Researcher — produce a 600-word market brief for the MD of Sonepar Malaysia, dated today (May 2026). Cover, with citations:
+1. ABB AG 2026 H1 price actions on low-voltage products globally and any announced surcharges affecting APAC distributors.
+2. Malaysia electrical equipment demand outlook for 2026 H2 — datacenter pipeline (TM, YTL, Bridge DC, Princeton Digital), semicon expansions in Penang, EV charging build-out, and impact on MV/LV switchgear and VFD demand.
+3. FX outlook: USD/MYR and EUR/MYR consensus for next 90 days, with 3 broker views.
+4. Competitor moves: Rexel, WESCO, Sonepar group itself — any 2026 Malaysia announcements (DCs, partnerships, acquisitions).
+5. One contrarian insight — what is the market NOT pricing in for an MY electrical distributor.
+Format: executive summary (3 bullets), then 5 numbered sections, then a "What this means for Sonepar MY" call-out box. Use only public, citeable sources from the last 90 days.`,
+ outcome:'Researcher returns a fully cited 600-word brief with links — pasted straight into the board appendix.'},
+{id:'spot-ppt',name:'PowerPoint Copilot',icon:'📑',time:'19–23 min',color:'#B7472A',bg:'#FBEAE3',
+ scenario:'Aishah hands Copilot the variance memo + Researcher brief and asks for a 6-slide MD board deck.',
+ files:[['exec-brief-template.pptx','files/exec-brief-template.pptx'],['variance-memo.docx','files/variance-memo.docx']],
+ prompt:`Create a 6-slide executive presentation for the MD of Sonepar Malaysia titled "May 2026 Board Update — Variance, Risk, and the Path to RM 45M".
+Source content from the attached variance-memo.docx and the Researcher market brief in this chat.
+Slide structure:
+1. Title — "Sonepar Malaysia · May 2026 Board Update", date 21 May 2026, Sonepar blue (#005EB8) background.
+2. May closed — RM 44.86M actual vs RM 43.30M budget, the 3 main drivers (FX+ABB, last-mile, bad debt), and the upside (Commercial +10.4%).
+3. The 3 ABB VFD backorders — customer names, RM at risk, mitigation (cross-ship from Singapore IBC).
+4. Market context — 3 bullets from Researcher: ABB price action, MY datacenter demand, FX outlook.
+5. Recommended actions — 5 bullets (FX cover, carrier renegotiation, credit tightening, June pull-forward, surcharge).
+6. The RM 45M opportunity — Copilot transformation across Finance, Supply Chain, Ops, Sales, CS, HR/IT.
+Apply the Sonepar brand: dark navy (#0F1C3F) + Sonepar blue (#005EB8) + accent red (#C8102E). Use clean sans-serif (Inter or Calibri). Include speaker notes — 2–3 sentences per slide.`,
+ outcome:'PowerPoint generates a branded 6-slide deck with speaker notes. Aishah skims, accepts, sends to Teams.'},
+{id:'spot-chat',name:'Copilot Chat · Coworker',icon:'💬',time:'23–27 min',color:'#5B5FC7',bg:'#EAEBF8',
+ scenario:'In Teams, Aishah opens a Copilot Chat Page and brings the whole team into the same conversation — Copilot acts as the team coworker.',
+ files:[['variance-memo.docx','files/variance-memo.docx'],['ops-workbook','files/sonepar-ops-workbook.xlsx'],['exec deck','files/exec-brief-template.pptx']],
+ prompt:`Open a new Copilot Pages page in Teams titled "Sonepar — Monday MD Review Prep". Pull in: the variance-memo.docx, the sonepar-ops-workbook.xlsx Order risk analysis, the Researcher market brief in this chat, and the exec-brief-template.pptx outline.
+Then act as our team coworker and:
+1. Produce a single "What the MD needs to know" 5-bullet summary at the top of the page.
+2. Generate a Loop checklist of follow-ups assigned to: @Aishah (decisions), @Procurement (ABB cross-ship), @Sales (TNB quote), @Finance (FX cover), @HR (Senior Planner JD).
+3. Draft a Teams message to the MD that links to this page and includes the RM exposure number and the 3 decisions we need.
+4. When anyone @-mentions you on this page later, reference the same documents.
+Keep me on this page — I will share it to the whole leadership channel.`,
+ outcome:'Loop checklist live in Teams · MD Teams message drafted · single source of truth for the whole leadership channel.'},
+];
+function renderSpotlight(){
+  const g=document.getElementById('spotlightGrid');if(!g)return;
+  g.innerHTML=SPOTLIGHT.map(s=>{
+    const filesHtml=s.files.map(f=>'<a class="file-chip" href="'+f[1]+'" target="_blank">📎 '+f[0]+'</a>').join('');
+    return '<div class="spot" id="'+s.id+'" style="--spot-c:'+s.color+';--spot-bg:'+s.bg+'">'+
+      '<div class="spot-top"><div class="spot-icon">'+s.icon+'</div><div class="spot-name">'+s.name+'</div><div class="spot-time">'+s.time+'</div></div>'+
+      '<h5>Sonepar moment</h5><p class="scenario">'+s.scenario+'</p>'+
+      '<h5>Files</h5><div>'+filesHtml+'</div>'+
+      '<h5>Live prompt — paste into Copilot</h5>'+
+      '<div class="spot-prompt"><button onclick="copySpot(this,\''+s.id+'\')">📋 Copy</button>'+s.prompt.replace(/&/g,'&amp;').replace(/</g,'&lt;')+'</div>'+
+      '<div class="outcome">✅ '+s.outcome+'</div>'+
+    '</div>';
+  }).join('');
+}
+function copySpot(btn,id){
+  const s=SPOTLIGHT.find(x=>x.id===id);if(!s)return;
+  navigator.clipboard.writeText(s.prompt).then(()=>{
+    btn.textContent='✓ Copied';btn.classList.add('copied');
+    const t=document.getElementById('toast');t.classList.add('show');
+    setTimeout(()=>{btn.textContent='📋 Copy';btn.classList.remove('copied');t.classList.remove('show')},1800);
+  });
+}
+renderSpotlight();
 </script>
 </body>
 </html>
