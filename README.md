@@ -2,7 +2,7 @@
 
 A focused **30-minute live demo** of Microsoft 365 Copilot for Sonepar Malaysia (a Sonepar Company), tailored to Supply Chain · HR · Finance · Customer Service · Operations.
 
-**Pure M365 Copilot** — Word, Excel, PowerPoint, Researcher, Analyst, Copilot Chat. No Agent Builder, no Copilot Studio, no Azure/D365/Power Platform. Everything the team already has.
+**Pure M365 Copilot** — Word, Excel, PowerPoint, Researcher, Analyst, Copilot Cowork. No legacy tooling. Everything the team already has, plus the new autonomous AI-coworker layer.
 
 ## 🌐 Live site
 **https://steffiyappy.github.io/sonepar-copilot-demo/**  ·  Password **`SoneparDemo2026`**
@@ -16,7 +16,7 @@ A focused **30-minute live demo** of Microsoft 365 Copilot for Sonepar Malaysia 
 | 9–15 min | **Analyst agent** | Python-deep order risk + inventory cover with charts |
 | 15–20 min | **Researcher agent** | 30-min market scan — ABB pricing, MY demand, FX |
 | 20–25 min | **PowerPoint Copilot** | MD board deck from the Word memo |
-| 25–30 min | **Copilot Chat · Coworker** | Multi-agent Teams Page, Loop follow-ups, MD message |
+| 25–30 min | **Copilot Cowork** | One goal, autonomous workflow — task dashboard streams steps, approval popups before sends |
 
 See [`prompts.md`](prompts.md) for the full copy-paste prompt library.
 

@@ -1,6 +1,6 @@
 # Sonepar × Microsoft 365 Copilot — 30-min Demo Prompt Library
 
-A focused 30-minute demo of **Microsoft 365 Copilot only** — Word, Excel, PowerPoint, Researcher, Analyst, Copilot Chat. No Agent Builder, no Copilot Studio, no Azure/D365/Power Platform. Pure M365 Copilot the team already has.
+A focused 30-minute demo of **Microsoft 365 Copilot only** — Word, Excel, PowerPoint, Researcher, Analyst, **Copilot Cowork**. Pure M365 Copilot the team already has, plus the new autonomous AI-coworker layer (Frontier program, Claude-powered).
 
 **Demo persona:** Aishah, Head of Operations at Sonepar Malaysia. She has 30 minutes before the MD's Monday review.
 
@@ -93,21 +93,31 @@ Apply the Sonepar brand: dark navy (#0F1C3F) + Sonepar blue (#005EB8) + accent r
 
 ---
 
-## ⏱ 25–30 min · Copilot Chat + Coworker (Teams Page)
+## ⏱ 25–30 min · Copilot Cowork — The Autonomous AI Coworker
 
-**Where:** Microsoft Teams → New Copilot Page
+**Where:** Microsoft 365 Copilot → Cowork (Frontier program, Claude-powered) · **Files attached:** [`variance-memo.docx`](files/variance-memo.docx) · [`sonepar-ops-workbook.xlsx`](files/sonepar-ops-workbook.xlsx) · [`exec-brief-template.pptx`](files/exec-brief-template.pptx)
+
+> **What's different:** unlike Copilot Chat where you give step-by-step prompts, Cowork takes a single **goal** and plans the workflow itself. The task dashboard streams each step (📋 *Reading workbook…* → 📋 *Drafting email…* → ⏸ *Awaiting your approval*). Sensitive actions (sending email, scheduling a meeting) pause for your approval.
 
 ```
-Open a new Copilot Pages page in Teams titled "Sonepar — Monday MD Review Prep". Pull in: the variance-memo.docx, the sonepar-ops-workbook.xlsx Order risk analysis, the Researcher market brief in this chat, and the exec-brief-template.pptx outline.
-Then act as our team coworker and:
-1. Produce a single "What the MD needs to know" 5-bullet summary at the top of the page.
-2. Generate a Loop checklist of follow-ups assigned to: @Aishah (decisions), @Procurement (ABB cross-ship), @Sales (TNB quote), @Finance (FX cover), @HR (Senior Planner JD).
-3. Draft a Teams message to the MD that links to this page and includes the RM exposure number and the 3 decisions we need.
-4. When anyone @-mentions you on this page later, reference the same documents.
-Keep me on this page — I will share it to the whole leadership channel.
+Goal — get me ready for the MD's Monday review by 9am tomorrow.
+
+Context: I am Aishah, Head of Operations at Sonepar Malaysia. The MD's Monday review is at 9am 22-May-2026. You have access to my variance-memo.docx, sonepar-ops-workbook.xlsx, exec-brief-template.pptx, Outlook, Teams, SharePoint and OneDrive.
+
+Plan and execute the following — show me each step in the task dashboard, and pause for my approval before any external send:
+1. Read the variance-memo.docx and the Orders + Variance_May2026 sheets in sonepar-ops-workbook.xlsx. Produce a 5-bullet "What the MD needs to know".
+2. Identify the 3 ABB VFD backorders, look up the responsible buyer in Outlook, and prepare a draft email to ABB Helsinki requesting a Singapore IBC cross-ship — hold for my approval.
+3. Build the MD board deck from the exec-brief-template.pptx using the variance numbers and the Researcher market brief in this chat. Save to SharePoint > Sonepar MY > Board.
+4. Schedule a 30-min "Backorder war-room" in Teams for today 4pm with @Procurement, @Sales, @Aishah. Hold the invite for my approval.
+5. Open a Loop checklist with the 5 follow-ups (FX cover, carrier renegotiation, credit tightening, June pull-forward, surcharge), assigned to the right owners.
+6. Draft a Teams message to the MD that links to the deck and the Loop list, and includes the single RM exposure number. Hold for my approval.
+
+Use the Frontier Claude model. Stop and ask me if any step needs a decision. When done, summarise what you did, what is queued, and what is waiting on me.
 ```
 
-✅ **Outcome:** Loop checklist live in Teams · MD Teams message drafted · single source of truth for the whole leadership channel.
+✅ **Outcome:** Task dashboard runs 6 steps live — deck saved to SharePoint, war-room invite drafted, Loop checklist created, 2 emails + 1 Teams message waiting on Aishah's approval. One goal → end-to-end Monday prep done, in 4 minutes of clock time.
+
+**Demo cue:** point to the dashboard as it streams steps and to the ⏸ approval popups — this is the "AI coworker" moment, not chat.
 
 ---
 

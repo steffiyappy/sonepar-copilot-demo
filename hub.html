@@ -167,7 +167,7 @@ footer strong{color:#fff}
         <span class="tag live">30 use cases</span>
       </div>
       <h1>Power Sonepar's future with <span class="accent">intelligent AI transformation</span></h1>
-      <p>A focused <strong>30-minute</strong> Microsoft 365 Copilot demo — Word · Excel · PowerPoint · Researcher · Analyst · Copilot Chat — showing how Sonepar Malaysia (a Sonepar Company) unlocks <strong>RM 45M+ in annual value</strong> across Supply Chain, HR, Finance, Customer Service &amp; Operations. No setup, no IT project — just M365 Copilot the team already has.</p>
+      <p>A focused <strong>30-minute</strong> Microsoft 365 Copilot demo — Word · Excel · PowerPoint · Researcher · Analyst · <strong>Copilot Cowork</strong> — showing how Sonepar Malaysia (a Sonepar Company) unlocks <strong>RM 45M+ in annual value</strong> across Supply Chain, HR, Finance, Customer Service &amp; Operations. From chat-based help to an autonomous AI coworker that plans, executes, and asks for your approval.</p>
     </div>
     <div class="scenario-card">
       <h3>⚡ Today's Scenario</h3>
@@ -197,7 +197,7 @@ footer strong{color:#fff}
       <div class="flow-step"><div class="flow-step-num">3</div><h4>Analyst agent</h4><div class="mins">9–15 min</div><p>Python-deep order risk &amp; inventory cover analysis with charts on the orders sheet.</p><a href="#spot-analyst">Jump →</a></div>
       <div class="flow-step"><div class="flow-step-num">4</div><h4>Researcher agent</h4><div class="mins">15–20 min</div><p>30-min market scan — ABB pricing, MY electrical demand, datacenter pipeline.</p><a href="#spot-research">Jump →</a></div>
       <div class="flow-step"><div class="flow-step-num">5</div><h4>PowerPoint Copilot</h4><div class="mins">20–25 min</div><p>Generate the MD board deck straight from the Word memo + Researcher brief.</p><a href="#spot-ppt">Jump →</a></div>
-      <div class="flow-step"><div class="flow-step-num">6</div><h4>Copilot Chat · Coworker</h4><div class="mins">25–30 min</div><p>Multi-agent in Teams — combine outputs in a Page, summarize for the MD.</p><a href="#spot-chat">Jump →</a></div>
+      <div class="flow-step"><div class="flow-step-num">6</div><h4>Copilot Cowork</h4><div class="mins">25–30 min</div><p>One goal, autonomous workflow — task dashboard streams steps live, approvals before any send.</p><a href="#spot-chat">Jump →</a></div>
     </div>
   </div>
 </div>
@@ -695,17 +695,23 @@ Slide structure:
 6. The RM 45M opportunity — Copilot transformation across Finance, Supply Chain, Ops, Sales, CS, HR/IT.
 Apply the Sonepar brand: dark navy (#0F1C3F) + Sonepar blue (#005EB8) + accent red (#C8102E). Use clean sans-serif (Inter or Calibri). Include speaker notes — 2–3 sentences per slide.`,
  outcome:'PowerPoint generates a branded 6-slide deck with speaker notes. Aishah skims, accepts, sends to Teams.'},
-{id:'spot-chat',name:'Copilot Chat · Coworker',icon:'💬',time:'23–27 min',color:'#5B5FC7',bg:'#EAEBF8',
- scenario:'In Teams, Aishah opens a Copilot Chat Page and brings the whole team into the same conversation — Copilot acts as the team coworker.',
- files:[['variance-memo.docx','files/variance-memo.docx'],['ops-workbook','files/sonepar-ops-workbook.xlsx'],['exec deck','files/exec-brief-template.pptx']],
- prompt:`Open a new Copilot Pages page in Teams titled "Sonepar — Monday MD Review Prep". Pull in: the variance-memo.docx, the sonepar-ops-workbook.xlsx Order risk analysis, the Researcher market brief in this chat, and the exec-brief-template.pptx outline.
-Then act as our team coworker and:
-1. Produce a single "What the MD needs to know" 5-bullet summary at the top of the page.
-2. Generate a Loop checklist of follow-ups assigned to: @Aishah (decisions), @Procurement (ABB cross-ship), @Sales (TNB quote), @Finance (FX cover), @HR (Senior Planner JD).
-3. Draft a Teams message to the MD that links to this page and includes the RM exposure number and the 3 decisions we need.
-4. When anyone @-mentions you on this page later, reference the same documents.
-Keep me on this page — I will share it to the whole leadership channel.`,
- outcome:'Loop checklist live in Teams · MD Teams message drafted · single source of truth for the whole leadership channel.'},
+{id:'spot-chat',name:'Copilot Cowork',icon:'🤝',time:'25–30 min',color:'#5B5FC7',bg:'#EAEBF8',
+ scenario:'Instead of step-by-step prompts, Aishah gives Cowork a single goal. It plans the workflow, streams progress in the task dashboard, pauses for her approval before sending anything to the MD, and pulls signals from Outlook, Teams, Excel, Word, SharePoint and OneDrive in one autonomous run.',
+ files:[['variance-memo.docx','files/variance-memo.docx'],['ops workbook','files/sonepar-ops-workbook.xlsx'],['exec deck','files/exec-brief-template.pptx']],
+ prompt:`Goal — get me ready for the MD's Monday review by 9am tomorrow.
+
+Context: I am Aishah, Head of Operations at Sonepar Malaysia. The MD's Monday review is at 9am 22-May-2026. You have access to my variance-memo.docx, sonepar-ops-workbook.xlsx, exec-brief-template.pptx, Outlook, Teams, SharePoint and OneDrive.
+
+Plan and execute the following — show me each step in the task dashboard, and pause for my approval before any external send:
+1. Read the variance-memo.docx and the Orders + Variance_May2026 sheets in sonepar-ops-workbook.xlsx. Produce a 5-bullet "What the MD needs to know".
+2. Identify the 3 ABB VFD backorders, look up the responsible buyer in Outlook, and prepare a draft email to ABB Helsinki requesting a Singapore IBC cross-ship — hold for my approval.
+3. Build the MD board deck from the exec-brief-template.pptx using the variance numbers and the Researcher market brief in this chat. Save to SharePoint > Sonepar MY > Board.
+4. Schedule a 30-min "Backorder war-room" in Teams for today 4pm with @Procurement, @Sales, @Aishah. Hold the invite for my approval.
+5. Open a Loop checklist with the 5 follow-ups (FX cover, carrier renegotiation, credit tightening, June pull-forward, surcharge), assigned to the right owners.
+6. Draft a Teams message to the MD that links to the deck and the Loop list, and includes the single RM exposure number. Hold for my approval.
+
+Use the Frontier Claude model. Stop and ask me if any step needs a decision. When done, summarise what you did, what is queued, and what is waiting on me.`,
+ outcome:'Task dashboard runs 6 steps live — deck saved to SharePoint, war-room invite drafted, Loop checklist created, 2 emails + 1 Teams message waiting on Aishah\'s approval. One goal → end-to-end Monday prep done.'},
 ];
 function renderSpotlight(){
   const g=document.getElementById('spotlightGrid');if(!g)return;
