@@ -667,8 +667,8 @@ buildFilter();render();
 /* ─────────── M365 COPILOT SPOTLIGHT ─────────── */
 const SPOTLIGHT=[
 {id:'spot-word',name:'Word Copilot',icon:'📝',time:'0–4 min',color:'#2B579A',bg:'#E8EEF7',
- scenario:'Aishah opens a blank Word doc and asks Copilot to draft the May 2026 variance memo for the MD using the closed numbers from Finance.',
- files:[['variance-memo.docx','files/variance-memo.docx'],['Variance sheet','files/sonepar-ops-workbook.xlsx']],
+ scenario:'Aishah opens a blank Word doc and asks Copilot to draft the May 2026 variance memo for the MD. No attachments — the closed numbers from Finance are pasted directly in the prompt (Word Copilot accepts only .docx and .pptx as attachments, not .xlsx).',
+ files:[['variance-memo.docx (reference output)','files/variance-memo.docx']],
  prompt:`Draft a one-page month-end variance memo for the MD of Sonepar Malaysia titled "May 2026 Variance Memo". Use these closed numbers — Revenue actual RM 44.86M vs budget RM 43.30M (−3.6%), Industrial sales −RM 680k (3 projects slipped to June), Commercial sales +RM 645k (datacenter & semicon strong), Inventory purchases over budget by RM 1.18M from FX + ABB 4.2% price increase, last-mile logistics +RM 190k (20% over) from fuel and driver shortage, bad debt RM 190k from Tan Brothers default. Structure: Executive Summary (3 sentences), Key Variances (bullets with RM impact and driver), Recommended Actions (5 specific bullets — FX cover, carrier renegotiation, credit tightening, June pipeline pull-forward, surcharge), Appendix on the 3 ABB VFD backorders. Tone: factual, board-ready, max 350 words.`,
  outcome:'Memo opens in Word with sections, table, and crisp recommendations — ready to share to Teams.'},
 {id:'spot-excel',name:'Excel Copilot',icon:'📊',time:'4–9 min',color:'#107C41',bg:'#E7F3EC',
